@@ -1,0 +1,36 @@
+<%- include('head')%>
+<div class="container">
+    <h1 class="login-title">Đăng nhập</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            <img class="image_user_login" src="images/login_img.png" alt="">
+        </div>
+        <div class="col-lg-6">
+            <div class="form-login">
+                <form action="/" method="post">
+                    <div class="group_email">
+                        <label for="">Email</label>
+                        <input type="email" name="email" >
+                    </div>
+                    <div class="group_email">
+                        <label for="">Mật khẩu</label>
+                        <input type="password" name="password" >
+                    </div>
+                    <label for="" class="check_remaind">
+                        <div class="check_remaind_box">
+                            <input id="check_remember" type="checkbox" >
+                            <label for="check_remember" class="check-remember">Lưu đăng nhập</label>
+                        </div>
+                    </label>
+                    <button type="submit">Đăng nhập</button>
+                </form>
+               <div class="register_link">
+                <p>Bạn chưa có tài khoản?</p><a href="/register">Đăng ký</a>
+               </div>
+               <div class="forgot_link">
+                    <a href="/forgot">Quên mật khẩu</a>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon serer.js",
+    "sass": "node-sass --watch resources/scss/app.scss public/css/app.css ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +19,13 @@
   },
   "homepage": "https://github.com/nguyenduyson11/Web_Chat#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.19",
+    "node-sass": "^5.0.0",
+    "socket.io": "^3.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
