@@ -1,6 +1,8 @@
 .login-title{
+		font-size: 50px;
     text-align: center;
     margin: 30px 0;
+		font-family: 'Lobster', cursive;
 }
 .image_user_login{
     width: 100%;
@@ -19,6 +21,7 @@
     display: block;
     margin-bottom: 10px;
     font-weight: 400;
+		font-family: 'Lobster', cursive;
 }
 .group_email input{
     border: none;
@@ -33,13 +36,16 @@
     border-radius: 0;
     outline: none;
 }
-
+.forgot_link>a{
+	font-family: 'Lobster', cursive;
+}
 .check_remaind_box check{
     height: 100%;
 }
 .check-remember{
     padding: 5px 10px;
     cursor: pointer;
+		font-family: 'Lobster', cursive;
 }
 .form-login button{
     color: white;
@@ -51,9 +57,11 @@
     padding:10px;
     display: block;
     margin-bottom: 10px;
+		font-family: 'Lobster', cursive;
 } 
 .register_link{
     display: flex;
+		font-family: 'Lobster', cursive;
 }
 //-----------------------------------------//
 //--------------css register--------------//
@@ -162,7 +170,7 @@ h3 {
 	background: none;
 	padding: 3px 42px 0px;
 	color: #666;
-	font-family: "Muli-SemiBold";
+	font-family: "Muli-Regular";
 	font-size: 16px;
 	&::-webkit-input-placeholder { 
 		font-size: 14px;
@@ -269,4 +277,13 @@ h3 {
 	.wrapper {
 		background: none;
 	}
+}
+.form-male{
+	display: flex;
+	justify-content: space-between;
+}
+.text-male{
+	font-size: 14px;
+	font-family: "Muli-Regular";
+	color: #999;
 }

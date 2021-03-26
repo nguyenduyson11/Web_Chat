@@ -3,27 +3,50 @@
     <div class="wrapper">
         <div class="inner">
             <img src="/images/register_img1.png" alt="" class="image-1">
-            <form action="">
+            <form action="/register" method="POST">
                 <h3>Tạo tài khoản</h3>
+                <% if (error.length > 0) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
                 <div class="form-holder">
                     <span class="lnr lnr-user"></span>
-                    <input type="text" class="form_group" placeholder="Họ tên">
+                    <input type="text" name="username" class="form_group" placeholder="Họ tên" required>
+                </div>
+                <div class="form-male">
+                    <div class="mail_group">
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        <label class="text-male" for="male">Nam</label>
+                    </div>
+                    <div class="mail_group">
+                        <input type="radio" id="female" name="gender" value="female" required>
+                        <label class="text-male" for="female">Nữ</label>
+                    </div>
+                    <div class="mail_group">
+                        <input type="radio" id="other" name="gender" value="other" required>
+                        <label class="text-male" for="other">Khác</label>
+                    </div>   
+                </div>
+                <div class="form-holder">
+                    <span class="fas fa-birthday-cake"></span>
+                    <input  type="date" id="birthday" name="birthday" class="form_group" required>
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-phone-handset"></span>
-                    <input type="text" class="form_group" placeholder="số điện thoại">
+                    <input type="tel" class="form_group" name="phone" placeholder="0854 084 118" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" required>
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-envelope"></span>
-                    <input type="text" class="form_group" placeholder="Mail">
+                    <input type="email" name="email" class="form_group" placeholder="nguyenduyson@dtu.com" required>
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-lock"></span>
-                    <input type="password" class="form_group" placeholder="mật khẩu">
+                    <input type="password" name="password" class="form_group" placeholder="mật khẩu" required>
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-lock"></span>
-                    <input type="password" class="form_group" placeholder="nhập lại mật khẩu">
+                    <input type="password" name="password_confirm" class="form_group" placeholder="nhập lại mật khẩu" required>
                 </div>
                 <a href="/login"><i class="fas fa-long-arrow-alt-left"></i></a>
                 <button id="btn_register">

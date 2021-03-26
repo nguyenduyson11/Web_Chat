@@ -1,6 +1,8 @@
 .login-title {
+  font-size: 50px;
   text-align: center;
-  margin: 30px 0; }
+  margin: 30px 0;
+  font-family: 'Lobster', cursive; }
 
 .image_user_login {
   width: 100%; }
@@ -18,7 +20,8 @@
   color: #343a40;
   display: block;
   margin-bottom: 10px;
-  font-weight: 400; }
+  font-weight: 400;
+  font-family: 'Lobster', cursive; }
 
 .group_email input {
   border: none;
@@ -33,12 +36,16 @@
   border-radius: 0;
   outline: none; }
 
+.forgot_link > a {
+  font-family: 'Lobster', cursive; }
+
 .check_remaind_box check {
   height: 100%; }
 
 .check-remember {
   padding: 5px 10px;
-  cursor: pointer; }
+  cursor: pointer;
+  font-family: 'Lobster', cursive; }
 
 .form-login button {
   color: white;
@@ -49,10 +56,12 @@
   width: 100%;
   padding: 10px;
   display: block;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  font-family: 'Lobster', cursive; }
 
 .register_link {
-  display: flex; }
+  display: flex;
+  font-family: 'Lobster', cursive; }
 
 @font-face {
   font-family: "Muli-Regular";
@@ -157,7 +166,7 @@ h3 {
   background: none;
   padding: 3px 42px 0px;
   color: #666;
-  font-family: "Muli-SemiBold";
+  font-family: "Muli-Regular";
   font-size: 16px; }
   .form_group::-webkit-input-placeholder {
     font-size: 14px;
@@ -248,3 +257,12 @@ h3 {
     -o-box-shadow: none; }
   .wrapper {
     background: none; } }
+
+.form-male {
+  display: flex;
+  justify-content: space-between; }
+
+.text-male {
+  font-size: 14px;
+  font-family: "Muli-Regular";
+  color: #999; }
