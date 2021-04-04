@@ -1,6 +1,5 @@
 const User = require('../app/models/user');
 const bcrypt = require('bcrypt');
-const user = require('../app/models/user');
 
 module.exports = async (req,res,next)=>{
   let user = await User.findOne({email: req.body.email});

@@ -7,10 +7,7 @@ class SessionsController{
         res.render('login',{warning});
     }
     create(req,res){
-        if(req.user){
-            res.redirect('/');
-            return;
-        }
+        res.send('trang chủ');
     }
     edit(req,res){
         let warning = req.flash('warning');
@@ -23,6 +20,7 @@ class SessionsController{
             req.flash('warning', 'Vui lòng kiểm tra email');
             send_mail(user.email,token,'Nhấn vào đây để reset email','reset');
             res.redirect('/forgot');
+            return;
         }
         req.flash('warning','Email chưa được đăng ký');
         res.redirect('/forgot');

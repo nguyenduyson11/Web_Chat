@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const message = new Schema({
+    to_user:{
+        type:  mongoose.Types.ObjectId
+    },
+    message_id: {
+        type:  mongoose.Types.ObjectId
+    }
+})
 const user = new Schema({
     username:{
         type:String,
@@ -48,7 +56,10 @@ const user = new Schema({
     image:{
         type:String,
         default:'https://loremflickr.com/50/50'
-    }
+    },
+    message:[message],
+    request:[mongoose.Types.ObjectId],
+    friends:[mongoose.Types.ObjectId]
 },{
     timestamps:true
 });

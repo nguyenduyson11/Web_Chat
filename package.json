@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon serer.js",
+    "start": "nodemon index.js",
     "sass": "node-sass --watch resources/scss/app.scss public/css/app.css ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
