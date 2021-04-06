@@ -11,10 +11,10 @@ const content = new Schema({
   createAt:{
     type: Date, default: Date.now
   }
-})
+});
 const message = new Schema({
-  messages: [content]
+  listMessage: [content]
 },{
   timestamps:true
 });
-module.exports  = mongoose.model('Message',message);
+module.exports  = mongoose.model('message',message);

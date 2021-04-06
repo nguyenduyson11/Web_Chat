@@ -14,3 +14,39 @@ File: scss
 *******************/
 .o-income .c3 line, .o-income .c3 path {
   stroke: rgba(120, 130, 140, 0.13); }
+.remove_user{
+  text-decoration: none;
+  padding: 8px 15px;
+  color: #ffffff;
+  background-color: #ed4250;
+  text-transform: uppercase;
+  font-size: 12px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-left: 5px;
+  display: inline-block;
+  width: 70px;
+}
+.remove_user:hover{
+  color: #ffffff;
+  background-color: #ed0013;
+}
+.open_user{
+  text-decoration: none;
+  padding: 8px 15px;
+  color: #ffffff;
+  background-color: #42ed8e;
+  text-transform: uppercase;
+  font-size: 12px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-left: 5px;
+  display: inline-block;
+  width: 70px;
+}
+.open_user:hover{
+  color: #ffffff;
+  background-color: #1ddb72;
+}

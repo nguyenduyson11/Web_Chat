@@ -55,9 +55,13 @@ const user = new Schema({
     },
     image:{
         type:String,
-        default:'https://loremflickr.com/50/50'
+        default:'assets/images/chats/avatar-default.png'
     },
-    message:[message],
+    deleted:{
+        type:Boolean,
+        default:false
+    },
+    messages:[message],
     request:[mongoose.Types.ObjectId],
     friends:[mongoose.Types.ObjectId]
 },{
