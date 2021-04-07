@@ -9,6 +9,7 @@ module.exports = async (req,res,next)=>{
     return;
   }
   if (user.admin){
+    req.user = user;
     next();
   }
   else{

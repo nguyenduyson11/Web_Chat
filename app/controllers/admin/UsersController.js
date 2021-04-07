@@ -1,4 +1,5 @@
 const User = require('../../models/user');
+const bcrypt = require('bcrypt');
 class UsersController{
   async index(req,res){
     let users =  res.paginationResults;
@@ -22,6 +23,30 @@ class UsersController{
       req.flash('warning', 'Không tìm thấy người dùng');
       res.redirect('/admin/users');
     }
+  }
+  profile(req,res){
+    let warning = req.flash('warning');
+    res.render('admin/viewProfile',{
+      user:req.user,
+      warning
+    });
+  }
+  async updateProfile(req,res){
+    const salt = await bcrypt.genSalt(10); 
+    var hashPassword = await bcrypt.hash(req.body.password, salt);
+    User.findOneAndUpdate({_id: req.user._id},{
+      phone:(req.body.phoneNumber != '') ? req.body.phoneNumber : req.user.phone,
+      username: (req.body.username != '') ? req.body.username : req.user.username,
+      password: (req.body.password != '') ? hashPassword : req.user.password
+    })
+    .then(user=>{
+      req.flash('warning','cập nhật  thành công');
+      res.redirect('/admin/profile');
+    })
+    .catch(err=>{
+      req.flash('warning','cập nhật không thành công');
+      res.redirect('/admin/profile');
+    })
   }
 }
 module.exports = new UsersController;

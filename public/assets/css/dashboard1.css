@@ -50,3 +50,9 @@ File: scss
   color: #ffffff;
   background-color: #1ddb72;
 }
+.post_contents{
+  white-space: nowrap; 
+  width: 50px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}

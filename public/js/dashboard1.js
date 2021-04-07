@@ -14,10 +14,9 @@ $(function() {
         bindto: '#visitor',
         data: {
             columns: [
-                ['Other', 30],
-                ['Desktop', 10],
-                ['Tablet', 40],
-                ['Mobile', 50],
+                ['Đã kích hoạt', 50],
+                ['Chưa kích hoạt', 40],
+                ['Đã khóa', 10],
             ],
 
             type: 'donut',
@@ -40,7 +39,7 @@ $(function() {
             //or hide: ['data1', 'data2']
         },
         color: {
-            pattern: ['#eceff1', '#24d2b5', '#6772e5', '#20aee3']
+            pattern: [ '#24d2b5', '#6772e5', '#ff5050']
         }
     });
     // ============================================================== 

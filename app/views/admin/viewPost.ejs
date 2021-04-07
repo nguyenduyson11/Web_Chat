@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+  <link rel="stylesheet" href="/assets/morrisjs/morris.css">
+  <link rel="stylesheet" href="/assets/c3-master/c3.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/assets/css/dashboard1.css">
+  <link rel="stylesheet" href="/assets/css/default.css">
+  <link rel="stylesheet" href="/css/pagination.css">
+  <title>Document</title>
+</head>
+<body class="fix-header fix-sidebar card-no-border">
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <div id="main-wrapper">
+    <%- include('layouts/topBar') %>
+    <%- include('layouts/sideBar')  %>
+    <div class="page-wrapper">
+      <div class="container-fluid">
+          <div class="row page-titles">
+              <div class="col-md-5 align-self-center">
+                  <h3 class="text-themecolor">Quản lý bài đăng</h3>
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                      <li class="breadcrumb-item active">posts</li>
+                  </ol>
+              </div>
+              <div class="col-md-7 align-self-center">
+                  <a href="#"
+                      class="btn waves-effect waves-light btn btn-info pull-right hidden-sm-down text-white"> Xen thêm</a>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-12">
+                  <div class="card">
+                      <div class="card-body">
+                        <% if (warning.length > 0) { %>
+                          <div id="alert_update_sucsess" class="alert alert-success" role="alert">
+                              <%= warning %>
+                          </div>
+                        <% } %>
+                          <h4 class="card-title">Danh sách tài khoản</h4>
+                          <div class="table-responsive">
+                              <table class="table">
+                                  <thead>
+                                      <tr>
+                                          <th>STT</th>
+                                          <th>Người đăng</th>
+                                          <th>Nội dung</th>
+                                          <th>Thích</th>
+                                          <th>Bình luận</th>                                         
+                                          <th>Ngày tạo</th>
+                                          <th>Nghiệp vụ</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <% posts.forEach(function(post,index){ %>
+                                      <tr>
+                                        <td><%= index +1 %></td>
+                                        <td><%= post.author %></td>
+                                        <td class="post_contents"><%= post.content %></td>
+                                        <td><%= post.likes %></td>
+                                        <td><%= post.comment.length %></td>
+                                        <td><%= post.dateCreate %></td>                                      
+                                          <td><a class="remove_user" href="/admin/posts/<%= post._id %>/delete?_method=DELETE">Xóa</a></td>
+                                      </tr>
+                                    <% }); %>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <nav class="pagination-container">
+            <div class="pagination">
+                <a class="pagination-newer" href="/admin/posts?page=<%= (posts.previous) ? posts.previous.page : posts.page %>">PREV</a>
+                <span class="pagination-inner">
+                  <a class="number_pagi" href="/admin/posts?page=1">1</a>
+                  <a class="number_pagi" href="/admin/posts?page=2">2</a>
+                  <a class="number_pagi" href="/admin/posts?page=3">3</a>
+                  <a class="number_pagi" href="/admin/posts?page=4">4</a>
+                  <a class="number_pagi" href="/admin/posts?page=5">5</a>
+                  <a class="number_pagi" href="/admin/posts?page=6">6</a>
+                </span>
+                <input type="hidden" name="" value="<%= posts.page %>" id="page_current">
+                <a class="pagination-older" href="/admin/posts?page=<%= (posts.next) ? posts.next.page : '1' %>">NEXT</a>
+            </div>
+          </nav>
+      </div>
+      <footer class="footer"> © 2021 Webstite by <a href="https://duytan.edu.vn/">Duy Tan social network</a> </footer>
+    </div>
+  </div>
+  <form id="form_searchUser" action="" method="get"></form>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/js/waves.js"></script>
+  <script src="/js/sidebarmenu.js"></script>
+  <script src="/js/custom.min.js"></script>
+  <script src="/assets/peity/jquery.peity.min.js"></script>
+  <script src="/assets/peity/jquery.peity.init.js"></script>
+  <script src="/js/spinners.js"></script>
+  <script src="/js/pagination.js"></script>
+  
+</body>
+  <script>
+    setTimeout(function () { 
+      let alert = document.querySelector('#alert_update_sucsess');
+      if(alert){
+        alert.style.display = "none";
+      }
+     },3000);
+     let listPagination = document.querySelectorAll('.number_pagi');
+     if(!$('#page_current').val()){
+      listPagination[0].classList.add('pagination-active');
+     }
+     for(let i= 0 ;i<listPagination.length;i++){
+        if(parseInt(listPagination[i].innerHTML) == $('#page_current').val()){
+          listPagination[i].classList.add('pagination-active');
+        }
+     }
+     
+  </script>
+</html>

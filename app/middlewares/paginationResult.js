@@ -6,7 +6,7 @@ module.exports = function(model){
     const limit = parseInt(process.env.LIMIT)
     const startIndex = (page-1) * limit;
     const endIndex = page * limit;
-    const results = {}
+    let results = {}
     if (page){
       results.page = page;
     }
@@ -27,14 +27,15 @@ module.exports = function(model){
         {
           $or:[
             {username:{$regex:search,$options:'i'}},
-            {phone:{$regex:search,$options:'i'}}
+            {phone:{$regex:search,$options:'i'}},
+            {content:{$regex:search,$options:'i'}},
           ]
         }
         )
       .limit(limit).skip(startIndex).exec();
     }
     else{
-      results.results = await model.find().limit(limit).skip(startIndex).exec();
+      results.results = await model.find().lean().sort({createdAt: -1}).limit(limit).skip(startIndex).exec();
     }
   res.paginationResults = results;
   next();
