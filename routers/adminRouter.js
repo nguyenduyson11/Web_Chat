@@ -2,6 +2,7 @@ const express = require('express');
 const homesController = require('../app/controllers/admin/HomesController');
 const postsController = require('../app/controllers/admin/PostsController');
 const usersController = require('../app/controllers/admin/UsersController');
+const notificationController = require('../app/controllers/admin/NotificationsController');
 const overrideMethod = require('../app/middlewares/overrideMethod');
 const pagination = require('../app/middlewares/paginationResult');
 const User = require('../app/models/user');
@@ -14,5 +15,7 @@ router.get('/users',pagination(User), usersController.index);
 router.get('/posts', pagination(Post), postsController.index);
 router.get('/profile', usersController.profile);
 router.post('/profile', usersController.updateProfile);
+router.post('/profile', usersController.updateProfile);
+router.get('/notification', notificationController.index);
 
 module.exports = router;

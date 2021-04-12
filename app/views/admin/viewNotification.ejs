@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+  <link rel="stylesheet" href="/assets/morrisjs/morris.css">
+  <link rel="stylesheet" href="/assets/c3-master/c3.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/assets/css/dashboard1.css">
+  <link rel="stylesheet" href="/assets/css/default.css">
+  <link rel="stylesheet" href="/css/pagination.css">
+  <title>Document</title>
+</head>
+<body class="fix-header fix-sidebar card-no-border">
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <div id="main-wrapper">
+    <%- include('layouts/topBar') %>
+    <%- include('layouts/sideBar')  %>
+    <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+          <!-- ============================================================== -->
+          <!-- Bread crumb and right sidebar toggle -->
+          <!-- ============================================================== -->
+          <div class="row page-titles">
+              <div class="col-md-5 align-self-center">
+                  <h3 class="text-themecolor">Table Basic</h3>
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                      <li class="breadcrumb-item active">Table Basic</li>
+                  </ol>
+              </div>
+              <div class="col-md-7 align-self-center">
+                  <a href="https://www.wrappixel.com/templates/adminwrap/"
+                      class="btn waves-effect waves-light btn btn-info pull-right hidden-sm-down text-white"> Upgrade to
+                      Pro</a>
+              </div>
+          </div>
+          <!-- ============================================================== -->
+          <!-- End Bread crumb and right sidebar toggle -->
+          <!-- ============================================================== -->
+          <!-- ============================================================== -->
+          <!-- Start Page Content -->
+          <!-- ============================================================== -->
+          <div class="row">
+              <!-- column -->
+              <div class="col-12">
+                  <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Basic Table</h4>
+                          <h6 class="card-subtitle">Add class <code>.table</code></h6>
+                          <div class="table-responsive">
+                              <table class="table">
+                                  <thead>
+                                      <tr>
+                                          <th>#</th>
+                                          <th>First Name</th>
+                                          <th>Last Name</th>
+                                          <th>Username</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>1</td>
+                                          <td>Deshmukh</td>
+                                          <td>Prohaska</td>
+                                          <td>@Genelia</td>
+                                      </tr>
+                                      <tr>
+                                          <td>2</td>
+                                          <td>Deshmukh</td>
+                                          <td>Gaylord</td>
+                                          <td>@Ritesh</td>
+                                      </tr>
+                                      <tr>
+                                          <td>3</td>
+                                          <td>Sanghani</td>
+                                          <td>Gusikowski</td>
+                                          <td>@Govinda</td>
+                                      </tr>
+                                      <tr>
+                                          <td>4</td>
+                                          <td>Roshan</td>
+                                          <td>Rogahn</td>
+                                          <td>@Hritik</td>
+                                      </tr>
+                                      <tr>
+                                          <td>5</td>
+                                          <td>Joshi</td>
+                                          <td>Hickle</td>
+                                          <td>@Maruti</td>
+                                      </tr>
+                                      <tr>
+                                          <td>6</td>
+                                          <td>Nigam</td>
+                                          <td>Eichmann</td>
+                                          <td>@Sonu</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- ============================================================== -->
+          <!-- End PAge Content -->
+          <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- footer -->
+      <!-- ============================================================== -->
+      <footer class="footer"> © 2021 Adminwrap by <a href="https://www.wrappixel.com/">wrappixel.com</a> </footer>
+      <!-- ============================================================== -->
+      <!-- End footer -->
+      <!-- ============================================================== -->
+  </div>
+  </div>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/js/waves.js"></script>
+  <script src="/js/sidebarmenu.js"></script>
+  <script src="/js/custom.min.js"></script>
+  <script src="/assets/peity/jquery.peity.min.js"></script>
+  <script src="/assets/peity/jquery.peity.init.js"></script>
+  <script src="/js/spinners.js"></script>
+  <script src="/js/pagination.js"></script>
+</body>
+<script>
+  setTimeout(function () { 
+    let alert = document.querySelector('#alert_update_sucsess');
+    if(alert){
+      alert.style.display = "none";
+    }
+   },3000);
+</script>
+</html>

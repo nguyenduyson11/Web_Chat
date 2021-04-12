@@ -10,6 +10,7 @@ const check_login = require('../helpers/check_Login');
 const verify_token = require('../helpers/activated_helper');
 const sessionController = require('../app/controllers/sessionsController');
 const userController = require('../app/controllers/UsersController');
+const homesController = require('../app/controllers/clients/HomesControllers')
 router.get('/login',session_helper, sessionController.new);
 router.post('/login', authLogin, sessionController.create);
 router.get('/register',userController.new);
@@ -17,9 +18,7 @@ router.post('/register',userValidator,userController.create);
 router.get('/register/:token',verify_token,userController.update);
 router.get('/forgot',sessionController.edit);
 router.post('/forgot',sessionController.update);
-router.get('/', check_login, (req,res,next)=>{
-  res.send('trang chủ');
-});
+router.get('/', check_login, homesController.index);
 router.get('/reset/:token',checkResetToken, userController.edit);
 router.patch('/reset', [check('password_confirm')
 .custom((value,{req})=>{

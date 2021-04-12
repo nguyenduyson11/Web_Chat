@@ -7,7 +7,7 @@ class SessionsController{
         res.render('login',{warning});
     }
     create(req,res){
-        res.send('trang chủ');
+        res.redirect('/');
     }
     edit(req,res){
         let warning = req.flash('warning');

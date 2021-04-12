@@ -6,10 +6,10 @@ class PostsController{
     let users = await User.find({}).lean();
     let posts =  res.paginationResults.results;
     posts = posts.map(function(post){
-      let x = {...post.id_user}.id.toString();
+      let x = {...post.author}.toString();
       users.findIndex(u => {
-       if(({...u._id}.id.toString(),x,{...u._id}.id.toString() == x)){
-        post.author = u.username
+       if(({...u._id}.toString(),x,{...u._id}.toString() == x)){
+        post.username = u.username
        }
       })
       post.dateCreate = moment(post.createdAt).format('DD/MM/YYYY');
