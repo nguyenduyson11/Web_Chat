@@ -61,9 +61,11 @@ const user = new Schema({
         type:Boolean,
         default:false
     },
-    messages:[message],
-    request:[mongoose.Types.ObjectId],
-    friends:[mongoose.Types.ObjectId]
+    requests:[],
+    friends:[],
+    notifications:[],
+    groups:[],
+    pages:[]
 },{
     timestamps:true
 });

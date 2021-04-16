@@ -10,6 +10,7 @@ function server(io){
      if(userOnlines.indexOf(socket.userId) == -1){
       userOnlines.push(socket.userId);
      }
+    //  console.log(userOnlines)
      //chat with user
      socket.on('chat',function(data){
       let msg = new Message({
@@ -21,7 +22,32 @@ function server(io){
       });
       console.log(msg.listMessage);
      });
+     socket.on('post',function(data){
+      console.log('co người đăng bài')
+      console.log(data);
+     });
+     //new comment
+     socket.on('new-comment',function(data){
+       io.sockets.emit('new-comment',data)
+     })
+     
+     //remove comment
+     socket.on('remove-comment',function(data){
+      socket.broadcast.emit('remove-comment',data)
+     })
+     //new subcomment
+     socket.on('new-subcomment',function(data){
+      io.sockets.emit('new-subcomment',data)
+    })
+    //remove subcomment
+     socket.on('remove-subcomment',function(data){
+       io.sockets.emit('remove-subcomment',data)
+     })
+     socket.on('remove-subcomment_fetch',function(data){
+      io.sockets.emit('remove-subcomment_fetch',data)
+    })
    });
+
 }
 
 module.exports =  server;

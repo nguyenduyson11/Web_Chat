@@ -418,7 +418,9 @@
   list-style: none;
   margin-bottom: 0;
 }
-
+.we-comet .sub-comet{
+  display: none;
+}
 .central-meta .user-post .friend-info .coment-area .we-comet li:last-child {
   margin-bottom: 0;
 }
@@ -1514,6 +1516,7 @@
   width: 40px;
   z-index: 9;
 }
+
 .popup-wraper4 .popup.post-sharing .popup-meta figure .edit-pst .fileContainer {
   display: inline-block;
   font-size: 14px;
@@ -1643,5 +1646,23 @@
 }
 .active_heart{
   color: #d82c2c;
+}
+.icon_remove_comment{
+  font-size: 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.icon_remove_subcomment{
+  font-size: 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  padding: 5px 10px;
+  z-index: 10;
+
 }
 /*# sourceMappingURL=newsfeed.css.map */

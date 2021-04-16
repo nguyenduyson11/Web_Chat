@@ -23,10 +23,16 @@
 <%- include('layouts/leftBar') %>
 <%- include('layouts/rightBar') %>
 <%- include('layouts/topBar') %>
+<% if (message.length > 0) { %>
+    <div id="alert_warring" class="d-none" role="alert">
+        <%= message %>
+    </div>
+<% } %>
+<input id="id_user" type="hidden" value="<%= user._id %>">
 <div class="container">
   <div class="row" style="margin-top: 110px;">
       <div class="order-lg-2 col-lg-6 order-md-3 col-md-12 col-xs-12 order-3">
-          <form id="post_new" class="central-meta postbox" enctype="multipart/form-data" >
+          <form id="post_new" class="central-meta postbox" enctype="multipart/form-data" method="POST" action="/posts/new" >
               <span class="create-post">Đăng bài viết</span>
               <div class="new-postbox">
                   <figure>
@@ -69,7 +75,7 @@
           </form>
           <div class="loadMore">
             <% posts.forEach(function(post){ %>
-                <div class="central-meta item">
+                <div id="post-<%= post._id %>" class="central-meta item">
                     <div class="user-post">
                         <div class="friend-info">
                             <figure>
@@ -80,22 +86,22 @@
                                     <div class="more-post-optns"><i class="fas fa-ellipsis-h"></i>
                                         <ul>
                                             <% if(user._id.toString() === post.author.toString()){ %>
-                                                <li class="edit-post">Chỉnh sửa bài đăng</li>
+                                                <li class="edit-post" data-id="<%= post._id %>">Chỉnh sửa bài đăng</li>
                                                 <li class="remove_post" data-id="<%= post._id %>">Xóa bài đăng</li>
                                                 <li>Tắt thông báo về bài đăng này</li>
                                             <% }else{ %>
                                                 <li class="bad-report" data-id ="<%= post._id%>">Báo cáo bài đăng</li>
                                             <% } %>
                                             
-                                            
+            
                                         </ul>
                                     </div>
                                 </div>
-                                <ins><a href="time-line.html" title=""><%= post.username %></a><%=  (post.images.length > 0) ? ' đã đăng một album' : '' %></ins>
+                                <ins><a  href="time-line.html" title=""><%= post.username %></a><%=  (post.images.length > 0) ? ' đã đăng một album' : '' %></ins>
                                 <span class="time_post"><%= post.dateCreate %></span>
                             </div>
                             <div class="post-meta">
-                                <p>
+                                <p id="content-<%= post._id %>">
                                    <%= post.content %>
                                 </p>
                                 <figure>
@@ -130,13 +136,13 @@
                                         <li>
                                             <span class="views" title="views">
                                                 <i class="fas fa-heart heart_post <%= (post.hearts.findIndex(data=>data.toString()==user._id.toString()) != -1) ? 'active_heart' : 's' %>" data-id="<%= post._id %>"></i>
-                                                <ins><%= post.hearts.length %></ins>
+                                                <ins class="count_hearts"><%= post.hearts.length %></ins>
                                             </span>
                                         </li>
                                         <li>
-                                            <span class="comment" title="Comments">
-                                                <i class="fas fa-comment-dots"></i>
-                                                <ins><%= post.comment.length %></ins>
+                                            <span class="comment " title="Comments" data-id="<%= post._id %>">
+                                                <i class="fas fa-comment-dots" data-id="<%= post._id %>"></i>
+                                                <ins id="hearts-<%= post._id %>"><%= post.comment.length %></ins>
                                             </span>
                                         </li>
   
@@ -151,101 +157,64 @@
                                     </ul>
                                 </div>
                             </div>
+                            
                             <div class="coment-area">
-                                <ul class="we-comet">
-                                    <li style="display: inline-block;">
-                                        <div class="comet-avatar">
-                                            <img src="/assets/images/homes/avt-03.webp" alt="">
-                                        </div>
-                                        <div class="we-comment">
-                                            <h5><a href="time-line.html" title="">Duy Tuấn</a></h5>
-                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster. please vote this video and like our channel</p>
-                                            <div class="inline-itms">
-                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i><span>0</span</a>
-                                                <a href="#" title=""><i class="fa fa-heart"></i><span>20</span></a>
+                                <ul id="commentofPost-<%= post._id %>" class="we-comet comment_wrap" >
+                                    <% post.comments.forEach(function(comment){ %>
+                                        <li id="comment-<%= comment._id %>" style="display: inline-block;">
+                                            <div class="comet-avatar">
+                                                <img src="<%= comment.ofUser.image %>" alt="">
                                             </div>
-                                            <ul class="we-comet sub-comet">
-                                                <li style="display: inline-block;">
-                                                    <div class="comet-avatar">
-                                                        <img src="" alt="">
-                                                    </div>
-                                                    <div class="we-comment">
-                                                        <h5><a href="time-line.html" title="">Phước Tùng</a></h5>
-                                                        <p>we are working for the dance and sing songs. this video is very awesome for the youngster.</p>
-                                                        <div class="inline-itms">
-                                                            <a href="#" title=""><i class="fa fa-heart"></i><span>20</span></a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li style="display: inline-block;">
-                                                    <div class="comet-avatar">
-                                                        <img src="" alt="">
-                                                    </div>
-                                                    <div class="we-comment">
-                                                        <h5><a href="time-line.html" title="">Phước Tùng</a></h5>
-                                                        <p>we are working for the dance and sing songs. this video is very awesome for the youngster.</p>
-                                                        <div class="inline-itms">
-                                                            <a href="#" title=""><i class="fa fa-heart"></i><span>20</span></a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="post-comment sub-post" style="display: inline-block;">
-                                                    <div class="comet-avatar">
-                                                        <img src="<%= user.image %>" alt="">
-                                                    </div>
-                                                    <div class="post-comt-box">
-                                                        <form method="post">
-                                                            <textarea placeholder="Viết bình luận..."></textarea>
-                                                            
-                                                            <div class="button-post-comt">
-                                                                <button type="submit"></button>
-                                                                <i class="fas fa-paper-plane"></i>
+                                            <div class="we-comment">
+                                                <% if(user._id.toString() == comment.author.toString()){ %>
+                                                    <i class="fas fa-times icon_remove_comment " data-rule='parent' data-id="<%= comment._id %>" post-id="<%= post._id %>"></i>
+                                                <% } %>
+                                                
+                                                <h5><a href="time-line.html" title=""><%= comment.ofUser.username %></a></h5>
+                                                <p><%= comment.content %></p>
+                                                <div class="inline-itms">
+                                                    <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i><span id="count_subc-<%= comment._id %>"><%= comment.subComment.length %></span</a>
+                                                    <a href="#" title=""><i class="fa fa-heart heart-comment " data-id="<%= comment._id %>" ></i><span id="heartComment-<%= comment._id %>"><%= comment.hearts.length %></span></a>
+                                                </div>
+                                                <ul id="sub_comment-<%= comment._id %>" class="we-comet sub-comet">
+                                                    <% comment.child.forEach(function(subcomment){ %>
+                                                        <li style="display: inline-block;position: relative;" id="comment-<%= subcomment._id %>">
+                                                            <% if(subcomment.author.toString() == user._id.toString()) { %>
+                                                                <i class="fas fa-times icon_remove_subcomment" data-sub="<%= subcomment._id %>" data-id="<%= comment._id %>" post-id="<%= post._id %>"></i>
+                                                            <% } %>
+                                                            <div class="comet-avatar">
+                                                                <img src="<%= subcomment.ofUser.image %>" alt="">
                                                             </div>
-                                                        </form>	
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li style="display: inline-block;">
-                                        <div class="comet-avatar">
-                                            <img src="/assets/images/homes/avt-01.webp" alt="">
-                                        </div>
-                                        <div class="we-comment">
-                                            <h5><a href="time-line.html" title="">Phước Tùng</a></h5>
-                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster.</p>
-                                            <div class="inline-itms">
-                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i><span>0</span</a>
-                                                <a href="#" title=""><i class="fa fa-heart"></i><span>20</span></a>
+                                                            <div class="we-comment">
+                                                                <h5><a href="time-line.html" title=""><%= subcomment.ofUser.username %></a></h5>
+                                                                <p><%= subcomment.content %></p>
+                                                                <div class="inline-itms">
+                                                                    <a href="#" title=""><i class="fa fa-heart"></i><span><%= subcomment.hearts.length %></span></a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    <% }); %>
+                                                    
+                                                    <li class="post-comment sub-post" style="display: inline-block;">
+                                                        <div class="comet-avatar">
+                                                            <img src="<%= user.image %>" alt="">
+                                                        </div>
+                                                        <div class="post-comt-box">
+                                                            <form class="post_subcoment_new" method="post" action="posts/<%= post._id %>/subcomment/new" data-id="<%= comment._id %>">
+                                                                <textarea  name="content" placeholder="Viết bình luận..."></textarea>
+                                                                
+                                                                <div class="button-post-comt">
+                                                                    <button type="submit"></button>
+                                                                    <i class="fas fa-paper-plane"></i>
+                                                                </div>
+                                                            </form>	
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="comet-avatar">
-                                            <img src="/assets/images/homes/avt-03.webp" alt="">
-                                        </div>
-                                        <div class="we-comment">
-                                            <h5><a href="time-line.html" title="">Duy Tuấn</a></h5>
-                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster. please vote this video and like our channel</p>
-                                            <div class="inline-itms">
-                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i><span>0</span</a>
-                                                <a href="#" title=""><i class="fa fa-heart"></i><span>20</span></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="comet-avatar">
-                                            <img src="/assets/images/homes/avt-01.webp" alt="">
-                                        </div>
-                                        <div class="we-comment">
-                                            <h5><a href="time-line.html" title="">Phước Tùng</a></h5>
-                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster.</p>
-                                            <div class="inline-itms">
-                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i><span>0</span</a>
-                                                <a href="#" title=""><i class="fa fa-heart"></i><span>20</span></a>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    <% }); %>
+                                    
                                     <li class="showmore" style="display: inline-block;">
                                         <a href="#" title="" class="showmorecomet underline">Xem thêm+</a>
                                     </li>
@@ -254,7 +223,7 @@
                                             <img src="<%=user.image %>" alt="">
                                         </div>
                                         <div class="post-comt-box">
-                                            <form class="post_coment__new" method="post" action="posts/<%= post._id %>/comment/new" enctype="multipart/form-data">
+                                            <form class="post_coment__new" method="post" action="posts/<%= post._id %>/comment/new" >
                                                 <textarea class="content_coment" name="content" placeholder="Viết bình luận..."></textarea>
                                                 <div class="button-post-comt">
                                                     <button type="submit"></button>
@@ -372,7 +341,7 @@
             <div class="postbox">
                 <div class="post-comt-box">
                     <form method="post">
-                        <textarea placeholder="Say something about this..."></textarea>
+                        <textarea  placeholder="Say something about this..."></textarea>
                         <!-- <div class="add-smiles">
                             <span title="add icon" class="em em-expressionless"></span>
                             <div class="smiles-bunch">
@@ -462,39 +431,20 @@
         <div class="popup-meta">
             <div class="popup-head">
             </div>
-            <div class="postbox">
+            <form id="form_submit_editPost" class="postbox" method="POST" action="" enctype="multipart/form-data">
                 <div class="post-comt-box">
-                    <form method="post">
-                        <textarea placeholder="Say something about this..."></textarea>
-                    </form>	
+                        <textarea name="content" id="input_post_edit" placeholder="Say something about this..."></textarea>
                 </div>
                 <figure>
-                    <div class="row">
+                    <div class="row" >
                         <div class="edit-pst">
                             <label class="fileContainer">
                                 <i class="fas fa-camera"></i>
-                                <input type="file">
+                                <input id="file_image_edit" name="file_image_edit" type="file" multiple="multiple">
                             </label>
                         </div>
-                        <div class="col-6">
-                            <span class="popup-img-closed"><i class="fas fa-times"></i></span>
-                            <img src="/assets/images/homes/anh-bia.webp" alt="">
-                        </div>
-                        <div class="col-6">
-                            <span class="popup-img-closed"><i class="fas fa-times"></i></span>
-                            <img src="/assets/images/homes/anh-bia.webp" alt="">
-                        </div>
-                        <div class="col-6">
-                            <span class="popup-img-closed"><i class="fas fa-times"></i></span>
-                            <img src="/assets/images/homes/anh-bia.webp" alt="">
-                        </div>
-                        <div class="col-6">
-                            <span class="popup-img-closed"><i class="fas fa-times"></i></span>
-                            <img src="/assets/images/homes/anh-bia.webp" alt="">
-                        </div>
-                        <div class="col-6">
-                            <span class="popup-img-closed"><i class="fas fa-times"></i></span>
-                            <img src="/assets/images/homes/anh-bia.webp" alt="">
+                        <div id="wrap_image_edit">
+
                         </div>
                     </div>
                 </figure>
@@ -508,10 +458,10 @@
                     </div> -->
                 </div>
                 <div class="we-video-info">
-                    <button class="main-btn color" data-ripple="">Đăng</button>
+                    <button type="submit" class="main-btn color" data-ripple="">Đăng</button>
                     <button class="main-btn cancel" data-ripple="">Hủy</button>
                 </div>
-            </div>
+            </form>
         </div>	
     </div>
 </div>
@@ -543,25 +493,3 @@
 <script src="/js/menu.js"></script>
 <script src="/js/spinners.js"></script>
 <script src="/js/home.js"></script>
-<script>
-    // let time_post = document.querySelector('.time_post');
-    // console.log(time_post.textContent);
-    // let date = new Date(time_post.textContent);
-    // let dateCurent = new Date();
-    // let minutes = parseInt(Math.abs((dateCurent.getTime()-date.getTime())/60000));
-    // console.log(minutes)
-    // let value =''
-    // if(minutes < 1)(
-    //     value = 'Vừa xong'
-    // )
-    // if(minutes < 60) {
-    //     value = minutes + '  phút'
-    // }
-    // if(minutes <= 1440 && minutes>=60){
-    //     value = Math.floor(minutes/60) + 'h'
-    // }
-    // if(minutes >1440){
-    //     value = `${date.getDate()} tháng ${date.getMonth()+1}, ${date.getFullYear()}`
-    // }
-    // time_post.innerHTML = value
-</script>

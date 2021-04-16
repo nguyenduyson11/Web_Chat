@@ -1,9 +1,10 @@
 const multer = require('multer');
 const moment = require('moment');
-const comment = require('../../models/comment');
+const Comment = require('../../models/comment');
 const Post = require('../../models/post');
 const User = require('../../models/user');
-const Report = require('../../models/report')
+const Report = require('../../models/report');
+const flash = require('express-flash');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/upload');
@@ -21,14 +22,16 @@ var upload = multer({
           return cb(new Error('Only image are allowed!'))
       }
   }
-}).array("fileImage",8)
+}).array("fileImage",4)
 class HomesController{
   async index(req,res){
+    let message = req.flash('message')
     let posts = await Post.find({$or:[
       {"author":{$in: req.user.friends}},
       {"author":req.user._id}
     ]}).sort({createdAt: -1}).lean();
     let users = await User.find({}).lean();
+    let comments = await Comment.find({}).lean();
    posts = posts.map(function(post){
       post.dateCreate = moment(post.createdAt).format('DD/MM/YYYY');
       var user
@@ -37,13 +40,17 @@ class HomesController{
               user = u;
         }
       }
+      // console.log(arrayComment(post.comment,comments))
+      post.comments = arrayComment(post.comment,comments,users);
       post.username = user.username
       post.userImage = user.image
       return post
    })
+    // res.json(posts)
     res.render('clients/home',{
       posts,
-      user: req.user
+      user: req.user,
+      message
     });
   }
   createPost(req,res){
@@ -75,7 +82,19 @@ class HomesController{
       })
       post.save()
       .then(post=>{
-        res.send('tạo thành công')
+        User.updateOne({
+          _id: req.user._id
+        },{
+          $push:{
+            notifications : {
+              type_id : post._id,
+              type:'post',
+              content: `${req.user.username} đã đăng một trạng thái mới`
+            }
+          }
+        }).then(data=>{
+          res.redirect('/')
+        })
       })
       .catch(err=>{
         res.send('tạo thất bại')
@@ -108,7 +127,8 @@ class HomesController{
     
     
   }
-  deletePost(req,res){
+  async deletePost(req,res){
+    let post = await Post.findById(req.params.id);
     Post.remove({_id: req.params.id},function(err,result){
       if(err){
         res.json({
@@ -117,7 +137,20 @@ class HomesController{
         })
       }
       else{
+        Comment.deleteMany({
+          _id: {
+            $in: post.comment
+          }
+        },function(err,result){
+          if(err){
+            console.log(err)
+          }
+          else{
+            console.log('thành công')
+          }
+        })
         res.json({
+          result: req.params.id,
           status: 'err',
           message: 'Xóa bài đăng thành công'
         })
@@ -139,6 +172,7 @@ class HomesController{
       })
       if(data){
         res.json({
+          countHeart: data.hearts.length -1,
           status:'oke',
           message:'xóa thả tim thành công'
         });
@@ -150,11 +184,48 @@ class HomesController{
       });
       if(data){
         res.json({
+          countHeart: data.hearts.length +1,
           status:'oke',
           message:'thả tim thành công'
         });
       }
     }
+  }
+}
+
+function arrayComment(array,listcomment,users) {
+  let result =[]
+  for(let i=0;i<array.length;i++)
+    for(let j=0;j<listcomment.length;j++){
+      if(array[i].toString() == listcomment[j]._id.toString()){
+        listcomment[j].ofUser = getUser(listcomment[j].author,users)
+        result.push(listcomment[j]);
+      }
+    }
+    result =  result.map(function(data){
+      data.child = []
+      let list = data.subComment;
+      for(let i=0;i<list.length;i++)
+        for(let j=0;j<listcomment.length;j++){
+          if(list[i].toString() == listcomment[j]._id.toString()){
+            listcomment[j].ofUser = getUser(listcomment[j].author,users)
+            data.child.push(listcomment[j]);
+          }
+        }
+      return data
+    })  
+  return result  
+}
+function getUser(id,users){
+  
+  let rs = users.find(function(user){
+   return user._id.toString() == id.toString();
+  })
+  
+  return {
+    user_id: rs._id,
+    username : rs.username,
+    image : rs.image
   }
 }
 module.exports = new HomesController;
