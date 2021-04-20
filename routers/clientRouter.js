@@ -4,6 +4,7 @@ const homeController = require('../app/controllers/clients/HomesControllers');
 const commentController = require('../app/controllers/clients/CommentsController');
 const overrideMethod = require('../app/middlewares/overrideMethod');
 const postController = require('../app/controllers/clients/PostsController');
+const userController = require('../app/controllers/clients/UsersController');
 const router = express.Router();
 router.get('/getuser',(req,res)=>{
   if(req.user){
@@ -25,4 +26,5 @@ router.post('/posts/:id/subcomment/new',commentController.createSubComment);
 router.patch('/comments/:id/heart/edit',commentController.heartsComment);
 router.get('/posts/:id',postController.getPost);
 router.patch('/posts/:id/edit',postController.edit);
+router.get('/searchFriend',userController.findUser);
 module.exports = router;

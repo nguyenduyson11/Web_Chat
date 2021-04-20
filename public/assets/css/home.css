@@ -1086,8 +1086,10 @@
   cursor: pointer;
   font-size: 15px;
   position: absolute;
-  right: 18px;
-  top: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  /* transform: translate(-50%, -50%); */
   z-index: 9;
 }
 .popup-wraper2 .popup.post-sharing .popup-closed i {

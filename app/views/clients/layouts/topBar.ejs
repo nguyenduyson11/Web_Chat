@@ -3,10 +3,10 @@
         <strong>BẢNG TIN</strong>
     </div>
     <div class="header-search">
-        <input type="search" class="search" placeholder="Tìm kiếm...">
+        <input id="search_friends" type="search" class="search" placeholder="Tìm kiếm...">
         <i class="fa fa-search"></i>
         <div class="list history">
-            <ul class="list-group">
+            <ul id="list_friends_search" class="list-group ">
                 <li class="list-group-item right-menu-item">
                     <div class="user">
                         <img src="/assets/images/homes/avt-04.webp" alt="">
@@ -235,7 +235,7 @@
                     <li class="list-group-item acc-infor" style="border-top: 1px #e6ecf5 solid;">
                         <i class="fas fa-bars"></i>
                         <div class="name">
-                            <a href="#"><strong class="username">Đăng xuất</strong></a>
+                            <a href="#"><strong class="username">Cài đặt tài khoản</strong></a>
                         </div>
                     </li>
                     <li class="list-group-item acc-infor">
@@ -247,7 +247,7 @@
                     <li class="list-group-item acc-infor">
                         <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                         <div class="name">
-                            <a href="#"><strong class="username">Cài đặt tài khoản</strong></a>
+                            <a href="/logout"><strong class="username">Đăng xuất</strong></a>
                         </div>
                     </li>
                     <li class="list-group-item acc-infor acc-infor-setting" style="border-top: 1px #e6ecf5 solid;">
@@ -286,7 +286,7 @@
             </div>
         </div>
         <div class="name">
-            <a href="profile-01.html"><strong class="username username-01"><%= user.username %></strong></a>
+            <a href="profile-01.html"><strong style="padding-left: 5px;" class="username username-01"><%= user.username %></strong></a>
         </div>
         <div class="more mt-1"><i class="fas fa-angle-down" style="color: #ffffff;font-size: 10px;"></i></div>
     </div>

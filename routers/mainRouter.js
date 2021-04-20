@@ -24,6 +24,10 @@ router.patch('/reset', [check('password_confirm')
 .custom((value,{req})=>{
   return (req.body.password === req.body.password_confirm)
 }).withMessage('Mật khẩu không khớp')], userController.reset);
+router.get('/logout',(req,res)=>{
+  res.clearCookie('userid');
+  res.redirect('/');
+})
 
 
 module.exports = router;

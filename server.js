@@ -6,7 +6,8 @@ function server(io){
    io.on('connection',function(socket){
      let user = currentUser.getCurrentUser();
      socket.userId = user ? user.id : '';
-     console.log('co người kết nối'+socket.userId);
+     socket.id = user ? user.id : '';
+     console.log('co người kết nối'+socket.id);
      if(userOnlines.indexOf(socket.userId) == -1){
       userOnlines.push(socket.userId);
      }
