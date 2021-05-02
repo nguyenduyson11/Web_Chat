@@ -652,7 +652,7 @@ $('#search_friends').keydown(function(e){
                                 <img src="${user.image}" alt="">
                             </div>
                             <div class="name">
-                                <a href="/user/${user._id}"><strong class="username">${user.username}</strong></a>
+                                <a href="/profile/${user._id}"><strong class="username">${user.username}</strong></a>
                                 <p class="status friend">20 bạn chung</p>
                             </div>
                         </li>`

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/css/profile02.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/spinners.css">
+    <title>Trang cá nhân</title>
+    
+    
+</head>
+<body>
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <%- include('../layouts/leftBar') %>
+  <%- include('../layouts/rightBar') %>
+  <%- include('../layouts/topBar') %>
+    <!-- end header and menu -->
+    <div class="container">
+        <div class="row" style="margin-top: 110px;">
+            <div class="col-lg-12 col-12">
+                <div class="row merged20" id="page-contents">
+                    <div class="user-profile">
+                        <%- include('../layouts/userProfile') %>
+                        <div class="profile-section">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3">
+                                    <div class="profile-author">
+                                        <div class="profile-author-thumb">
+                                            <img alt="author" src="<%= (currentUser._id.toString() === user._id.toString()) ? currentUser.image : user.image %>">
+                                            <div class="edit-dp">
+                                                <label class="fileContainer">
+                                                    <i class="fas fa-camera"></i>
+                                                    <input type="file">
+                                                </label>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="author-content">
+                                            <a class="h4 author-name" href="profile-02.html"><%= userSearch.username %></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-md-9">
+                                    <ul class="profile-menu">
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>">Dòng thời gian</a>
+                                        </li>
+                                        <li>
+                                            <a class="active" href="/profile/<%= user._id %>/info">Thông tin</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>/friends">Bạn bè</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>/images">Ảnh</a>
+                                        </li>
+                                        <% if (currentUser._id.toString() === user._id.toString()){ %>
+                                            <li>
+                                                <a  href="/profile/<%= user._id %>/group">Nhóm</a>
+                                            </li>
+                                            <li>
+                                                <div class="more">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                    <ul class="more-dropdown">
+                                                        <li>
+                                                            <a href="timeline-groups.html">Nhóm</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="statistics.html">Thống kê</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>	
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <aside class="sidebar">
+                      <div class="central-meta stick-widget">
+                          <span class="create-post">Thông Tin cá nhân</span>
+                          <div class="personal-head">
+                              <span class="f-title"><i class="fa fa-user"></i> Thông tin:</span>
+                              <p>Xin chào, tôi tên là Nguyễn Lương Cảnh, tôi 21 tuổi và tôi là sinh viên khoa Công nghệ thông tin. </p>
+                              <span class="f-title"><i class="fa fa-birthday-cake"></i> Sinh nhật:</span>
+                              <p>06 / 09 / 1999 </p>
+                              <span class="f-title"><i class="fa fa-phone"></i> Số điện thoại:</span>
+                              <p>0905231943 </p>
+                              <span class="f-title"><i class="fas fa-male"></i> Giới tính:</span>
+                              <p>Nam</p>
+                              <span class="f-title"><i class="fa fa-globe"></i> Nơi sinh sống:</span>
+                              <p>Đà Nẵng </p>
+                              <span class="f-title"><i class="fas fa-handshake"></i>Đã tham gia:</span>
+                              <p>01 / 03 / 2021 </p>
+                              <span class="f-title"><i class="fa fa-envelope"></i> Email & Website:</span>
+                              <p><a href="#" title="">nguyenluongcanh@dtu.edu.vn</a></p>
+                          </div>
+                      </div>
+                      </aside>	
+                  </div>
+                  <div class="col-lg-8 col-md-8">
+                      <div class="central-meta">
+                          <span class="create-post">Thói quen & Sở thích</span>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="gen-metabox">
+                                      <span><i class="fa fa-puzzle-piece"></i> Sở thích</span>
+                                      <p>
+                                          I like to ride the bicycle, swimming, and working out. I also like reading design magazines, and searching on internet, and also binge watching a good hollywood Movies while it’s raining outside.
+                                      </p>
+                                  </div>
+                                  <div class="gen-metabox">
+                                      <span><i class="fa fa-plus"></i> Sở thích khác</span>
+                                      <p>
+                                          Swimming, Surfing, Uber Diving, Anime, Photography, Tattoos, Street Art.
+                                      </p>
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="gen-metabox">
+                                      <span><i class="fas fa-graduation-cap"></i> Học tập</span>
+                                      <p>
+                                          Học công nghệ phần mềm tại Đại học Duy Tân, Đà Nẵng.
+                                      </p>
+                                  </div>
+                                  <div class="gen-metabox">
+                                      <span><i class="fa fa-certificate"></i> Kinh nghiệm</span>
+                                      <p> Có kinh nghiệm trong UI/UX Designer</p>
+                                  </div>
+                              </div>
+                          </div>	
+                      </div>
+                  </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/js/spinners.js"></script>
+    <script src="/js/profile.js"></script>
+    <script src="/js/searchFriends.js"></script>
+    <script src="/js/friends.js"></script>
+</body>
+</html>

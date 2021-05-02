@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/css/profile01.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/spinners.css">
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Trang cá nhân</title>
+    
+    
+</head>
+<body>
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <%- include('../layouts/leftBar') %>
+  <%- include('../layouts/rightBar') %>
+  <%- include('../layouts/topBar') %>
+    <!-- end header and menu -->
+    <div class="container">
+        <div class="row" style="margin-top: 110px;">
+            <div class="col-lg-12 col-12">
+                <div class="row merged20" id="page-contents">
+                    <div class="user-profile">
+                        <%- include('../layouts/userProfile') %>
+                        <div class="profile-section">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3">
+                                    <div class="profile-author">
+                                        <div class="profile-author-thumb">
+                                            <img id="avatar_user" alt="author" src="<%= (currentUser._id.toString() === user._id.toString()) ? currentUser.image : user.image %>">
+                                            <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
+                                                <form id="form_submit_avartar" action="" enctype="multipart/form-data">
+                                                    <div class="edit-dp">
+                                                        <label class="fileContainer">
+                                                            <i class="fas fa-camera"></i>
+                                                            <input type="file" id="file_avatar" name="avatar">
+                                                        </label>
+                                                    </div>
+                                                </form>
+                                            <% } %>
+                                            
+                                        </div>
+                                            
+                                        <div class="author-content">
+                                            <a class="h4 author-name" href="profile-02.html"><%= userSearch.username %></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-md-9">
+                                    <ul class="profile-menu">
+                                        <li>
+                                            <a class="active" href="/profile/<%= userSearch._id %>">Dòng thời gian</a>
+                                        </li>
+                                        <li>
+                                            <a  href="/profile/<%= userSearch._id %>/info">Thông tin</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= userSearch._id %>/friends">Bạn bè</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= userSearch._id %>/images">Ảnh</a>
+                                        </li>
+                                        <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
+                                            <li>
+                                                <a  href="/profile/<%= currentUser._id %>/group">Nhóm</a>
+                                            </li>
+                                        <% } %>
+                                            <li>
+                                                <div class="more">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                    <ul class="more-dropdown">
+                                                        <li>
+                                                            <a href="timeline-groups.html">Nhóm</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="statistics.html">Thống kê</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>	
+                    </div>
+                    <div class="row" >
+                      <div class="order-lg-2 col-lg-6 order-md-3 col-md-12 col-xs-12 order-3">
+                        <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
+                            <form id="post_new" class="central-meta postbox" enctype="multipart/form-data" method="POST" action="/posts/new" >
+                                <span class="create-post">Đăng bài viết</span>
+                                <div class="new-postbox">
+                                    <figure>
+                                        <img src="<%= user.image %>" alt="">
+                                    </figure>
+                                    <div class="newpst-input">
+                                        <div>
+                                            <textarea id="content_post" style="width: 100%;outline: none;border: none;margin-left: 10px;" name="content" rows="2" placeholder="Chia sẻ những gì bạn đang nghĩ."></textarea>
+                                        </div>
+                                        <div class="file_image-wrap">
+                                        </div>
+                                        <div class="icon_close_images" style="text-align: center;">
+                                          <i class="fas fa-times icon_close_img"></i>
+                                        </div>
+                                    </div>
+                                    <div class="attachments">
+                                        <ul>
+                                            <li>
+                                                <span for="fileMusic" ><i class="fa fa-music" ></i></span>
+                                                <label class="fileContainer">
+                                                    <input id="fileMusic" name="fileMusic" type="hidden" >
+                                                </label>
+                                            </li>
+                                            <li>
+                                               <label for="fileImage"> <i class="fa fa-image"></i></label>
+                                                <label class="fileContainer">
+                                                    <input id="fileImage" name="fileImage" type="file" multiple="multiple" >
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <span for="fileCamera" ><i class="fa fa-camera"></i></span>
+                                                <label class="fileContainer">
+                                                    <input id="fileCamera" name="fileCamera" type="hidden">
+                                                </label>
+                                            </li>
+                                        </ul>
+                                        <button class="post-btn" type="submit" data-ripple="">Đăng</button>
+                                    </div>
+                                </div>
+                            </form>
+                        <% } %>
+                          
+                          <div class="loadMore">
+                            <% posts.forEach(function(post){ %>
+                                <div id="post-<%= post._id %>" class="central-meta item">
+                                    <div class="user-post">
+                                        <div class="friend-info">
+                                            <figure>
+                                                <img src="/assets/images/homes/avt-05.jpg" alt="">
+                                            </figure>
+                                            <div class="friend-name">
+                                                <div class="more">
+                                                    <div class="more-post-optns"><i class="fas fa-ellipsis-h"></i>
+                                                        <ul>
+                                                            <% if(user._id.toString() === post.author.toString()){ %>
+                                                                <li class="edit-post" data-id="<%= post._id %>">Chỉnh sửa bài đăng</li>
+                                                                <li class="remove_post" data-id="<%= post._id %>">Xóa bài đăng</li>
+                                                                <li>Tắt thông báo về bài đăng này</li>
+                                                            <% }else{ %>
+                                                                <li class="bad-report" data-id ="<%= post._id%>">Báo cáo bài đăng</li>
+                                                            <% } %>
+                                                            
+                            
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <ins><a  href="time-line.html" title=""><%= post.username %></a><%=  (post.images.length > 0) ? ' đã đăng một album' : '' %></ins>
+                                                <span class="time_post"><%= post.dateCreate %></span>
+                                            </div>
+                                            <div class="post-meta">
+                                                <p id="content-<%= post._id %>">
+                                                   <%= post.content %>
+                                                </p>
+                                                <figure>
+                                                    <div class="img-bunch">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 <%= (post.images.length == 1) ? 'with_100' : '' %> " >
+                                                                
+                                                                    <% if (post.images.length == 1){ %>
+                                                                        <div class="image_post_wrap">
+                                                                            <figure>
+                                                                                <img style="height: 500px;" src="/upload/<%= post.images[0] %>" alt="">
+                                                                            </figure>
+                                                                        </div>
+                                                                    
+                                                                   <% }else{ %>
+                                                                    <div class="wrap_list_img">
+                                                                        <% post.images.forEach(function(image){ %>
+                                                                            
+                                                                                <figure class="response_image" style="width:295px">
+                                                                                    <img sty  src="/upload/<%= image %>" alt="">
+                                                                                </figure>
+                                                                           
+                                                                        <% }); %>
+                                                                    </div>
+                                                                   <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </figure>	
+                                                <div class="we-video-info">
+                                                    <ul>
+                                                        <li>
+                                                            <span class="views" title="views">
+                                                                <i class="fas fa-heart heart_post <%= (post.hearts.findIndex(data=>data.toString()==user._id.toString()) != -1) ? 'active_heart' : 's' %>" data-id="<%= post._id %>"></i>
+                                                                <ins class="count_hearts"><%= post.hearts.length %></ins>
+                                                            </span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="comment " title="Comments" data-id="<%= post._id %>">
+                                                                <i class="fas fa-comment-dots" data-id="<%= post._id %>"></i>
+                                                                <ins id="hearts-<%= post._id %>"><%= post.comment.length %></ins>
+                                                            </span>
+                                                        </li>
+                  
+                                                        <li>
+                                                            <span>
+                                                                <a class="share-pst" href="#" title="Share">
+                                                                    <i class="fa fa-share-alt"></i>
+                                                                </a>
+                                                                <ins><%= post.shared.length %></ins>
+                                                            </span>	
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="coment-area">
+                                                <ul id="commentofPost-<%= post._id %>" class="we-comet comment_wrap" >
+                                                    <% post.comments.forEach(function(comment){ %>
+                                                        <li id="comment-<%= comment._id %>" style="display: inline-block;">
+                                                            <div class="comet-avatar">
+                                                                <img src="<%= comment.ofUser.image %>" alt="">
+                                                            </div>
+                                                            <div class="we-comment">
+                                                                <% if(user._id.toString() == comment.author.toString()){ %>
+                                                                    <i class="fas fa-times icon_remove_comment " data-rule='parent' data-id="<%= comment._id %>" post-id="<%= post._id %>"></i>
+                                                                <% } %>
+                                                                
+                                                                <h5><a href="time-line.html" title=""><%= comment.ofUser.username %></a></h5>
+                                                                <p><%= comment.content %></p>
+                                                                <div class="inline-itms">
+                                                                    <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i><span id="count_subc-<%= comment._id %>"><%= comment.subComment.length %></span</a>
+                                                                    <a href="#" title=""><i class="fa fa-heart heart-comment " data-id="<%= comment._id %>" ></i><span id="heartComment-<%= comment._id %>"><%= comment.hearts.length %></span></a>
+                                                                </div>
+                                                                <ul id="sub_comment-<%= comment._id %>" class="we-comet sub-comet">
+                                                                    <% comment.child.forEach(function(subcomment){ %>
+                                                                        <li style="display: inline-block;position: relative;" id="comment-<%= subcomment._id %>">
+                                                                            <% if(subcomment.author.toString() == user._id.toString()) { %>
+                                                                                <i class="fas fa-times icon_remove_subcomment" data-sub="<%= subcomment._id %>" data-id="<%= comment._id %>" post-id="<%= post._id %>"></i>
+                                                                            <% } %>
+                                                                            <div class="comet-avatar">
+                                                                                <img src="<%= subcomment.ofUser.image %>" alt="">
+                                                                            </div>
+                                                                            <div class="we-comment">
+                                                                                <h5><a href="time-line.html" title=""><%= subcomment.ofUser.username %></a></h5>
+                                                                                <p><%= subcomment.content %></p>
+                                                                                <div class="inline-itms">
+                                                                                    <a href="#" title=""><i class="fa fa-heart"></i><span><%= subcomment.hearts.length %></span></a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    <% }); %>
+                                                                    
+                                                                    <li class="post-comment sub-post" style="display: inline-block;">
+                                                                        <div class="comet-avatar">
+                                                                            <img src="<%= user.image %>" alt="">
+                                                                        </div>
+                                                                        <div class="post-comt-box">
+                                                                            <form class="post_subcoment_new" method="post" action="posts/<%= post._id %>/subcomment/new" data-id="<%= comment._id %>">
+                                                                                <textarea  name="content" placeholder="Viết bình luận..."></textarea>
+                                                                                
+                                                                                <div class="button-post-comt">
+                                                                                    <button type="submit"></button>
+                                                                                    <i class="fas fa-paper-plane"></i>
+                                                                                </div>
+                                                                            </form>	
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                    <% }); %>
+                                                    
+                                                    <li class="showmore" style="display: inline-block;">
+                                                        <a href="#" title="" class="showmorecomet underline">Xem thêm+</a>
+                                                    </li>
+                                                    <li class="post-comment" style="display: inline-block;">
+                                                        <div class="comet-avatar">
+                                                            <img src="<%=user.image %>" alt="">
+                                                        </div>
+                                                        <div class="post-comt-box">
+                                                            <form class="post_coment__new" method="post" action="posts/<%= post._id %>/comment/new" >
+                                                                <textarea class="content_coment" name="content" placeholder="Viết bình luận..."></textarea>
+                                                                <div class="button-post-comt">
+                                                                    <button type="submit"></button>
+                                                                    <i class="fas fa-paper-plane"></i>
+                                                                </div>
+                                                            </form>	
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              <% }); %>
+                          </div>
+                          <button class="btn-view btn-load-more">
+                              <i class="fas fa-angle-down"></i>
+                          </button>
+                          <button class="btn-hide btn-to-back">
+                              <i class="fas fa-angle-up"></i>
+                          </button>
+                      </div>
+                      <aside class="order-lg-1 col-lg-3 order-md-1 col-md-6 col-xs-12 order-1">
+                          <div class="widget" title="Weather">
+                              <div class="weather-widget low-opacity bluesh">
+                                  <div class="bg-image" style="background-image: url(/assets/images/homes/hinhweather.jpg)"></div>
+                                  <span class="refresh-content"><i class="fa fa-refresh"></i></span>
+                                  <div class="weather-week">
+                                      <div class="icon sun-shower">
+                                          <i class="fas fa-cloud-sun"></i>
+                                      </div>
+                                  </div>
+                                  <div class="weather-infos">
+                                      <span class="weather-tem">25°C</span>
+                                      <h3>Trời nhiều mây<i>Đà Nẵng</i></h3>
+                                      <div class="weather-date skyblue-bg">
+                                          <span>Th.Tư<strong>07</strong></span>
+                                      </div>
+                                  </div>
+                                  <div class="monthly-weather">
+                                      <ul>
+                                          <li>
+                                              <span>Hai</span>
+                                              <a href="#" title=""><i class="far fa-sun"></i></a>
+                                              <em>40°</em> <!--chu kieu in nghieng-->
+                                          </li>
+                                          <li>
+                                              <span>Ba</span>
+                                              <a href="#" title=""><i class="fas fa-cloud-sun"></i></a>
+                                              <em>30°</em>
+                                          </li>
+                                          <li>
+                                              <span>Tư</span>
+                                              <a href="#" title=""><i class="fas fa-cloud-sun-rain"></i></a>
+                                              <em>20°</em>
+                                          </li>
+                                          <li>
+                                              <span>Năm</span>
+                                              <a href="#" title=""><i class="fas fa-cloud"></i></a>
+                                              <em>34°</em>
+                                          </li>
+                                          <li>
+                                              <span>Sáu</span>
+                                              <a href="#" title=""><i class="fas fa-cloud-showers-heavy"></i></a>
+                                              <em>22°</em>
+                                          </li>
+                                          <li>
+                                              <span>Bảy</span>
+                                              <a href="#" title=""><i class="fas fa-cloud-sun-rain"></i></a>
+                                              <em>26°</em>
+                                          </li>
+                                          <li>
+                                              <span>C.Nhật</span>
+                                              <a href="#" title=""><i class="fas fa-cloud-sun"></i></a>
+                                              <em>30°</em>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  
+                              </div>
+                          </div>
+                          <div class="advertisment-box">
+                              <figure>
+                                  <a href="#" title="Advertisment">
+                                      <img src="/assets/images/homes/hinhads01.gif" alt="">
+                                  </a>
+                              </figure>
+                          </div>
+                      </aside>
+                      <div class="order-lg-3 col-lg-3 order-1">
+                        <aside class="sidebar static right">
+                            <div class="widget">
+                                <h4 class="widget-title">Giới thiệu</h4>
+                                <ul class="short-profile">
+                                    <li>
+                                        <span>Thông tin</span>
+                                        <p>Xin chào, tôi tên là Nguyễn Lương Cảnh, tôi 21 tuổi và tôi là sinh viên khoa Công nghệ thông tin. </p>
+                                    </li>
+                                    <li>
+                                        <span>Kênh truyền hình yêu thích</span>
+                                        <p>Sacred Games, Spartcus Blood, Games of Theron </p>
+                                    </li>
+                                    <li>
+                                        <span>Âm nhạc</span>
+                                        <p>Justin Biber, Shakira, Nati Natasah</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="widget term-links stick-widget">
+                                <ul>
+                                    <li><a href="#" title="">Thông tin</a></li>
+                                    <li><a href="#" title="">Nhóm phát triển</a></li>
+                                    <li><a href="#" title="">Quảng cáo</a></li>
+                                    <li><a href="#" title="">Hỗ trợ</a></li>
+                                    <li><a href="#" title="">Chính sách</a></li>
+                                    <li><a href="#" title="">Điều khoản</a></li>
+                                </ul>
+                                <p>Copyright © 2021.</p>
+                            </div>
+                        </aside>
+                    </div>
+                  </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+    <div class="popup-wraper2">
+      <div class="popup post-sharing">
+          <span class="popup-closed"><i class="fas fa-times"></i></span>
+          <div class="popup-meta">
+              <div class="popup-head">
+              </div>
+              <div class="postbox">
+                  <div class="post-comt-box">
+                      <form method="post">
+                          <textarea  placeholder="Say something about this..."></textarea>
+                          <!-- <div class="add-smiles">
+                              <span title="add icon" class="em em-expressionless"></span>
+                              <div class="smiles-bunch">
+                                  <i class="em em---1"></i>
+                                  <i class="em em-smiley"></i>
+                                  <i class="em em-anguished"></i>
+                                  <i class="em em-laughing"></i>
+                                  <i class="em em-angry"></i>
+                                  <i class="em em-astonished"></i>
+                                  <i class="em em-blush"></i>
+                                  <i class="em em-disappointed"></i>
+                                  <i class="em em-worried"></i>
+                                  <i class="em em-kissing_heart"></i>
+                                  <i class="em em-rage"></i>
+                                  <i class="em em-stuck_out_tongue"></i>
+                              </div>
+                          </div> -->
+                      </form>	
+                  </div>
+                  <figure><img src="" alt=""></figure>
+                  <div class="friend-info">
+                      <figure>
+                          <img alt="" src="/assets/images/homes/anh-bia.webp">
+                      </figure>
+                      <div class="friend-name">
+                          <ins><a title="" href="time-line.html">Jack Carter</a> share <a title="" href="#">link</a></ins>
+                          <span>Yesterday the concert of # Rock'n'Rolla in Ontario.</span>
+                      </div>
+                  </div>
+                  <div class="we-video-info">
+                      <button class="main-btn color" data-ripple="">Đăng</button>
+                      <button class="main-btn cancel" data-ripple="">Hủy</button>
+                  </div>
+              </div>
+          </div>	
+      </div>
+  </div>
+  <div class="popup-wraper3">
+      <div class="popup">
+          <span class="popup-closed"><i class="fas fa-times"></i></span>
+          <div class="popup-meta">
+              <div class="popup-head">
+                  <h5>Báo cáo</h5>
+              </div>
+              <div class="Rpt-meta">
+                  <span>Vui lòng chọn một lý do:</span>
+                  <form id="form_repost_post" method="post" class="c-form">
+                      <input id="input_idpost" type="hidden">
+                      <div class="form-radio">
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="radio_report" checked="checked" value="Spam"><i class="check-box"></i>Spam
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="radio_report" value="Thông tin sai sự thật"><i class="check-box"></i>Thông tin sai sự thật
+                          </label>
+                        </div>
+                          <div class="radio">
+                          <label>
+                            <input type="radio" name="radio_report" value="Ngôn từ gây thù ghét"><i class="check-box"></i>Ngôn từ gây thù ghét
+                          </label>
+                        </div>
+                          <div class="radio">
+                          <label>
+                            <input type="radio" name="radio_report" value="Vấn đề khác"><i class="check-box"></i>Vấn đề khác
+                          </label>
+                        </div>
+                      </div>
+                  <div>
+                      <label>Viết báo cáo</label>
+                      <textarea id="content_report" placeholder="Hãy nhập vấn đề bạn gặp phải..." rows="2"></textarea>
+                  </div>
+                  <div>
+                      <button data-ripple="" type="submit" class="main-btn color">Báo cáo</button>
+                      <button class="main-btn cancel" data-ripple="">Hủy</button>
+                  </div>
+                  </form>	
+              </div>
+          </div>	
+      </div>
+  </div>
+  <div class="popup-wraper4">
+      <div class="popup post-sharing">
+          <span class="popup-closed"><i class="fas fa-times"></i></span>
+          <div class="popup-meta">
+              <div class="popup-head">
+              </div>
+              <form id="form_submit_editPost" class="postbox" method="POST" action="" enctype="multipart/form-data">
+                  <div class="post-comt-box">
+                          <textarea name="content" id="input_post_edit" placeholder="Say something about this..."></textarea>
+                  </div>
+                  <figure>
+                      <div class="row" >
+                          <div class="edit-pst">
+                              <label class="fileContainer">
+                                  <i class="fas fa-camera"></i>
+                                  <input id="file_image_edit" name="file_image_edit" type="file" multiple="multiple">
+                              </label>
+                          </div>
+                          <div id="wrap_image_edit">
+  
+                          </div>
+                      </div>
+                  </figure>
+                  <div class="friend-info">
+                      <!-- <figure>
+                          <img alt="" src="img/anh-bia.webp">
+                      </figure>
+                      <div class="friend-name">
+                          <ins><a title="" href="time-line.html">Jack Carter</a> share <a title="" href="#">link</a></ins>
+                          <span>Yesterday the concert of # Rock'n'Rolla in Ontario.</span>
+                      </div> -->
+                  </div>
+                  <div class="we-video-info">
+                      <button type="submit" class="main-btn color" data-ripple="">Đăng</button>
+                      <button class="main-btn cancel" data-ripple="">Hủy</button>
+                  </div>
+              </form>
+          </div>	
+      </div>
+  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/js/spinners.js"></script>
+    <script src="/js/profile.js"></script>
+    <script src="/js/searchFriends.js"></script>
+    <script src="/js/home.js"></script>
+    <script src="/js/friends.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<figure>
+  <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
+    <div class="edit-pp">
+      <label class="fileContainer">
+          <i class="fas fa-camera"></i>
+          <input id="image_Photo_Image" name="uploadAvartar" type="file">
+      </label>
+  </div>
+<% } %>
+  
+  <img id="photoImage_user" src="<%= userSearch.coverImage %>" alt="" width="1300" height="500" >
+  <ul class="profile-controls">
+    <% if(currentUser._id.toString() != userSearch._id.toString()){ %>
+      <% if(currentUser.friends.find(element=> element.toString() == userSearch._id.toString())){%>
+        <li><a href="#" title="Add friend" data-toggle="tooltip">
+          <i class="fas fa-user-friends"></i>
+        </a></li>
+      <% }else{ %>
+        <li id="friendRequestGroup" >
+          <% if (userSearch.requests.find(element=> element.fromTo.toString() == currentUser._id.toString())){ %>
+            <a id="removeFriend"  href="/requestFriends/<%= userSearch._id %>/remove" title="Add friend" data-toggle="tooltip" >
+              <i id="icon_removeRequest"  href="/requestFriends/<%= userSearch._id%>/remove" class="fas fa-user-minus"></i>
+            </a>
+          <%}else {%>
+            <a id="requestFriend"   href="/requestFriends/<%= userSearch._id %>/add" title="Add friend" data-toggle="tooltip">
+              <i id="icon_addRequest"  href="/requestFriends/<%= userSearch._id%>/add"  class="fas fa-user-plus"></i>
+            </a>
+          <% } %> 
+        </li>
+      <% } %>
+      
+      <li><a href="#" title="Follow" data-toggle="tooltip"><i class="fa fa-star"></i></a></li>
+      <li><a class="send-mesg" href="#" title="Send Message" data-toggle="tooltip"><i class="fa fa-comment"></i></a></li>
+    <%}%>
+      <li>
+          <div class="edit-seting" title="Edit Profile image"><i class="fas fa-sliders-h"></i>
+              <ul class="more-dropdown">
+                  <% if(currentUser._id.toString() === userSearch._id.toString()){ %>
+                    <li><a href="setting.html" title="">Cài đặt tài khoản</a></li>
+                  <%}else{%>
+                    <li><a href="support-and-help.html" title="">Hỗ trợ</a></li>
+                    <li><a class="bad-report" href="#" title="">Báo cáo tài khoản</a></li>
+                    <li><a href="#" title="">Chặn</a></li>
+                  <%}%>
+                  
+              </ul>
+          </div>
+      </li>
+  </ul>
+</figure>

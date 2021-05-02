@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/css/profile05.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/spinners.css">
+    <title>Trang cá nhân</title>
+    
+    
+</head>
+<body>
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <%- include('../layouts/leftBar') %>
+  <%- include('../layouts/rightBar') %>
+  <%- include('../layouts/topBar') %>
+    <!-- end header and menu -->
+    <div class="container">
+        <div class="row" style="margin-top: 110px;">
+            <div class="col-lg-12 col-12">
+                <div class="row merged20" id="page-contents">
+                    <div class="user-profile">
+                        <%- include('../layouts/userProfile') %>
+                        <div class="profile-section">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3">
+                                    <div class="profile-author">
+                                        <div class="profile-author-thumb">
+                                            <img alt="author" src="<%= (currentUser._id.toString() === user._id.toString()) ? currentUser.image : user.image %>">
+                                            <div class="edit-dp">
+                                                <label class="fileContainer">
+                                                    <i class="fas fa-camera"></i>
+                                                    <input type="file">
+                                                </label>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="author-content">
+                                            <a class="h4 author-name" href="profile-02.html"><%= userSearch.username %></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-md-9">
+                                    <ul class="profile-menu">
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>">Dòng thời gian</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>/info">Thông tin</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>/friends">Bạn bè</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>/images">Ảnh</a>
+                                        </li>
+                                        <% if (currentUser._id.toString() === user._id.toString()){ %>
+                                            <li>
+                                                <a class="active" href="/profile/<%= user._id %>/group">Nhóm</a>
+                                            </li>
+                                            <li>
+                                                <div class="more">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                    <ul class="more-dropdown">
+                                                        <li>
+                                                            <a href="timeline-groups.html">Nhóm</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="statistics.html">Thống kê</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>	
+                    </div>
+                    <div class="central-meta1">
+                        <div class="title-block">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="align-left">
+                                        <h5>Nhóm <span>44</span></h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="select-options">
+                                        <select class="select">
+                                            <option>Sắp xếp</option>
+                                            <option>A - Z</option>
+                                            <option>Z - A</option>
+                                            <option>Mới nhất</option>
+                                            <option>Cũ nhất</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="central-meta padding30">
+                        <div class="row merged5">
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="addgroup">
+                                    <div class="item-upload">
+                                        <i class="fa fa-plus-circle"></i>
+                                        <div class="upload-meta">
+                                            <h5>Tạo nhóm</h5>
+                                            <span>việc này có thể mất vài giây!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                <div class="group-box">
+                                    <figure><img src="img/group01.jpg" alt=""></figure>
+                                    <a href="#" title="">Sport</a>
+                                    <span>12 thành viên</span>
+                                    <button>Truy cập nhóm</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lodmore3">
+                            <button class="btn-view btn-lod-more">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+                            <button class="btn-hide btn-to-back">
+                                <i class="fas fa-angle-up"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+    <div class="popup-wraper4">
+		<div class="popup creat-group">
+			<span class="popup-closed"><i class="fas fa-times"></i></span>
+			<div class="popup-meta">
+				<div class="popup-head">
+					<h5>Tạo Nhóm Mới</h5>
+				</div>
+				<div class="group-adding">
+					<div class="friend-group">
+						<div class="change-photo">
+							<figure><img src="img/avatar-default.png" alt=""></figure>
+							<div class="edit-img">
+								<form class="edit-phto">
+									<label class="fileContainer">
+										<i class="fas fa-camera"></i>
+										Tải Lên Ảnh Nhóm
+									<input type="file">
+									</label>
+								</form>
+							</div>
+						</div>
+						<form method="post">
+							<input type="text" placeholder="Tên Nhóm">
+							<input type="text" placeholder="Thể Loại">
+							<button class="main-btn">Tạo Nhóm</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/js/spinners.js"></script>
+    <script src="/js/profile.js"></script>
+    <script src="/js/searchFriends.js"></script>
+    <script src="/js/friends.js"></script>
+</body>
+</html>

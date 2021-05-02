@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/css/profile03.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/spinners.css">
+    <title>Trang cá nhân</title>
+    
+    
+</head>
+<body>
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <%- include('../layouts/leftBar') %>
+  <%- include('../layouts/rightBar') %>
+  <%- include('../layouts/topBar') %>
+    <!-- end header and menu -->
+    <div class="container">
+        <div class="row" style="margin-top: 110px;">
+            <div class="col-lg-12 col-12">
+                <div class="row merged20" id="page-contents">
+                    <div class="user-profile">
+                        <%- include('../layouts/userProfile') %>
+                        <div class="profile-section">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3">
+                                    <div class="profile-author">
+                                        <div class="profile-author-thumb">
+                                            <img alt="author" src="<%= (currentUser._id.toString() === user._id.toString()) ? currentUser.image : user.image %>">
+                                            <div class="edit-dp">
+                                                <label class="fileContainer">
+                                                    <i class="fas fa-camera"></i>
+                                                    <input type="file">
+                                                </label>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="author-content">
+                                            <a class="h4 author-name" href="profile-02.html"><%= userSearch.username %></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-md-9">
+                                    <ul class="profile-menu">
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>">Dòng thời gian</a>
+                                        </li>
+                                        <li>
+                                            <a  href="/profile/<%= user._id %>/info">Thông tin</a>
+                                        </li>
+                                        <li>
+                                            <a class="active" href="/profile/<%= user._id %>/friends">Bạn bè</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>/images">Ảnh</a>
+                                        </li>
+                                        <% if (currentUser._id.toString() === user._id.toString()){ %>
+                                            <li>
+                                                <a  href="/profile/<%= user._id %>/group">Nhóm</a>
+                                            </li>
+                                            <li>
+                                                <div class="more">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                    <ul class="more-dropdown">
+                                                        <li>
+                                                            <a href="timeline-groups.html">Nhóm</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="statistics.html">Thống kê</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>	
+                    </div>
+                    <div class="central-meta1">
+                      <div class="title-block">
+                          <div class="row">
+                              <div class="col-8">
+                                  <div class="align-left">
+                                      <h5>Bạn bè / Người theo dõi <span>44</span></h5>
+                                  </div>
+                              </div>
+                              <div class="col-3">
+                                  <div class="select-options">
+                                      <select class="select">
+                                          <option>Sắp xếp</option>
+                                          <option>A - Z</option>
+                                          <option>Z - A</option>
+                                          <option>Mới nhất</option>
+                                          <option>Cũ nhất</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="central-meta padding30">
+                      <div class="row merged20">
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-05.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Adam James</a>
+                                          <span>Quảng Nam</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-04.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Andrew</a>
+                                          <span>Đà Nẵng</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-03.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Arnold</a>
+                                          <span>Huế</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/anh-bia.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Ella Jhon</a>
+                                          <span>Quảng Trị</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/article01.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Madison</a>
+                                          <span>Quảng Bình</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/article02.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Victoria</a>
+                                          <span>Hà Tĩnh</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-04.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Lillian</a>
+                                          <span>Nghệ An</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Xing wing</a>
+                                          <span>Thanh Hóa</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/logo-small.png" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Anson</a>
+                                          <span>Quảng Ngãi</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">UnChặn</a></li>
+                                          
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/bg-weather.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Babson</a>
+                                          <span>Bình Định</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/hinhdtu.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Sarah</a>
+                                          <span>Phú Yên</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/nf-01.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Aishweria</a>
+                                          <span>Khánh Hòa</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/nf-02.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Jason Bill</a>
+                                          <span>Ninh Thuận</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/article01.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Camila</a>
+                                          <span>Bình Thuận</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avatar-default.png" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Sofia</a>
+                                          <span>Kon Tum</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-05.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Riley</a>
+                                          <span>Đăk Lăk</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-05.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Adam James</a>
+                                          <span>Quảng Nam</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-04.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Andrew</a>
+                                          <span>Đà Nẵng</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-03.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Arnold</a>
+                                          <span>Huế</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/anh-bia.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Ella Jhon</a>
+                                          <span>Quảng Trị</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/article01.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Madison</a>
+                                          <span>Quảng Bình</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/article02.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Victoria</a>
+                                          <span>Hà Tĩnh</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-04.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Lillian</a>
+                                          <span>Nghệ An</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Xing wing</a>
+                                          <span>Thanh Hóa</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/logo-small.png" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Anson</a>
+                                          <span>Quảng Ngãi</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">UnChặn</a></li>
+                                          
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/bg-weather.webp" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Babson</a>
+                                          <span>Bình Định</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/hinhdtu.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Sarah</a>
+                                          <span>Phú Yên</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/nf-01.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Aishweria</a>
+                                          <span>Khánh Hòa</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/nf-02.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Jason Bill</a>
+                                          <span>Ninh Thuận</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/article01.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Camila</a>
+                                          <span>Bình Thuận</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avatar-default.png" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Sofia</a>
+                                          <span>Kon Tum</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                              <div class="friend-block">
+                                  <div class="more-opotnz">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                      <ul>
+                                          <li><a href="#" title="">Chặn</a></li>
+                                          <li><a href="#" title="">Bỏ Chặn</a></li>                                            
+                                          <li><a href="#" title="">Hủy Kết Bạn</a></li>
+                                      </ul>
+                                  </div>
+                                  <figure>
+                                      <img src="img/avt-05.jpg" alt="">
+                                  </figure>
+                                  
+                                  <div class="frnd-meta">
+                                      <div class="frnd-name">
+                                          <a href="#" title="">Riley</a>
+                                          <span>Đăk Lăk</span>
+                                      </div>
+                                      <a class="send-mesg" href="#" title="">Nhắn tin</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="lodmore">
+                          <button class="btn-view btn-lod-more">
+                              <i class="fas fa-angle-down"></i>
+                          </button>
+                          <button class="btn-hide btn-to-back">
+                              <i class="fas fa-angle-up"></i>
+                          </button>
+                      </div>
+                  </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/js/spinners.js"></script>
+    <script src="/js/profile.js"></script>
+    <script src="/js/searchFriends.js"></script>
+    <script src="/js/friends.js"></script>
+</body>
+</html>

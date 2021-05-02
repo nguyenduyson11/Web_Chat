@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/css/profile04.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/spinners.css">
+    <title>Trang cá nhân</title>
+    
+    
+</head>
+<body>
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <%- include('../layouts/leftBar') %>
+  <%- include('../layouts/rightBar') %>
+  <%- include('../layouts/topBar') %>
+    <!-- end header and menu -->
+    <div class="container">
+        <div class="row" style="margin-top: 110px;">
+            <div class="col-lg-12 col-12">
+                <div class="row merged20" id="page-contents">
+                    <div class="user-profile">
+                        <%- include('../layouts/userProfile') %>
+                        <div class="profile-section">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3">
+                                    <div class="profile-author">
+                                        <div class="profile-author-thumb">
+                                            <img alt="author" src="<%= (currentUser._id.toString() === user._id.toString()) ? currentUser.image : user.image %>">
+                                            <div class="edit-dp">
+                                                <label class="fileContainer">
+                                                    <i class="fas fa-camera"></i>
+                                                    <input type="file">
+                                                </label>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="author-content">
+                                            <a class="h4 author-name" href="profile-02.html"><%= userSearch.username %></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-md-9">
+                                    <ul class="profile-menu">
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>">Dòng thời gian</a>
+                                        </li>
+                                        <li>
+                                            <a  href="/profile/<%= user._id %>/info">Thông tin</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="/profile/<%= user._id %>/friends">Bạn bè</a>
+                                        </li>
+                                        <li>
+                                            <a class="active" href="/profile/<%= user._id %>/images">Ảnh</a>
+                                        </li>
+                                        <% if (currentUser._id.toString() === user._id.toString()){ %>
+                                            <li>
+                                                <a  href="/profile/<%= user._id %>/group">Nhóm</a>
+                                            </li>
+                                            <li>
+                                                <div class="more">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                    <ul class="more-dropdown">
+                                                        <li>
+                                                            <a href="timeline-groups.html">Nhóm</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="statistics.html">Thống kê</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>	
+                    </div>
+                    <div class="central-meta padding30">
+                      <div class="row merged5">
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <div class="item-upload album">
+                                      <i class="fa fa-plus-circle"></i>
+                                      <input type="file">
+                                      <div class="upload-meta">
+                                          <h5>Tải ảnh lên</h5>
+                                          <span>việc này chỉ mất vài giây!</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                              <div class="item-box">
+                                  <a class="strip" href="" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                  <img src="/images/anhbiaInfo.jpg" alt=""></a>
+                                  <div class="over-photo">
+                                      <a href="#" title=""><i class="fa fa-heart"></i> 15</a>
+                                      <span>21 tháng 4, 2021</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="lodmore2">
+                          <button class="btn-view btn-lod-more">
+                              <i class="fas fa-angle-down"></i>
+                          </button>
+                          <button class="btn-hide btn-to-back">
+                              <i class="fas fa-angle-up"></i>
+                          </button>
+                      </div>
+                  </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/js/spinners.js"></script>
+    <script src="/js/profile.js"></script>
+    <script src="/js/searchFriends.js"></script>
+    <script src="/js/friends.js"></script>
+</body>
+</html>

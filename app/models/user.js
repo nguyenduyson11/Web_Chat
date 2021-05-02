@@ -55,7 +55,11 @@ const user = new Schema({
     },
     image:{
         type:String,
-        default:'assets/images/chats/avatar-default.png'
+        default:'/assets/images/chats/avatar-default.png'
+    },
+    coverImage:{
+        type:String,
+        default:'/images/anhbiadefault.jpg'
     },
     deleted:{
         type:Boolean,

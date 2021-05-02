@@ -27,4 +27,17 @@ router.patch('/comments/:id/heart/edit',commentController.heartsComment);
 router.get('/posts/:id',postController.getPost);
 router.patch('/posts/:id/edit',postController.edit);
 router.get('/searchFriend',userController.findUser);
+
+//profile
+
+router.get('/profile/:id/friends',userController.profileFriend);
+router.get('/profile/:id/info',userController.profileInfo);
+router.get('/profile/:id/group',userController.profileGroup);
+router.get('/profile/:id/images',userController.profileImage);
+router.get('/profile/:id',userController.profilePost);
+router.post('/user/uploadImage',userController.editImage);
+router.post('/user/uploadPhotoImage',userController.editPhotoImage)
+//friend
+router.post('/requestFriends/:id/add',userController.requestFriend);
+router.delete('/requestFriends/:id/remove',userController.cancelFriend);
 module.exports = router;
