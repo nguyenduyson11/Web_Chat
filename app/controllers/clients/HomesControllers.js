@@ -89,6 +89,7 @@ class HomesController{
             notifications : {
               type_id : post._id,
               type:'post',
+              status: 'uncheck',
               content: `${req.user.username} đã đăng một trạng thái mới`
             }
           }

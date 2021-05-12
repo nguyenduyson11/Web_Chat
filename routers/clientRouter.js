@@ -3,6 +3,7 @@ const messagesController = require('../app/controllers/clients/messagesControlle
 const homeController = require('../app/controllers/clients/HomesControllers');
 const commentController = require('../app/controllers/clients/CommentsController');
 const overrideMethod = require('../app/middlewares/overrideMethod');
+const listFriend = require('../app/middlewares/listFriends');
 const postController = require('../app/controllers/clients/PostsController');
 const userController = require('../app/controllers/clients/UsersController');
 const router = express.Router();
@@ -35,9 +36,19 @@ router.get('/profile/:id/info',userController.profileInfo);
 router.get('/profile/:id/group',userController.profileGroup);
 router.get('/profile/:id/images',userController.profileImage);
 router.get('/profile/:id',userController.profilePost);
+router.get('/profile/:id/setting',userController.setting);
 router.post('/user/uploadImage',userController.editImage);
-router.post('/user/uploadPhotoImage',userController.editPhotoImage)
+router.post('/user/uploadPhotoImage',userController.editPhotoImage);
 //friend
 router.post('/requestFriends/:id/add',userController.requestFriend);
+router.patch('/requestFriends/:id/accept/:idUser',userController.requestAccept);
 router.delete('/requestFriends/:id/remove',userController.cancelFriend);
+router.delete('/friends/:id/destroy',userController.destroyFriend);
+router.post('/friends/:id/block',userController.blockUser);
+router.patch('/friends/:id/unblock',userController.unBlockUser);
+router.get('/friends/:id/sort',userController.sortFriend)
+//settting
+router.post('/profile/settingInfo',userController.editProfile);
+router.post('/profile/settingUser',userController.editUser);
+router.post('/profile/settingPassword',userController.editPassword);
 module.exports = router;

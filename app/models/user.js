@@ -61,10 +61,15 @@ const user = new Schema({
         type:String,
         default:'/images/anhbiadefault.jpg'
     },
+    other:{
+        type: Object,
+        default: {}
+    },
     deleted:{
         type:Boolean,
         default:false
     },
+    blocklist:[],
     requests:[],
     friends:[],
     notifications:[],

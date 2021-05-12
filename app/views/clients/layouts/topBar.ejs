@@ -7,45 +7,31 @@
         <i class="fa fa-search"></i>
         <div class="list history">
             <ul id="list_friends_search" class="list-group ">
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt-04.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Lương Cảnh</strong></a>
-                        <p class="status friend">20 bạn chung</p>
-                    </div>
-                </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Phước Tùng</strong></a>
-                        <p class="status friend">20 bạn chung</p>
-                    </div>
-                </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt-03.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Duy Tuấn</strong></a>
-                        <p class="status friend">10 bạn chung</p>
-                    </div>
-                </li>
+                <% user.requests.forEach(function(request){ %>
+                    <li class="list-group-item right-menu-item">
+                        <div class="user">
+                            <img src="/assets/images/homes/avt-04.webp" alt="">
+                        </div>
+                        <div class="name">
+                            <a class="accept-friend" href="#"><strong class="username">Nguyễn Duy Sơn</strong></a>
+                            <p class="status friend">20 bạn chung</p>
+                        </div>
+                    </li>
+                <% }) %>
             </ul>
         </div>
     </div>
     <a href="" class="find">Tìm kiếm bạn bè</a>
     <div class="inform">
-        <i class="far fa-laugh"></i>
+        <i class="far fa-laugh icon_first_element"></i>
+        <% if (user.requests.length > 0) { %>
         <div class="inform-icon" style="background: #38a9ff;">
-            <p>4</p>
+            <p id="count_request"><%= user.requests.length %></p>
         </div>
+        <% } %>
         <div class="list">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-edit">
+            <ul class="list-group ">
+                <li class="list-group-item list-group-item-edit list-group-first">
                     <div class="name">
                         <a href="#"><p class="username">Lời mời kết bạn</p></a>
                     </div>
@@ -56,39 +42,21 @@
                         <a href="#"><p class="username">Tìm kiếm</p></a>
                     </div>
                 </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt-04.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Lương Cảnh</strong></a>
-                        <p class="status friend">20 bạn chung</p>
-                    </div>
-                    <i class="fas fa-user-plus" style="color: #38a9ff;"></i>
-                    <i class="fas fa-user-minus" style="color: #9899a4;"></i>
-                </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Phước Tùng</strong></a>
-                        <p class="status">20 bạn chung</p>
-                    </div>
-                    <i class="fas fa-user-plus" style="color: #38a9ff;"></i>
-                    <i class="fas fa-user-minus" style="color: #9899a4;"></i>
-                </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt-03.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Duy Tuấn</strong></a>
-                        <p class="status">10 bạn chung</p>
-                    </div>
-                    <i class="fas fa-user-plus" style="color: #38a9ff;"></i>
-                    <i class="fas fa-user-minus" style="color: #9899a4;"></i>
-                </li>
+                <% user.requests.forEach(function(request){ %>
+                    <% if(request.fromTo.toString() != user._id.toString()){ %>
+                        <li class="list-group-item right-menu-item">
+                            <div class="user">
+                                <img src="<%= request.avatar %>" alt="">
+                            </div>
+                            <div class="name">
+                                <a href="/profile/<%= request.fromTo %>"><strong class="username"><%= request.username %></strong></a>
+                                <p class="status friend">20 bạn chung</p>
+                            </div>
+                            <i url="/requestFriends/<%= request._id %>/accept/<%= request.fromTo %>" class="fas fa-user-plus accept_friends" style="color: #38a9ff;"></i>
+                            <i url="/requestFriends/<%= user._id %>/remove" class="fas fa-user-minus block_friends" style="color: #9899a4;"></i>
+                        </li>
+                    <% } %>
+                <% }) %>
                 <li class="list-group-item list-group-item-foot" style="background-color: #38a9ff;">
                     <div class="name">
                         <a href="#"><strong class="username">Xem tất cả lời mời kết bạn</strong></a>

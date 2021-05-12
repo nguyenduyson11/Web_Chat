@@ -34,6 +34,7 @@ class UsersController{
                 date_of_bitrh: req.body.birthday,
                 email: req.body.email,
                 phone: req.body.phone,
+                other:{},
                 password: hashPassword
            });
             //lưu user xuống database 

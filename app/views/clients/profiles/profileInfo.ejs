@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/assets/css/profile02.css">
     <link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="/css/spinners.css">
+    <script src="/socket.io/socket.io.js"></script>
     <title>Trang cá nhân</title>
     
     
@@ -36,14 +37,19 @@
                                 <div class="col-lg-2 col-md-3">
                                     <div class="profile-author">
                                         <div class="profile-author-thumb">
-                                            <img alt="author" src="<%= (currentUser._id.toString() === user._id.toString()) ? currentUser.image : user.image %>">
-                                            <div class="edit-dp">
-                                                <label class="fileContainer">
-                                                    <i class="fas fa-camera"></i>
-                                                    <input type="file">
-                                                </label>
-                                            </div>
-                                        </div>
+                                            <img id="avatar_user" alt="author" src="<%= (currentUser._id.toString() === userSearch._id.toString()) ? currentUser.image : userSearch.image %>">
+                                            <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
+                                                <form id="form_submit_avartar" action="" enctype="multipart/form-data">
+                                                    <div class="edit-dp">
+                                                        <label class="fileContainer">
+                                                            <i class="fas fa-camera"></i>
+                                                            <input type="file" id="file_avatar" name="avatar">
+                                                        </label>
+                                                    </div>
+                                                </form>
+                                            <% } %>
+                                            
+                                        </div> 
                                             
                                         <div class="author-content">
                                             <a class="h4 author-name" href="profile-02.html"><%= userSearch.username %></a>
@@ -53,18 +59,18 @@
                                 <div class="col-lg-10 col-md-9">
                                     <ul class="profile-menu">
                                         <li>
-                                            <a class="" href="/profile/<%= user._id %>">Dòng thời gian</a>
+                                            <a class="" href="/profile/<%= userSearch._id %>">Dòng thời gian</a>
                                         </li>
                                         <li>
-                                            <a class="active" href="/profile/<%= user._id %>/info">Thông tin</a>
+                                            <a class="active" href="/profile/<%= userSearch._id %>/info">Thông tin</a>
                                         </li>
                                         <li>
-                                            <a class="" href="/profile/<%= user._id %>/friends">Bạn bè</a>
+                                            <a class="" href="/profile/<%= userSearch._id %>/friends">Bạn bè</a>
                                         </li>
                                         <li>
-                                            <a class="" href="/profile/<%= user._id %>/images">Ảnh</a>
+                                            <a class="" href="/profile/<%= userSearch._id %>/images">Ảnh</a>
                                         </li>
-                                        <% if (currentUser._id.toString() === user._id.toString()){ %>
+                                        <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
                                             <li>
                                                 <a  href="/profile/<%= user._id %>/group">Nhóm</a>
                                             </li>
@@ -93,19 +99,19 @@
                           <span class="create-post">Thông Tin cá nhân</span>
                           <div class="personal-head">
                               <span class="f-title"><i class="fa fa-user"></i> Thông tin:</span>
-                              <p>Xin chào, tôi tên là Nguyễn Lương Cảnh, tôi 21 tuổi và tôi là sinh viên khoa Công nghệ thông tin. </p>
+                              <p>Tôi tên là <%= currentUser.username %> Hiện tại là sinh viên của đại học Duy Tân </p>
                               <span class="f-title"><i class="fa fa-birthday-cake"></i> Sinh nhật:</span>
-                              <p>06 / 09 / 1999 </p>
+                              <p id="day_of_bitrh"><%= currentUser.date_of_bitrh %> </p>
                               <span class="f-title"><i class="fa fa-phone"></i> Số điện thoại:</span>
-                              <p>0905231943 </p>
+                              <p><%= currentUser.phone %> </p>
                               <span class="f-title"><i class="fas fa-male"></i> Giới tính:</span>
-                              <p>Nam</p>
+                              <p><%= (currentUser.male == 'male') ? 'Nam' : 'Nữ' %></p>
                               <span class="f-title"><i class="fa fa-globe"></i> Nơi sinh sống:</span>
                               <p>Đà Nẵng </p>
                               <span class="f-title"><i class="fas fa-handshake"></i>Đã tham gia:</span>
-                              <p>01 / 03 / 2021 </p>
+                              <p id="day_join"><%= currentUser.createdAt %> </p>
                               <span class="f-title"><i class="fa fa-envelope"></i> Email & Website:</span>
-                              <p><a href="#" title="">nguyenluongcanh@dtu.edu.vn</a></p>
+                              <p><a href="#" title=""><%= currentUser.email %></a></p>
                           </div>
                       </div>
                       </aside>	
@@ -116,15 +122,15 @@
                           <div class="row">
                               <div class="col-lg-6">
                                   <div class="gen-metabox">
-                                      <span><i class="fa fa-puzzle-piece"></i> Sở thích</span>
+                                      <span><i class="fa fa-puzzle-piece"></i> Giới thiệu</span>
                                       <p>
-                                          I like to ride the bicycle, swimming, and working out. I also like reading design magazines, and searching on internet, and also binge watching a good hollywood Movies while it’s raining outside.
+                                        <%= currentUser.other.introduce %>
                                       </p>
                                   </div>
                                   <div class="gen-metabox">
-                                      <span><i class="fa fa-plus"></i> Sở thích khác</span>
+                                      <span><i class="fa fa-plus"></i> Sở thích </span>
                                       <p>
-                                          Swimming, Surfing, Uber Diving, Anime, Photography, Tattoos, Street Art.
+                                        <%= currentUser.other.interests %>
                                       </p>
                                   </div>
                               </div>
@@ -132,12 +138,12 @@
                                   <div class="gen-metabox">
                                       <span><i class="fas fa-graduation-cap"></i> Học tập</span>
                                       <p>
-                                          Học công nghệ phần mềm tại Đại học Duy Tân, Đà Nẵng.
+                                        <%= currentUser.other.study %>
                                       </p>
                                   </div>
                                   <div class="gen-metabox">
                                       <span><i class="fa fa-certificate"></i> Kinh nghiệm</span>
-                                      <p> Có kinh nghiệm trong UI/UX Designer</p>
+                                      <p><%= currentUser.other.experience %></p>
                                   </div>
                               </div>
                           </div>	
@@ -152,8 +158,16 @@
   <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/js/perfect-scrollbar.jquery.min.js"></script>
     <script src="/js/spinners.js"></script>
+    <script src="/js/getCurrentUser.js"></script>
     <script src="/js/profile.js"></script>
     <script src="/js/searchFriends.js"></script>
+    <script src="/js/home.js"></script>
     <script src="/js/friends.js"></script>
+    <script>
+        let day_of_bitrh = new Date($('#day_of_bitrh').text());
+        $('#day_of_bitrh').text(`${day_of_bitrh.getDate()} / ${day_of_bitrh.getMonth() + 1} / ${day_of_bitrh.getFullYear()}`);
+        let day_join = new Date($('#day_join').text());
+        $('#day_join').text(`${day_join.getDate()} / ${day_join.getMonth() + 1} / ${day_join.getFullYear()}`);
+    </script>
 </body>
 </html>

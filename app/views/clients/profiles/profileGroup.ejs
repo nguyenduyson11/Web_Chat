@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/assets/css/profile05.css">
     <link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="/css/spinners.css">
+    <script src="/socket.io/socket.io.js"></script>
     <title>Trang cá nhân</title>
     
     
@@ -36,14 +37,19 @@
                                 <div class="col-lg-2 col-md-3">
                                     <div class="profile-author">
                                         <div class="profile-author-thumb">
-                                            <img alt="author" src="<%= (currentUser._id.toString() === user._id.toString()) ? currentUser.image : user.image %>">
-                                            <div class="edit-dp">
-                                                <label class="fileContainer">
-                                                    <i class="fas fa-camera"></i>
-                                                    <input type="file">
-                                                </label>
-                                            </div>
-                                        </div>
+                                            <img id="avatar_user" alt="author" src="<%= (currentUser._id.toString() === userSearch._id.toString()) ? currentUser.image : userSearch.image %>">
+                                            <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
+                                                <form id="form_submit_avartar" action="" enctype="multipart/form-data">
+                                                    <div class="edit-dp">
+                                                        <label class="fileContainer">
+                                                            <i class="fas fa-camera"></i>
+                                                            <input type="file" id="file_avatar" name="avatar">
+                                                        </label>
+                                                    </div>
+                                                </form>
+                                            <% } %>
+                                            
+                                        </div> 
                                             
                                         <div class="author-content">
                                             <a class="h4 author-name" href="profile-02.html"><%= userSearch.username %></a>
@@ -53,18 +59,18 @@
                                 <div class="col-lg-10 col-md-9">
                                     <ul class="profile-menu">
                                         <li>
-                                            <a class="" href="/profile/<%= user._id %>">Dòng thời gian</a>
+                                            <a class="" href="/profile/<%= userSearch._id %>">Dòng thời gian</a>
                                         </li>
                                         <li>
-                                            <a class="" href="/profile/<%= user._id %>/info">Thông tin</a>
+                                            <a class="" href="/profile/<%= userSearch._id %>/info">Thông tin</a>
                                         </li>
                                         <li>
-                                            <a class="" href="/profile/<%= user._id %>/friends">Bạn bè</a>
+                                            <a class="" href="/profile/<%= userSearch._id %>/friends">Bạn bè</a>
                                         </li>
                                         <li>
-                                            <a class="" href="/profile/<%= user._id %>/images">Ảnh</a>
+                                            <a class="" href="/profile/<%= userSearch._id %>/images">Ảnh</a>
                                         </li>
-                                        <% if (currentUser._id.toString() === user._id.toString()){ %>
+                                        <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
                                             <li>
                                                 <a class="active" href="/profile/<%= user._id %>/group">Nhóm</a>
                                             </li>
@@ -276,8 +282,10 @@
   <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/js/perfect-scrollbar.jquery.min.js"></script>
     <script src="/js/spinners.js"></script>
+    <script src="/js/getCurrentUser.js"></script>
     <script src="/js/profile.js"></script>
     <script src="/js/searchFriends.js"></script>
+    <script src="/js/home.js"></script>
     <script src="/js/friends.js"></script>
 </body>
 </html>

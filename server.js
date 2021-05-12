@@ -6,12 +6,9 @@ function server(io){
    io.on('connection',function(socket){
      let user = currentUser.getCurrentUser();
      socket.userId = user ? user.id : '';
-     socket.id = user ? user.id : '';
+     socket.id =  user ? user.id : '';
      console.log('co người kết nối'+socket.id);
-     if(userOnlines.indexOf(socket.userId) == -1){
-      userOnlines.push(socket.userId);
-     }
-    //  console.log(userOnlines)
+     
      //chat with user
      socket.on('chat',function(data){
       let msg = new Message({
@@ -46,6 +43,29 @@ function server(io){
      })
      socket.on('remove-subcomment_fetch',function(data){
       io.sockets.emit('remove-subcomment_fetch',data)
+    })
+    // request friends
+    socket.on("add-friend",function(data){
+      User.findById(data.userId,function(err,userTo){
+        if(err){
+          console.log('loi')
+          return;
+        }
+        User.findById(data.userRequest.id,function(err,userFrom){
+          if(err){
+            console.log('loi')
+            return;
+          }
+          let request_id = userTo.requests.find(e=>e.fromTo.toString() == userFrom._id.toString())._id;
+          console.log(request_id)
+          socket.broadcast.emit('notifycation-friend',{userTo,userFrom,request_id})
+        })
+        
+      })
+        
+     
+      // socket.to(data.userId).emit('add-friend',{data})
+
     })
    });
 

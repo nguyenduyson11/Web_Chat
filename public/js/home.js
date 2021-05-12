@@ -231,19 +231,21 @@ const imagePrivew = document.querySelector('.file_image-wrap');
 const input_file = document.querySelector('input[name="fileImage"]');
 var list_closeimage = $('.icon_close_img');
 let userCurrent = $('#id_user').val()
-input_file.addEventListener('change', function(){
-    if(this.files){
-        var html='';
-        for (const file of this.files) {
-           let  html_image = `<div id="previewImage" class="previewImage" >
-            <img src="${URL.createObjectURL(file)}" alt="" width="100px" height="100px" >
-         </div>`
-           html =  html.concat(html_image)
-          }
-        $('.file_image-wrap').html(html)
-    }
-    document.querySelector('.icon_close_images').style.display = 'block';
-})
+if(input_file){
+    input_file.addEventListener('change', function(){
+        if(this.files){
+            var html='';
+            for (const file of this.files) {
+               let  html_image = `<div id="previewImage" class="previewImage" >
+                <img src="${URL.createObjectURL(file)}" alt="" width="100px" height="100px" >
+             </div>`
+               html =  html.concat(html_image)
+              }
+            $('.file_image-wrap').html(html)
+        }
+        document.querySelector('.icon_close_images').style.display = 'block';
+    })
+}
 let icon_close_images =  document.querySelector('.icon_close_images')
 if(icon_close_images){
     icon_close_images.addEventListener('click',function(){
@@ -253,47 +255,39 @@ if(icon_close_images){
     })
 }
 //get userCurrent
-$.ajax({
-    method: "GET",
-    url: "/getuser",
-    async: false
-  })
-    .done(function( data ) {
-      window.currentUser = {
-          id:data.user._id,
-          username: data.user.username,
-          image: data.user.image,
-      }
-    }); 
+
 // report  post
-document.getElementById('form_repost_post').addEventListener('submit',function(e){
-    e.preventDefault();
-    const data = { 
-        title: $("input[name='radio_report']:checked").val(),
-        content: $('#content_report').val() 
-    };
-    let id_post = $('#input_idpost').val();
-    fetch(`/posts/${id_post}/reports/new`, {
-        method: 'POST', // or 'PUT'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(data => {
-            $('.popup-wraper3').removeClass('active');
-            content_mesage.innerHTML = data.message;
-            $('#staticBackdrop').modal('show')
-            
-        })
-        .catch((error) => {
-            $('.popup-wraper3').removeClass('active');
-            content_mesage.innerHTML = 'Báo cáo bài viết thất bại ';
-            btn_acvited_model.click();
-        });
-    e.target[0].value = '';
-})
+if(document.getElementById('form_repost_post')){
+    document.getElementById('form_repost_post').addEventListener('submit',function(e){
+        e.preventDefault();
+        const data = { 
+            title: $("input[name='radio_report']:checked").val(),
+            content: $('#content_report').val() 
+        };
+        let id_post = $('#input_idpost').val();
+        fetch(`/posts/${id_post}/reports/new`, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                $('.popup-wraper3').removeClass('active');
+                content_mesage.innerHTML = data.message;
+                $('#staticBackdrop').modal('show')
+                
+            })
+            .catch((error) => {
+                $('.popup-wraper3').removeClass('active');
+                content_mesage.innerHTML = 'Báo cáo bài viết thất bại ';
+                btn_acvited_model.click();
+            });
+        e.target[0].value = '';
+    })
+}
+
 // delete post
  $('.remove_post').click(function(e){
     if(confirm('bạn có thực sự muốn xóa bài biết')){

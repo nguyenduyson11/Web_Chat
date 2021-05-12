@@ -1,9 +1,11 @@
 
 const User = require('../../models/user');
 const multer = require('multer');
+const bcrypt = require('bcrypt');
 const Post = require('../../models/post');
 const moment = require('moment');
 const Comment = require('../../models/post');
+const mongoose = require('mongoose');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/upload');
@@ -67,16 +69,27 @@ class UsersController{
     });
      
   }
-  profileFriend(req,res){
+  async profileFriend(req,res){
     let currentUser = req.user;
+    let listUser = await User.find({});
+    let listFriends = [];
     User.findById(req.params.id,function(err,doc){
       if(err){
         res.redirect('/');
       }
       else{
+        let listId  = doc.friends;
+        for(let i = 0;i < listId.length; i++){
+          for(let j = 0; j < listUser.length; j++){
+              if(listId[i].toString() == listUser[j]._id.toString())
+                listFriends.push(listUser[j])
+          }
+        }
+        console.log(listFriends.length);
         res.render('clients/profiles/profileFriends',{
           currentUser,
-          userSearch: doc
+          userSearch: doc,
+          listFriends
         });
       }
     });
@@ -121,10 +134,9 @@ class UsersController{
       }
     });
     let message = req.flash('message')
-    let posts = await Post.find({$or:[
-      {"author":{$in: req.user.friends}},
-      {"author":req.user._id}
-    ]}).sort({createdAt: -1}).lean();
+    let posts = await Post.find(
+      {author : req.params.id}
+    ).sort({createdAt: -1}).lean();
     let users = await User.find({}).lean();
     let comments = await Comment.find({}).lean();
    posts = posts.map(function(post){
@@ -149,6 +161,20 @@ class UsersController{
       message
     });
   }
+  setting(req,res){
+    let currentUser = req.user;
+    User.findById(req.params.id,function(err,doc){
+      if(err){
+        res.redirect('/');
+      }
+      else{
+        res.render('clients/profiles/settings',{
+          currentUser,
+          userSearch: doc
+        });
+      }
+    });
+  }
   // request friends
   requestFriend(req,res){
     User.findById(req.params.id,function(err,data){
@@ -159,11 +185,14 @@ class UsersController{
         })
       }
       else{
+        let idRequest = mongoose.Types.ObjectId();
         User.findOneAndUpdate({_id:data._id},{$push: {
           requests: {
+            _id: idRequest,
             fromTo:req.user._id,
             username: req.user.username,
-            avatar: req.user.image
+            avatar: req.user.image,
+            status:'uncheck'
           }
         }},function(err,userRequest){
           if(err){
@@ -175,9 +204,11 @@ class UsersController{
           else{
             User.findOneAndUpdate({_id: req.user._id},{$push: {
               requests: {
+                _id: idRequest,
                 fromTo:req.user._id,
                 username: req.user.username,
-                avatar: req.user.image
+                avatar: req.user.image,
+                status:'uncheck'
               }
             }},function(err,data){
               if(err){
@@ -186,22 +217,12 @@ class UsersController{
                   message:'gửi yêu cầu thất bại',
                 })
               }
-              else{
-                User.findOneAndUpdate({_id: req.params.id},{$push:{
-                  notifications: {
-                    content: ` đã gửi cho bạn yêu cầu kết bạn`,
-                    fromTo: req.user._id,
-                    username: req.user.username,
-                    avatar: req.user.image
-                  }
-                }},function(err,data){
+              else{    
                   res.json({
                       userSearch: userRequest,
                       status:'oke',
                       message:'thêm bạn thành công',
                   })
-                })
-                
               }
             })
           }
@@ -253,6 +274,9 @@ class UsersController{
         })
       }
     })
+  }
+  getListNotifycation(req,res){
+
   }
   editImage(req,res){
     upload(req, res, function (err) {
@@ -365,6 +389,236 @@ class UsersController{
       })
       
     })
+  }
+  editProfile(req,res){
+    User.findOneAndUpdate({_id : req.user._id},{
+      other : req.body
+    })
+    .then(data=>{
+      User.findById(data._id,function(err,data){
+        if(err){
+          res.json({
+            status:'error',
+          })
+        }
+        res.json({
+          status:'oke',
+          data
+        })
+      })
+      
+    })
+    .catch(err=>{
+      res.json(err)
+    })
+  }
+  editUser(req,res){
+    User.findOneAndUpdate({_id : req.user._id},{
+      username: req.body.username,
+      phone: req.body.phone,
+      city: req.body.city,
+      male: req.body.male
+    },function(err,data){
+      if(err){
+        res.json({status:'err'})
+      }
+      User.findById(data._id,function(err,data){
+        if(err){
+          res.json({status:'error'})
+        }
+        res.json({
+          status:'oke',
+          data
+        })
+      })
+    })
+  }
+  async editPassword(req,res){
+    if(req.body.newPassword !== req.body.confirmPassword)
+      return res.json({
+        status: 'error',
+        message: 'Mật khẩu không khớp'
+      })
+    const validate_pasword = await bcrypt.compare(req.body.currentPassword,req.user.password);
+    if(validate_pasword){
+      const salt = await bcrypt.genSalt(10); 
+      const hashPassword = await bcrypt.hash(req.body.newPassword, salt);
+      User.findOneAndUpdate({_id : req.user._id},{
+        password : hashPassword
+      },function(err,data){
+        if(err){
+          res.json({
+            status:'error',
+            message: 'Cập nhật mật khẩu không thành công'
+          })
+        }
+        else{
+          res.json({status:'oke'})
+        }
+      })
+    }
+    else{
+      res.json({
+        status:'error',
+        message: 'Mật khẩu hiện tại không đúng'
+      })
+    }
+  }
+  async requestAccept(req,res){
+    console.log(req.params.id)
+    const userRequest = await User.findById(req.params.idUser);
+   if(userRequest){
+    User.findOneAndUpdate({_id : req.user._id},{
+      $push : {
+        friends: userRequest._id
+      }
+    },function(err,data){
+      if(err){
+        res.json({status:'error'})
+      }
+      else{
+        User.findOneAndUpdate({_id : req.params.idUser},{
+          $push : {
+            friends: data._id
+          }
+        },function(err,data){
+          if(err){
+            res.json({status:'error'})
+          }
+          else{
+            User.findOneAndUpdate({_id: req.user._id},{$pull: {
+              requests: {
+                fromTo:userRequest._id,
+              }
+            }},function(err,data){
+              if(err){
+                res.json({
+                  status:'err',
+                  message:'gửi yêu cầu thất bại',
+                })
+              }
+              else{
+                User.findOneAndUpdate({_id: userRequest._id},{$pull: {
+                  requests: {
+                    fromTo:userRequest._id,
+                  }
+                }},function(err,data){
+                  if(err){
+                    res.json({
+                      status:'err',
+                      message:'gửi yêu cầu thất bại',
+                    })
+                  }
+                  else{
+                    User.findById(req.user.id,function(err,data){
+                      if(err){
+                        res.json({status:'err'})
+                      }
+                      else{
+                        res.json({
+                          user: data,
+                          status:'oke',
+                        })
+                      }
+                    })
+                   
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
+    })
+   }
+   else{
+     res.json({status:'error'})
+   }
+  }
+  destroyFriend(req,res){
+    console.log(req.user._id,req.params.id)
+    User.findOneAndUpdate({_id: req.user._id},{
+      $pull: {
+        friends:mongoose.Types.ObjectId(req.params.id)
+      }
+    },function(err,data){
+      if(err){
+        res.json({status:'error'})
+      }
+      else{
+        User.findOneAndUpdate({_id: req.params.id},{
+          $pull: {
+            friends:data._id
+          }
+        },function(err,data){
+          if(err){
+            res.json({status:'error'})
+          }
+          else{
+            res.json({status:'oke',user:data})
+          }
+        })
+      }
+    })
+  }
+  blockUser(req,res){
+    User.findOneAndUpdate({_id:req.user._id},{
+      $push:{
+        blocklist: mongoose.Types.ObjectId(req.params.id)
+      }
+    },function(err,data){
+      if(err){
+        res.json({status:'error'})
+      }
+      else{
+        res.json({status:'oke',id_user: req.params.id})
+      }
+    })
+  }
+  unBlockUser(req,res){
+    User.findOneAndUpdate({_id:req.user._id},{
+      $pull:{
+        blocklist: mongoose.Types.ObjectId(req.params.id)
+      }
+    },function(err,data){
+      if(err){
+        res.json({status:'error'})
+      }
+      else{
+        res.json({status:'oke',id_user: req.params.id})
+      }
+    })
+  }
+  async sortFriend(req,res){
+    let type ={};
+    switch (req.query.key) {
+      case '1': type = {username : 1}  
+        break;
+      case '2': type = {username : -1}
+        break;
+      case '3': type = {createdAt :-1}
+        break;
+      case '4': type = {createdAt :1}   
+      default:
+        break;
+    }
+    let listUser = await User.find({}).sort( type );
+    let listFriends = [];
+    User.findById(req.params.id,function(err,doc){
+      if(err){
+        res.redirect('/');
+      }
+      else{
+        let listId  = doc.friends;
+        for(let i = 0;i < listUser.length; i++){
+          for(let j = 0; j < listId.length; j++){
+              if(listId[j].toString() == listUser[i]._id.toString())
+                listFriends.push(listUser[i])
+          }
+        }
+        res.json({status:'oke',listFriends})
+      }
+    });
   }
 }
 function arrayComment(array,listcomment,users) {
