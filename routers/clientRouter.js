@@ -46,7 +46,8 @@ router.delete('/requestFriends/:id/remove',userController.cancelFriend);
 router.delete('/friends/:id/destroy',userController.destroyFriend);
 router.post('/friends/:id/block',userController.blockUser);
 router.patch('/friends/:id/unblock',userController.unBlockUser);
-router.get('/friends/:id/sort',userController.sortFriend)
+router.get('/friends/:id/sort',userController.sortFriend);
+router.get("/friends/:id",userController.getFriend)
 //settting
 router.post('/profile/settingInfo',userController.editProfile);
 router.post('/profile/settingUser',userController.editUser);

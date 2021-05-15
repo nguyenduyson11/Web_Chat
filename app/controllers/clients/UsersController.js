@@ -620,6 +620,16 @@ class UsersController{
       }
     });
   }
+  getFriend(req,res){
+    User.findById(req.params.id,function(err,data){
+      if(err){
+        res.json({status:'error'})
+      }
+      else{
+        res.json({status:'oke',userSelect:data})
+      }
+    })
+  }
 }
 function arrayComment(array,listcomment,users) {
   let result =[]
