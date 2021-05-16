@@ -69,6 +69,7 @@ const user = new Schema({
         type:Boolean,
         default:false
     },
+    messages:[],
     blocklist:[],
     requests:[],
     friends:[],

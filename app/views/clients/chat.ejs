@@ -126,7 +126,7 @@
                       <div class="col-lg-8 col-md-8">
                           <div class="mesge-area">
                               <ul class="conversations">
-                                  <li>
+                                  <li class="you">
                                       <figure><img src="img/anh-bia.webp" alt=""></figure>
                                       <div class="text-box">
                                           <p>HI, i have faced a problem with your software. are you available now</p>
@@ -164,12 +164,12 @@
                                       <div class="text-box">
                                           <p>
                                               Dear You May again download the package directly.. 
-                                              <span><ins>File.txt</ins> <i class="fa fa-file"></i> 30MB download complete</span>
+                                              <span><img src="/upload/1620769853925-girl_01.jpg" alt=""></span>
                                           </p>
                                           <span><i class="fa fa-check" aria-hidden="true"></i><i class="fa fa-check" aria-hidden="true"></i>2:40PM</span>
                                       </div>
                                   </li>
-                                  <li class="you">
+                                  <li class="you type_animation">
                                       <figure><img src="img/avt.webp" alt=""></figure>
                                       <div class="text-box">
                                           <div class="wave">
@@ -182,55 +182,54 @@
                               </ul>
                           </div>
                           <div class="message-writing-box">
-                              <form method="post">
+                              <form method="post"  id="form_submit_message">
                                   <div class="text-area">
-                                      <input type="text" placeholder="write your message here..">
+                                      <input id="input_message_chat" type="text" placeholder="write your message here.." name="message">
                                       <button type="submit"><i style="margin: 0; font-size: 15px;" class="fa fa-paper-plane-o"></i></button>
                                   </div>
+                                  <input id="file_image_icon" type="hidden" name="icon">
                                   <div class="emojies">
                                       <i><img src="/chatTemplate/img/bieu cam/81.png"></i>
                                       <ul class="emojies-list">
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/1.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/2.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/3.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/4.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/5.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/6.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/7.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/8.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/9.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/10.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/11.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/12.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/13.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/14.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/15.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/16.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/17.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/18.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/19.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/20.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/21.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/22.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/23.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/24.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/25.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/26.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/27.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/28.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/29.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/30.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/31.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/32.png" alt=""></a></li>
-                                          <li><a href="#" title=""><img src="/chatTemplate/img/bieu cam/80.png" alt=""></a></li>
-                                         
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/1.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/2.png" alt=":("></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/3.png" alt="::)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/4.png" alt=":v"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/5.png" alt=":D"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/6.png" alt=":z"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/7.png" alt=":y"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/8.png" alt=":)("></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/9.png" alt=":?"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/10.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/11.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/12.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/13.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/14.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/15.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/16.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/17.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/18.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/19.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/20.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/21.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/22.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/23.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/24.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/25.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/26.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/27.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/28.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/29.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/30.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/31.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/32.png" alt=":)"></a></li>
+                                          <li><a href="#" title=""><img class="image_icon" src="/chatTemplate/img/bieu cam/80.png" alt=":f"></a></li>
                                       </ul>
                                   </div>
                                   <div class="attach-file">
                                       <label class="fileContainer">
                                           <i class="fa fa-link" aria-hidden="true"></i>
-
-                                          <input type="file">
+                                          <input id="send_image_inbox" type="file" name="image" >
                                       </label>
                                   </div>
                               </form>
@@ -252,15 +251,7 @@
                                   <div class="media">
                                       <span>Media</span>
                                       <ul>
-                                          <li><img src="img/user/audio-user1.jpg" alt=""></li>
-                                          <li><img src="img/user/audio-user2.jpg" alt=""></li>
-                                          <li><img src="img/user/audio-user3.jpg" alt=""></li>
-                                          <li><img src="img/user/audio-user4.jpg" alt=""></li>
-                                          <li><img src="img/user/audio-user5.jpg" alt=""></li>
-                                          <li><img src="img/user/audio-user6.jpg" alt=""></li>
-                                          <li><img src="img/user/admin2.jpg" alt=""></li>
-                                          <li><img src="img/user/audio-user1.jpg" alt=""></li>
-                                          <li><img src="img/user/audio-user2.jpg" alt=""></li>
+                                          
                                           <li><img src="img/user/audio-user6.jpg" alt=""></li>
                                       </ul>
                                   </div>
@@ -293,9 +284,11 @@
 <script src="/js/chatbox.js"></script>
 <script src="/js/menu.js"></script>
 <script src="/js/spinners.js"></script> -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/assets/jquery/jquery.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="/js/getCurrentUser.js"></script>
   <script src="/clientChats/chat.js"></script>
   <script src="/chatTemplate/js/main.min.js"></script>
   <script src="/chatTemplate/js/script.js"></script>

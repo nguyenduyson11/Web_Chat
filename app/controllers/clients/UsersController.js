@@ -6,6 +6,7 @@ const Post = require('../../models/post');
 const moment = require('moment');
 const Comment = require('../../models/post');
 const mongoose = require('mongoose');
+const user = require('../../models/user');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/upload');
@@ -519,6 +520,24 @@ class UsersController{
                           user: data,
                           status:'oke',
                         })
+                        let isExist = req.user.messages.findIndex(e=>e.toUser.toString() == req.params.idUser.toString());
+                        if(isExist != -1)
+                          return;
+                        User.findOneAndUpdate({_id :req.params.idUser},{
+                          $push : { messages : {toUser: req.user._id , inbox:[], block:false}}
+                        },{messages:{toUser:{}}},function(err,data){
+                          if(err){
+                            return;
+                          }
+                          User.findOneAndUpdate({_id :req.user._id},{
+                            $push: {messages: {toUser: mongoose.Types.ObjectId(req.params.id) , inbox:[], block:false}}
+                          },function(err,data){
+                            if(err){
+                              return;
+                            }
+                            return;
+                          })
+                        })
                       }
                     })
                    
@@ -626,7 +645,13 @@ class UsersController{
         res.json({status:'error'})
       }
       else{
-        res.json({status:'oke',userSelect:data})
+        var inbox = null;
+        let me = req.user;
+        if(me.messages){
+          var index = me.messages.findIndex(friend=>friend.toUser.toString() == req.params.id.toString())
+          inbox = me.messages[index].inbox
+        }
+        res.json({status:'oke',userSelect:data,inbox})
       }
     })
   }

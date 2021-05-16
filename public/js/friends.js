@@ -158,48 +158,50 @@ function unblock(){
       });
   })
 }
-
-document.getElementById('select_sort_firend').addEventListener('change',function(e){
-  $.ajax({
-    method: "GET",
-    url: `/friends/${e.target.getAttribute('data-id')}/sort?key=${e.target.value}`,
-  })
-    .done(function(data) {
-    if(data.status == 'oke'){
-      $('.group_listFriends').html('')
-      for(let friend of data.listFriends){
-         let html = `<div class="col-lg-3 col-md-6 col-sm-6">
-         <div class="friend-block">
-             <div class="more-opotnz">
-                 <i class="fa fa-ellipsis-h"></i>
-                 <ul>
-                     <li><a href="#" title="">Chặn</a></li>
-                     <li><a href="#" title="">Bỏ Chặn</a></li>                                         
-                         <li><a class="destroy_friends" href="/friends/${friend._id}/destroy" title="">Hủy Kết Bạn</a></li>
-                 </ul>
-             </div>
-             <figure>
-                 <img src="${friend.image}" alt="">
-             </figure>
-             
-             <div class="frnd-meta">
-                 <div class="frnd-name">
-                     <a href="/profile/${friend._id}" title="">${friend.username}</a>
-                     <span>${friend.city}</span>
-                 </div>
-                 <a class="send-mesg" href="#" title="">Nhắn tin</a>
-             </div>
-         </div>
-     </div>`      
-         $('.group_listFriends').append(html)      
-          $(".friend-block").show();
-
-          
+if(document.getElementById('select_sort_firend')){
+  document.getElementById('select_sort_firend').addEventListener('change',function(e){
+    $.ajax({
+      method: "GET",
+      url: `/friends/${e.target.getAttribute('data-id')}/sort?key=${e.target.value}`,
+    })
+      .done(function(data) {
+      if(data.status == 'oke'){
+        $('.group_listFriends').html('')
+        for(let friend of data.listFriends){
+           let html = `<div class="col-lg-3 col-md-6 col-sm-6">
+           <div class="friend-block">
+               <div class="more-opotnz">
+                   <i class="fa fa-ellipsis-h"></i>
+                   <ul>
+                       <li><a href="#" title="">Chặn</a></li>
+                       <li><a href="#" title="">Bỏ Chặn</a></li>                                         
+                           <li><a class="destroy_friends" href="/friends/${friend._id}/destroy" title="">Hủy Kết Bạn</a></li>
+                   </ul>
+               </div>
+               <figure>
+                   <img src="${friend.image}" alt="">
+               </figure>
+               
+               <div class="frnd-meta">
+                   <div class="frnd-name">
+                       <a href="/profile/${friend._id}" title="">${friend.username}</a>
+                       <span>${friend.city}</span>
+                   </div>
+                   <a class="send-mesg" href="#" title="">Nhắn tin</a>
+               </div>
+           </div>
+       </div>`      
+           $('.group_listFriends').append(html)      
+            $(".friend-block").show();
+  
+            
+        }
       }
-    }
+  
+      });
+  })
+}
 
-    });
-})
 // realtime
 socket.on("notifycation-friend",function(data){
   if(window.currentUser.id.toString() == data.userTo._id.toString()){
