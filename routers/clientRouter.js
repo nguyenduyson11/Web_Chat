@@ -48,10 +48,12 @@ router.post('/friends/:id/block',userController.blockUser);
 router.patch('/friends/:id/unblock',userController.unBlockUser);
 router.get('/friends/:id/sort',userController.sortFriend);
 router.get("/friends/:id",userController.getFriend);
+router.get('/getListFriends',userController.getListFriends)
 //settting
 router.post('/profile/settingInfo',userController.editProfile);
 router.post('/profile/settingUser',userController.editUser);
 router.post('/profile/settingPassword',userController.editPassword);
 //chat
+router.get('/requestMessage',messagesController.getMessage)
 router.post('/sendMessage/:id',messagesController.create)
 module.exports = router;

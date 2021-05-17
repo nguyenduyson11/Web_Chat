@@ -1,5 +1,7 @@
+const socket = io("http://localhost:3000");
 $(document).ready(function(){
-  const socket = io("http://localhost:3000");
+  
+  var selectedFriend = null;
   $('.image_icon').click(function(e){{
     $('#file_image_icon').val(e.target.getAttribute('src'))
       $('#input_message_chat').val(e.target.getAttribute('alt'))
@@ -11,6 +13,7 @@ $(document).ready(function(){
       url: `/friends/${e.target.getAttribute('data-id')}`,
     })
       .done(function(data) {
+        selectedFriend = data.userSelect;
         $('.avatar_user_chat').attr("src",data.userSelect.image);
         $('.username_user_chat').html(data.userSelect.username);
         $('.about_user_chat').html((data.userSelect.other ? data.userSelect.other.introduce : ''));
@@ -46,7 +49,23 @@ $(document).ready(function(){
         }
         document.querySelector('.conversations').innerHTML = html;
         document.querySelector('.conversations').scrollTop = document.querySelector('.conversations').scrollHeight;
-        
+        //listen event keyboard
+        $('#input_message_chat').focus(function(){
+          socket.emit('keyboard',selectedFriend._id)
+        })
+        //emit online or offline
+        socket.emit('statusUser',selectedFriend._id)
+        //listen online or offline
+        socket.on('statusUser',function(data){
+          console.log(data)
+          if(data){
+            $('#status_user').text('Online')
+          }
+          else{
+            $('#status_user').text('Offline')
+          }
+        }
+        )
       });
   })
   //submit inbox
@@ -61,7 +80,47 @@ $(document).ready(function(){
     form.append('createAt',`${currentTime.getHours()}:${currentTime.getMinutes()}`);
     upload(form);
     e.target.reset();
+    e.target.icon.value = ''
   })
+  //real time message
+  socket.on("messageReceived",function(messageObj){
+    if(selectedFriend != null && messageObj.from.toString() == selectedFriend._id.toString()){
+      let html = `<li class="you">
+                    <figure><img src="${selectedFriend.image}" alt=""></figure>
+                    <div class="text-box">
+                        <p>
+                        ${messageObj.icon ? `<span><img src="${messageObj.icon}" alt=""></span>` : `${messageObj.message}`}            
+                        ${messageObj.file ? `<span><img src="/upload/${messageObj.file}" alt=""></span>` : ''}
+                        </p>
+                        <span><i class="fa fa-check" style="margin: 5px 0px;" aria-hidden="true"></i><i class="fa fa-check" style="margin: 5px;" aria-hidden="true"></i> ${messageObj.createAt}</span>
+                    </div>
+                </li>`
+        document.querySelector('.conversations').innerHTML += html;
+        $('.type_animation').remove();
+        document.querySelector('.conversations').scrollTop = document.querySelector('.conversations').scrollHeight;         
+    }
+  })
+  //listen keyboard 
+  socket.on("keyboardReceived",function(){
+    if(selectedFriend != null){
+        let html = `<li class="you type_animation">
+                            <figure><img src="${selectedFriend.image}" alt=""></figure>
+                            <div class="text-box">
+                                <div class="wave">
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                </div>
+                            </div>
+                        </li>`
+        let type_animate = $('.type_animation')
+        if(type_animate.length <1){
+          document.querySelector('.conversations').innerHTML += html;
+        }
+        document.querySelector('.conversations').scrollTop = document.querySelector('.conversations').scrollHeight;         
+    }
+  })
+  
 })
 var header = {
   headers :{
@@ -72,7 +131,6 @@ const upload = (file) => {
   let id = $('.messenger').attr("data-id");
   axios.post(`/sendMessage/${id}`, file, header)
   .then(function (response) {
-    console.log(response.data)
         let html = `<li class="me">
                   <figure><img src="${window.currentUser.image}" alt=""></figure>
                   <div class="text-box">
@@ -85,6 +143,18 @@ const upload = (file) => {
               </li>`
           $('.conversations').append(html);
           document.querySelector('.conversations').scrollTop = document.querySelector('.conversations').scrollHeight;
+          // emit message
+          socket.emit('sendMessage',{
+            messageObj: response.data.inbox,
+            receiver: response.data.receiver,
+            sender: response.data.sender
+          })
+          // emit notifycation message
+          socket.emit('message-Notifycation',{
+            messageObj: response.data.inbox,
+            receiver: response.data.receiver,
+            sender: response.data.sender
+          })
   })
   .catch(function (error) {
     console.log(error);

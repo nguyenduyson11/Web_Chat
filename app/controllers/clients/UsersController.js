@@ -524,13 +524,13 @@ class UsersController{
                         if(isExist != -1)
                           return;
                         User.findOneAndUpdate({_id :req.params.idUser},{
-                          $push : { messages : {toUser: req.user._id , inbox:[], block:false}}
-                        },{messages:{toUser:{}}},function(err,data){
+                          $push : { messages : {toUser: mongoose.Types.ObjectId(req.user._id) , inbox:[], block:false}}
+                        },function(err,data){
                           if(err){
                             return;
                           }
                           User.findOneAndUpdate({_id :req.user._id},{
-                            $push: {messages: {toUser: mongoose.Types.ObjectId(req.params.id) , inbox:[], block:false}}
+                            $push: {messages: {toUser: mongoose.Types.ObjectId(req.params.idUser) , inbox:[], block:false}}
                           },function(err,data){
                             if(err){
                               return;
@@ -655,6 +655,10 @@ class UsersController{
       }
     })
   }
+  async getListFriends(req,res){
+    let results = await User.find({_id: req.user.friends})
+    res.json(results)
+  } 
 }
 function arrayComment(array,listcomment,users) {
   let result =[]

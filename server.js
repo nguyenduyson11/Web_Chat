@@ -5,10 +5,13 @@ const userOnlines = [];
 function server(io){
    io.on('connection',function(socket){
      let user = currentUser.getCurrentUser();
-     socket.userId = user ? user.id : '';
-     socket.id =  user ? user.id : '';
+     let idUser =  user ? user.id : '';
      console.log('co người kết nối'+socket.id);
-     
+     if(idUser){
+      // let isExist 
+      userOnlines[idUser] = socket.id;
+     }
+     console.log(userOnlines);
      //chat with user
      socket.on('chat',function(data){
       let msg = new Message({
@@ -64,8 +67,37 @@ function server(io){
       })
         
      
-      // socket.to(data.userId).emit('add-friend',{data})
+     
 
+    })
+    //listen chat message socket
+    socket.on('sendMessage',function(data){
+      socket.to(userOnlines[data.receiver._id]).emit('messageReceived',data.messageObj)
+    })
+    //listen keyborad
+    socket.on('keyboard',function(data){
+      socket.to(userOnlines[data]).emit('keyboardReceived')
+    })
+    //listen status user
+    socket.on('statusUser',function(data){
+      let isExist = false;
+      for(let x in userOnlines){
+        if(x.toString() == data.toString()){
+          isExist = true;
+        }
+      }
+      socket.emit('statusUser',isExist)
+    })
+    //listen event get listUser
+    socket.on('getlistUserOnline',function(data){
+      let results = [];
+      for(let x in userOnlines){
+        results.push(x)
+      }
+      socket.emit('userOnline',results)
+    })
+    socket.on('disconnect',function(socket){
+      
     })
    });
 

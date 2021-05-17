@@ -71,8 +71,8 @@
             <p>1</p>
         </div>
         <div class="list">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-edit">
+            <ul class="list-group list_group_inboxs">
+                <li class="list-group-item list-group-item-edit title_info_message">
                     <div class="name">
                         <a href="#"><p class="username">Tin nhắn</p></a>
                     </div>
@@ -83,39 +83,7 @@
                         <a href="#"><p class="username">Đánh dấu</p></a>
                     </div>
                 </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt-04.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Lương Cảnh</strong></a>
-                        <p class="status friend">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <div></div>
-                    <i class="far fa-comments" style="color: #9899a4;"></i>
-                </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Phước Tùng</strong></a>
-                        <p class="status friend">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <div></div>
-                    <i class="far fa-comments" style="color: #9899a4;"></i>
-                </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt-02.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#"><strong class="username">Nguyễn Duy Sơn</strong></a>
-                        <p class="status friend">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <div></div>
-                    <i class="far fa-comments" style="color: #9899a4;"></i>
-                </li>
+               
                 <li class="list-group-item list-group-item-foot" style="background-color: #7b59c1;">
                     <div class="name">
                         <a href="#"><strong class="username">Xem tất cả tin nhắn</strong></a>
@@ -203,7 +171,7 @@
                     <li class="list-group-item acc-infor" style="border-top: 1px #e6ecf5 solid;">
                         <i class="fas fa-bars"></i>
                         <div class="name">
-                            <a href="#"><strong class="username">Cài đặt tài khoản</strong></a>
+                            <a href="/profile/<%= user._id %>/setting"><strong class="username">Cài đặt tài khoản</strong></a>
                         </div>
                     </li>
                     <li class="list-group-item acc-infor">

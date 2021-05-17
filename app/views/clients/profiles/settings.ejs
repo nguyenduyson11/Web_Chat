@@ -67,7 +67,7 @@
                                             <a class="" href="/profile/<%= user._id %>/friends">Bạn bè</a>
                                         </li>
                                         <li>
-                                            <a class="active" href="/profile/<%= user._id %>/images">Ảnh</a>
+                                            <a class="" href="/profile/<%= user._id %>/images">Ảnh</a>
                                         </li>
                                         <% if (currentUser._id.toString() === userSearch._id.toString()){ %>
                                             <li>
@@ -244,7 +244,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   <script src="/js/perfect-scrollbar.jquery.min.js"></script>
     <script src="/js/spinners.js"></script>
-    <script src="/js/searchFriends.js"></script>
+    <script src="/js/getCurrentUser.js"></script>
     <script src="/js/settings.js"></script>
+    <script src="/js/searchFriends.js"></script>
 </body>
 </html>

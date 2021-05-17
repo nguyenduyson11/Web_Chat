@@ -56,13 +56,13 @@ class MessagesController{
       //   console.log(req.file.filename)
       // }
       var me = req.user;
-      User.findById(req.params.id,function(err,data){
+      User.findById(req.params.id,function(err,dataSelect){
         if(err){
          return res.json({status:'error',message:'không tìm thấy user'})
         }
         User.updateOne({
           $and: [{
-            "_id": data._id
+            "_id": dataSelect._id
           },{
             "messages.toUser": me._id
           }]
@@ -71,10 +71,13 @@ class MessagesController{
             "messages.$.inbox" : {
               "_id": mongoose.Types.ObjectId(),
               "from": me._id,
+              "avatar": me.image,
+              "username":me.username,
               "message": req.body.message,
               "icon": req.body.icon,
                "file": (req.file) ? req.file.filename : null,
-               "createAt": req.body.createAt
+               "createAt": req.body.createAt,
+               "createDate": Date.now()
             }
           }
         },function(err,data){
@@ -92,17 +95,20 @@ class MessagesController{
               "messages.$.inbox" : {
                 "_id": mongoose.Types.ObjectId(),
                 "from": me._id,
+                "avatar": me.image,
+               "username":me.username,
                 "message": req.body.message,
                 "icon": req.body.icon,
                  "file": (req.file) ? req.file.filename : null,
-                 "createAt": req.body.createAt
+                 "createAt": req.body.createAt,
+                 "createDate": Date.now()
               }
             }
           },function(err,data){
             if(err){
               return res.json({status:'error'})
             }
-            res.json({status:'oke',inbox:{
+            res.json({status:'oke',receiver:dataSelect,sender:req.user,inbox:{
                from: me._id,
                message: req.body.message,
                icon: (req.body.icon == '' ? null : req.body.icon),
@@ -113,6 +119,10 @@ class MessagesController{
         })
       })
     })
+  }
+  async getMessage(req,res){
+    let me = req.user;
+
   }
 }
 module.exports = new MessagesController;
