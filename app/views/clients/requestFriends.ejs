@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/css/spinners.css">
+    <link rel="stylesheet" href="/chatTemplate/csss/css/main.min.css">
+    <link rel="stylesheet" href="/chatTemplate/csss/css/style.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/chatTemplate/csss/css/color.css">
+    <link rel="stylesheet" href="/chatTemplate/csss/css/responsive.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Trang cá nhân</title>
+    
+    
+</head>
+<body>
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <%- include('layouts/leftBar') %>
+  <%- include('layouts/rightBar') %>
+  <%- include('layouts/topBar') %>
+    <!-- end header and menu -->
+    <div class="container">
+      <div class="row" style="margin-top: 110px;">
+          <div class="col-lg-12">
+            <% if(listRequest) {%>
+              <% listRequest.forEach(function(data){ %>
+                <div class="central-meta item">
+                  <div class="pit-post">
+                      <figure>
+                          <img src="<%= data.image %>" width="120px" height="120px" alt="" >
+                      </figure>
+                      <div class="pit-post-deta">
+                          <h4><a href="pitpoint-detail.html" title=""><span class="status f-online"></span> <%= data.username %></a></h4>
+                          <ul class="post-up-time">
+                              <li>
+                                  <div class="verification">
+                                      <em class="verify"><i style="margin: 0;" class="fa fa-check-circle"></i> verified</em>
+                                  </div>
+                              </li>
+                              <li><i style="margin: 0;" class="fa fa-map-marker"></i> <%= data.city %></li>
+                          </ul>
+                          <ul class="pit-opt">
+                              <li>
+                                  <div class="likes heart" title="Like/Dislike">❤ <span>1.6k</span></div>
+                              </li>	
+                              <li class="share-pst" title="Shares"><i style="margin: 0;" class="fa fa-share-alt"></i><em>125</em></li>
+                              <li class="save-post" title="Match Mark"><i style="margin: 0;" class="fa fa-check-circle"></i></li>
+                              <li class="get-link" title="Get Post Link"><i style="margin: 0;" class="fa fa-link"></i></li>
+                              <li class="smile-it" title="Give Smiles"><i style="margin: 0;" class="fa fa-smile-o"></i><em>Send Smile</em>
+                                  <div class="smiles-bunch">
+                                      <i style="margin: 0;" class="em em---1"></i>
+                                      <i style="margin: 0;" class="em em-smiley"></i>
+                                      <i style="margin: 0;" class="em em-anguished"></i>
+                                      <i style="margin: 0;" class="em em-laughing"></i>
+                                      <i style="margin: 0;" class="em em-angry"></i>
+                                      <i style="margin: 0;" class="em em-astonished"></i>
+                                      <i style="margin: 0;" class="em em-blush"></i>
+                                      <i style="margin: 0;" class="em em-disappointed"></i>
+                                      <i style="margin: 0;" class="em em-worried"></i>
+                                      <i style="margin: 0;" class="em em-kissing_heart"></i>
+                                      <i style="margin: 0;" class="em em-rage"></i>
+                                      <i style="margin: 0;" class="em em-stuck_out_tongue"></i>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="buttons">
+                          <a href="#" title="" class="main-btn2 send-mesg" data-ripple="">Send Message</a>
+                          <a href="#" title="" class="main-btn" data-ripple="">Accept Friend</a>
+                      </div>
+                  </div>
+              </div>
+              <% }) %>
+            <% } %>
+              
+              
+              
+         
+          
+      </div>
+  </div>
+   <script>
+     const socket = io("http://localhost:3000");
+   </script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/js/getCurrentUser.js"></script>
+  <script src="/js/spinners.js"></script>
+    <script src="/chatTemplate/js/main.min.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/searchFriends.js"></script>
+    
+</body>
+</html>

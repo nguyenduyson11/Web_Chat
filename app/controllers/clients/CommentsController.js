@@ -26,6 +26,23 @@ class CommentsController{
           user : req.user,
           countPost: countPost.comment.length
         })
+        User.findOneAndUpdate({_id: req.user._id},{
+          $push: {
+            notifications : {
+                  username: req.user.username,
+                  avatar: req.user.image,
+                  status:'uncheck',
+                  type_id : post._id,
+                  type:'post',
+                  content: `đã bình luận bài viết của bạn`,
+                  createAt : Date.now()
+            }
+          }
+        },function(err,data){
+          if(err){
+            return;
+          }
+        })
       }
       else{
         // req.flash('message','bài viết đã bị xóa ');
@@ -135,6 +152,23 @@ class CommentsController{
             user : req.user,
             countsubcomment: countsubcomment.subComment.length
           })
+          User.findOneAndUpdate({_id: req.user._id},{
+            $push: {
+              notifications : {
+                    username: req.user.username,
+                    avatar: req.user.image,
+                    status:'uncheck',
+                    type_id : post._id,
+                    type:'post',
+                    content: `đã trả lời bình luận của bạn`,
+                    createAt : Date.now()
+              }
+            }
+          },function(err,data){
+            if(err){
+              return;
+            }
+          })
         }
         else{
           res.json({
@@ -190,6 +224,23 @@ class CommentsController{
           status:'oke',
           message:'thả tim thành công'
         });
+        User.findOneAndUpdate({_id: req.user._id},{
+          $push: {
+            notifications : {
+                  username: req.user.username,
+                  avatar: req.user.image,
+                  status:'uncheck',
+                  type_id : post._id,
+                  type:'post',
+                  content: `đã thả tim  bình luận của bạn`,
+                  createAt : Date.now()
+            }
+          }
+        },function(err,data){
+          if(err){
+            return;
+          }
+        })
       }
     }
   }

@@ -87,10 +87,13 @@ class HomesController{
         },{
           $push:{
             notifications : {
+              username: req.user.username,
+              avatar: req.user.image,
               type_id : post._id,
               type:'post',
               status: 'uncheck',
-              content: `${req.user.username} đã đăng một trạng thái mới`
+              content: `đã đăng một trạng thái mới`,
+              createAt : Date.now()
             }
           }
         }).then(data=>{
@@ -189,6 +192,23 @@ class HomesController{
           status:'oke',
           message:'thả tim thành công'
         });
+        User.findOneAndUpdate({_id: req.user._id},{
+          $push: {
+            notifications : {
+                  username: req.user.username,
+                  avatar: req.user.image,
+                  status:'uncheck',
+                  type_id : post._id,
+                  type:'post',
+                  content: `đã thả tim bài viết của bạn`,
+                  createAt : Date.now()
+            }
+          }
+        },function(err,data){
+          if(err){
+            return;
+          }
+        })
       }
     }
   }

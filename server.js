@@ -96,6 +96,9 @@ function server(io){
       }
       socket.emit('userOnline',results)
     })
+    socket.on('message-Notifycation',function(data){
+      socket.to(userOnlines[data.receiver._id]).emit('message-Notifycation',data)
+    })
     socket.on('disconnect',function(socket){
       
     })

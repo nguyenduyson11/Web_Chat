@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/css/spinners.css">
+    <link rel="stylesheet" href="/chatTemplate/csss/css/main.min.css">
+    <link rel="stylesheet" href="/chatTemplate/csss/css/style.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/chatTemplate/csss/css/color.css">
+    <link rel="stylesheet" href="/chatTemplate/csss/css/responsive.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Trang cá nhân</title>
+    
+    
+</head>
+<body>
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Đang tải</p>
+    </div>
+  </div>
+  <%- include('layouts/leftBar') %>
+  <%- include('layouts/rightBar') %>
+  <%- include('layouts/topBar') %>
+    <!-- end header and menu -->
+    <div class="container">
+      <div class="row" style="margin-top: 110px;">
+          <div class="col-lg-12">
+              <div class="central-meta">
+                  <div class="editing-interest">
+                      <span class="create-post"><i class="fa fa-bell-o" aria-hidden="true"></i> All Notifications<a title="" href="setting.html">Notifications Setting</a></span>
+                      <div class="notification-box">
+                          <ul>
+                            <% listNotifycations.forEach(function(notify){ %>
+                              <li>
+                                <figure><img style="width: 45px; height: 45px;" src="<%= notify.avatar %>" alt=""></figure>
+                                <div class="notifi-meta">
+                                    <p><span style="color: black; font-size: 16px;"><%= notify.username %></span> <%= notify.content %></p>
+                                    <span><i style="margin: 5px;" class="fa fa-thumbs-up"></i><%= notify.createAt %> </span>
+                                </div>
+                                <div class="more">
+                                    <div class="more-post-optns"><i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                                        <ul>
+                                            <li><i style="margin: 5;" class="fa fa-bell-slash-o"></i>Mute</li>
+                                            <li><i style="margin: 5;" class="fa fa-wpexplorer"></i>Report</li>
+                                            <li><i style="margin: 5;" class="fa fa-bell-slash-o"></i>Block</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <% }) %>
+
+                          </ul>
+                      </div>
+                  </div>
+              </div>	
+          </div><!-- centerl meta -->
+         
+          
+      </div>
+  </div> 
+   <script>
+     const socket = io("http://localhost:3000");
+   </script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/assets/jquery/jquery.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/js/getCurrentUser.js"></script>
+  <script src="/js/spinners.js"></script>
+    <script src="/chatTemplate/js/main.min.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/searchFriends.js"></script>
+    
+</body>
+</html>

@@ -9,6 +9,7 @@ $.ajax({
         username: data.user.username,
         image: data.user.image,
         inbox: data.user.messages,
-        friends: data.user.friends
+        friends: data.user.friends,
+        notifycations: data.user.notifications
     }
   });

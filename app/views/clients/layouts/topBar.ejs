@@ -59,7 +59,7 @@
                 <% }) %>
                 <li class="list-group-item list-group-item-foot" style="background-color: #38a9ff;">
                     <div class="name">
-                        <a href="#"><strong class="username">Xem tất cả lời mời kết bạn</strong></a>
+                        <a href="/requestFriends"><strong class="username">Xem tất cả lời mời kết bạn</strong></a>
                     </div>
                 </li>
             </ul>
@@ -68,7 +68,7 @@
     <div class="inform">
         <i class="far fa-comments"></i>
         <div class="inform-icon" style="background: #7b59c1;">
-            <p>1</p>
+            <p id="count_inbox">0</p>
         </div>
         <div class="list">
             <ul class="list-group list_group_inboxs">
@@ -95,11 +95,11 @@
     <div class="inform">
         <i class="fas fa-bolt"></i>
         <div class="inform-icon" style="background: #fd5e3a;">
-            <p>9</p>
+            <p>0</p>
         </div>
         <div class="list">
             <ul class="list-group">
-                <li class="list-group-item list-group-item-edit">
+                <li class="list-group-item list-group-item-edit list_notify_users">
                     <div class="name">
                         <a href="#"><p class="username">Thông báo</p></a>
                     </div>
@@ -110,45 +110,10 @@
                         <a href="#"><p class="username">Đánh dấu</p></a>
                     </div>
                 </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt-04.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#">
-                            <p class="notify username">Nguyễn Lương Cảnh<span class="notify-content"> đã bình luận bài viết của bạn.</span></p>
-                        </a>
-                    </div>
-                    <div></div>
-                    <i class="fas fa-bolt" style="color: #9899a4;"></i>
-                </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#">
-                            <p class="notify username">Bạn <span class="notify-content"> và </span> Lương Cảnh <span class="notify-content"> vừa trở thành bạn bè.</span></p>
-                        </a>
-                    </div>
-                    <div></div>
-                    <i class="fas fa-bolt" style="color: #9899a4;"></i>
-                </li>
-                <li class="list-group-item right-menu-item">
-                    <div class="user">
-                        <img src="/assets/images/homes/avt-02.webp" alt="">
-                    </div>
-                    <div class="name">
-                        <a href="#">
-                            <p class="notify username">Nguyễn Cảnh<span class="notify-content"> đã thích bài viết của bạn.</span></p>
-                        </a>
-                    </div>
-                    <div></div>
-                    <i class="fas fa-bolt" style="color: #9899a4;"></i>
-                </li>
+                
                 <li class="list-group-item list-group-item-foot" style="background-color: #fd5e3a;">
                     <div class="name">
-                        <a href="#"><strong class="username">Xem tất cả thông báo</strong></a>
+                        <a href="/notifycations"><strong class="username">Xem tất cả thông báo</strong></a>
                     </div>
                 </li>
             </ul>
@@ -186,38 +151,7 @@
                             <a href="/logout"><strong class="username">Đăng xuất</strong></a>
                         </div>
                     </li>
-                    <li class="list-group-item acc-infor acc-infor-setting" style="border-top: 1px #e6ecf5 solid;">
-                        <div class="name">
-                            <a href="#"><p class="username">Cài đặt</p></a>
-                        </div>
-                    </li>
-                    <li class="list-group-item acc-infor" style="border-top: 1px #e6ecf5 solid;">
-                        <div class="status-online"></div>
-                        <div class="name">
-                            <a href="#"><strong class="username status-01">Đang hoạt động</strong></a>
-                        </div>
-                    </li>
-                    <li class="list-group-item acc-infor">
-                        <div class="status-busy"></div>
-                        <div class="name">
-                            <a href="#"><strong class="username status-01">Ngoại tuyến</strong></a>
-                        </div>
-                    </li>
-                    <li class="list-group-item acc-infor acc-infor-setting" style="border-top: 1px #e6ecf5 solid;">
-                        <div class="name">
-                            <a href="#"><p class="username">Thông tin khác</p></a>
-                        </div>
-                    </li>
-                    <li class="list-group-item acc-infor" style="border-top: 1px #e6ecf5 solid;">
-                        <div class="name">
-                            <a href="#"><strong class="username">Điều khoản & điều kiện</strong></a>
-                        </div>
-                    </li>
-                    <li class="list-group-item acc-infor">
-                        <div class="name">
-                            <a href="#"><strong class="username">Liên hệ</strong></a>
-                        </div>
-                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -327,7 +261,7 @@
                     </span>
                 </li>
             </ul>
-            <a href="#" class="inform-res-footer" style="background-color: #7b59c1;">Xem tất cả tin nhắn</a>
+            <a href="/messages" class="inform-res-footer" style="background-color: #7b59c1;">Xem tất cả tin nhắn</a>
         </div>
     </div>
 </div>

@@ -49,11 +49,16 @@ router.patch('/friends/:id/unblock',userController.unBlockUser);
 router.get('/friends/:id/sort',userController.sortFriend);
 router.get("/friends/:id",userController.getFriend);
 router.get('/getListFriends',userController.getListFriends)
+router.get('/requestFriends',userController.getRequest)
 //settting
 router.post('/profile/settingInfo',userController.editProfile);
 router.post('/profile/settingUser',userController.editUser);
 router.post('/profile/settingPassword',userController.editPassword);
 //chat
-router.get('/requestMessage',messagesController.getMessage)
-router.post('/sendMessage/:id',messagesController.create)
+router.get('/requestMessage',messagesController.getMessage);
+router.post('/sendMessage/:id',messagesController.create);
+
+//notifycation
+router.get('/getListNotifycations',userController.getListNotifycation);
+router.get('/notifycations',userController.notifycation)
 module.exports = router;

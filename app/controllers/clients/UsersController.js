@@ -276,8 +276,35 @@ class UsersController{
       }
     })
   }
-  getListNotifycation(req,res){
-
+  async getListNotifycation(req,res){
+    let results = await User.find({_id: req.user.friends})
+    results = results.reduce(function(result,data){
+       return result.concat(data.notifications)
+    },[])
+    results.sort((a,b)=>{
+      return b.createAt - a.createAt;
+    })
+    res.json(results)
+  }
+  async notifycation(req,res){
+    let results = await User.find({_id: req.user.friends}).lean()
+    results = results.reduce(function(result,data){
+       return result.concat(data.notifications)
+    },[])
+    results.sort((a,b)=>{
+      return b.createAt - a.createAt;
+    })
+   
+    
+    results = results.map(function(data){
+      let date = new Date(data.createAt);
+      data.createAt = `${date.getDate()}-${date.getMonth() -1}-${date.getFullYear()}`
+      return data
+    })
+    res.render('clients/notifycation',{
+      user: req.user,
+      listNotifycations : results
+    })
   }
   editImage(req,res){
     upload(req, res, function (err) {
@@ -318,9 +345,13 @@ class UsersController{
             },{
               $push:{
                 notifications : {
+                  username: req.user.username,
+                  avatar: req.user.image,
+                  status: 'uncheck',
                   type_id : post._id,
                   type:'user',
-                  content: `${req.user.username} đã cập nhật ảnh đại diện của mình`
+                  content: `đã cập nhật ảnh đại diện của mình`,
+                  createAt : Date.now()
                 }
               }
             }).then(data=>{
@@ -374,9 +405,13 @@ class UsersController{
             },{
               $push:{
                 notifications : {
+                  username: req.user.username,
+                  avatar: req.user.image,
+                  status:'uncheck',
                   type_id : post._id,
                   type:'user',
-                  content: `${req.user.username} đã cập nhật ảnh ảnh bìa của mình`
+                  content: `đã cập nhật ảnh ảnh bìa của mình`,
+                  createAt : Date.now()
                 }
               }
             }).then(data=>{
@@ -658,7 +693,29 @@ class UsersController{
   async getListFriends(req,res){
     let results = await User.find({_id: req.user.friends})
     res.json(results)
-  } 
+  }
+  async getRequest(req,res){
+    let users = await User.find({}).lean();
+    let listRequest = req.user.requests.reduce(function(kq,data){
+      if(data.fromTo.toString() !=  req.user._id.toString())
+        return kq.concat(data);
+    },[])
+    let kq = []
+    users.forEach(function(data){
+      let index = listRequest.findIndex(e=>e.fromTo.toString() == data._id.toString())
+      if(index != -1){
+        data.idRequest = listRequest[index]._id
+        return kq.push(data)
+      }
+    })
+    listRequest = kq;
+    console.log(listRequest)
+    res.render('clients/requestFriends',{
+      user: req.user,
+      listRequest,
+      users
+    })
+  }
 }
 function arrayComment(array,listcomment,users) {
   let result =[]
