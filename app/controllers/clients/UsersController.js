@@ -1,5 +1,6 @@
 
 const User = require('../../models/user');
+const Group = require('../../models/group');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 const Post = require('../../models/post');
@@ -48,15 +49,27 @@ class UsersController{
           return false;
         return true;  
       })
-      console.log(rs)
-      res.json({
-        status:'oke',
-        users: rs
+      Group.find({title:{
+        $regex: ".*" + query + ".*",
+        $options: "i"
+      }},function(err,data){
+        res.json({
+          status:'oke',
+          users: rs,
+          groups:data
+        })
       })
+      
     })
   }
   async profileGroup(req,res){
+    let key = req.query.key;
+    let iduser = req.user._id
     let currentUser = req.user;
+    let listGroups =  await Group.find({$or : [
+      {author : req.user._id},
+      {members : { $elemMatch : {iduser}}}
+    ]})
     User.findById(req.params.id,function(err,doc){
       if(err){
         res.redirect('/');
@@ -64,7 +77,8 @@ class UsersController{
       else{
         res.render('clients/profiles/profileGroup',{
           currentUser,
-          userSearch: doc
+          userSearch: doc,
+          listGroups
         });
       }
     });

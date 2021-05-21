@@ -1915,8 +1915,8 @@ body, html {
   cursor: pointer;
   font-size: 15px;
   position: absolute;
-  right: 18px;
-  top: 15px;
+  right: 0;
+  top: 0;
   z-index: 9;
 }
 .popup-wraper4 .popup.creat-group .popup-closed i {

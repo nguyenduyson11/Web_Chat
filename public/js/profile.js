@@ -331,3 +331,81 @@ if(input2){
     });
   })
 }
+let file_group = document.getElementById('file_group');
+file_group.addEventListener('change',function(e){
+  console.log(e.target.files[0])
+  $('#image_choice').attr('src',URL.createObjectURL(e.target.files[0]))
+})
+//create group 
+$('#create_group').click(function(e){
+  e.preventDefault()
+  let name_group = document.getElementById('name_group');
+  let form = new FormData();
+  form.append('coverImage',file_group.files[0])
+  form.append('name',name_group.value)
+  axios.post('/groups/new', form, header)
+  .then(function (response) {
+    console.log(response)
+    if(response.status == 200){
+      window.location.href = `/profile/${response.data.user._id}/group`
+    }
+    else{
+      alert('Tạo không thành công')
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+})
+//
+
+
+$('.btn_access_group').on('click',function(e){
+  window.location.href = `/group/${e.target.getAttribute('data-id')}`
+})
+
+function getlistsortGroup(e){
+  $(".preloader").fadeIn();
+  $.ajax({
+    method: "GET",
+    url: `/groups/sort?key=${e.value}`,
+  })
+    .done(function(data) {
+      let html =`<div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                    <div class="addgroup">
+                        <div class="item-upload">
+                            <i class="fa fa-plus-circle"></i>
+                            <div class="upload-meta">
+                                <h5>Tạo nhóm</h5>
+                                <span>việc này có thể mất vài giây!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+      data.listGroups.forEach(function(group){
+        html += `<div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                    <div class="group-box">
+                        <figure><img src="${ group.coverImage }" alt=""></figure>
+                        <a href="#" title="">${ group.title }</a>
+                        <span>${ group.members.length} thành viên</span>
+                        <button class="btn_access_group" data-id="${ group._id }">Truy cập nhóm</button>
+                    </div>
+                </div>`
+      })
+      $(".preloader").fadeOut();
+      $('.group_lists_items').html(html)
+      $('.btn_access_group').on('click',function(e){
+        window.location.href = `/group/${e.target.getAttribute('data-id')}`
+      })
+      $(function () {
+        $(".group-box").slice(0, 11).show();
+        $(".lodmore3 .btn-lod-more").on('click', function (e) {
+            $(".group-box:hidden").slice(0, 6).show("normal");
+            if($(".group-box:hidden").length == 0){
+                $(".lodmore3 .btn-lod-more").hide("fast");
+                $(".lodmore3 .btn-to-back").fadeIn();
+            }
+        });
+      });
+    }); 
+}

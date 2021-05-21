@@ -30,17 +30,13 @@
                       <div class="more-post-optns"><i style="margin: 0;" class="fa fa-cog" aria-hidden="true"></i>
                           <ul>
                               <li><i class="fa fa-wrench"></i>Setting</li>
-                              <li><i class="fa fa-envelope-open"></i>Active Contacts</li>
-                              <li><i class="fa fa-folder-open"></i>Archives Chats</li>
-                              <li><i class="fa fa-eye-slash"></i>Unread Chats</li>
-                              <li><i class="fa fa-flag"></i>Report a problem</li>
                           </ul>
                       </div>
                   </div>
               </div>
               <div class="message-people-srch">
                   <form method="post">
-                      <input type="text" placeholder="Search Friend..">
+                      <input id="search_user_me" type="text" placeholder="Search Friend..">
                       <button type="submit"><i style="margin: 0;" class="fa fa-search"></i></button>
                   </form>
                   <div class="btn-group add-group" role="group">
@@ -49,24 +45,19 @@
                       </button>
                       <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
                         <a class="dropdown-item" href="#">Online</a>
-                        <a class="dropdown-item" href="#">Away</a>
-                        <a class="dropdown-item" href="#">unread</a>
-                        <a class="dropdown-item" href="#">archive</a>
+                        <a class="dropdown-item" href="#">Offilne</a>
                       </div>
                   </div>
                   <div class="btn-group add-group align-right" role="group">
                       <button id="btnGroupDrop1" type="button" class="btn group dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Create+
+                        Tạo+
                       </button>
-                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="#">New user</a>
-                        <a class="dropdown-item" href="#">New Group +</a>
-                          <a class="dropdown-item" href="#">Private Chat +</a>
+                      <div style="display: none;" class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                       </div>
                   </div>
               </div>
               <div class="mesg-peple">
-                  <ul class="nav nav-tabs nav-tabs--vertical msg-pepl-list">
+                  <ul class="nav nav-tabs nav-tabs--vertical msg-pepl-list list_item_user_chat_me">
                       <% listFriends.forEach(function(data){ %>
                         <li  class="nav-item unread ">
                             <div data-id="<%= data._id %>" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 1000;cursor: pointer;" class="overlay_userchat item_user_chat"></div>
@@ -110,12 +101,10 @@
                                               <i class="fa fa-th" aria-hidden="true"></i>
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right">
-                                              <a class="dropdown-item audio-call" href="#" ><i class="fa fa-headphones" aria-hidden="true"></i>Voice Call</a>
-                                              <a href="#" class="dropdown-item video-call"><i class="fa fa-video-camera" aria-hidden="true"></i>Video Call</a>
+                                              <a class="dropdown-item audio-call" href="#" ><i style="margin: 5px;" class="fa fa-headphones" aria-hidden="true"></i>Voice Call</a>
+                                              <a href="#" class="dropdown-item video-call"><i style="margin: 5px;" class="fa fa-video-camera" aria-hidden="true"></i>Video Call</a>
                                               <hr>
-                                              <a href="#" class="dropdown-item"><i class="fa fa-server" aria-hidden="true"></i>Clear History</a>
-                                              <a href="#" class="dropdown-item"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i>Block Contact</a>
-                                              <a href="#" class="dropdown-item"><i class="fa fa-trash" aria-hidden="true"></i>Delete Contact</a>
+                                              <a id="view_info" href="/profile" class="dropdown-item"><i style="margin: 5px;" class="fa fa-server" aria-hidden="true"></i>Xem trang cá nhân</a>
                                           </div>
                                       </div>
                                   </li>
@@ -249,3 +238,4 @@
   <script src="/clientChats/chat.js"></script>
   <script src="/chatTemplate/js/main.min.js"></script>
   <script src="/chatTemplate/js/script.js"></script>
+  <script src="/js/searchFriends.js"></script>

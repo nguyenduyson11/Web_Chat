@@ -1,6 +1,6 @@
 <header class="site-header row">
     <div class="page-title">
-        <strong>BẢNG TIN</strong>
+        <strong style="cursor: pointer;" id="resfesh_web">BẢNG TIN</strong>
     </div>
     <div class="header-search">
         <input id="search_friends" type="search" class="search" placeholder="Tìm kiếm...">
@@ -52,8 +52,8 @@
                                 <a href="/profile/<%= request.fromTo %>"><strong class="username"><%= request.username %></strong></a>
                                 <p class="status friend">20 bạn chung</p>
                             </div>
-                            <i url="/requestFriends/<%= request._id %>/accept/<%= request.fromTo %>" class="fas fa-user-plus accept_friends" style="color: #38a9ff;"></i>
-                            <i url="/requestFriends/<%= user._id %>/remove" class="fas fa-user-minus block_friends" style="color: #9899a4;"></i>
+                            <i url="/requestFriends/<%= request._id %>/accept/<%= request.fromTo %>" class="fas fa-user-plus accept_friends" style="color: #38a9ff;margin: 0px;"></i>
+                            <i url="/requestFriends/<%= user._id %>/remove" class="fas fa-user-minus block_friends" style="color: #9899a4;margin: 0px;"></i>
                         </li>
                     <% } %>
                 <% }) %>
@@ -83,10 +83,9 @@
                         <a href="#"><p class="username">Đánh dấu</p></a>
                     </div>
                 </li>
-               
                 <li class="list-group-item list-group-item-foot" style="background-color: #7b59c1;">
                     <div class="name">
-                        <a href="#"><strong class="username">Xem tất cả tin nhắn</strong></a>
+                        <a href="/messages"><strong class="username">Xem tất cả tin nhắn</strong></a>
                     </div>
                 </li>
             </ul>

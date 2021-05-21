@@ -98,25 +98,27 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="align-left">
-                                        <h5>Nhóm <span>44</span></h5>
+                                        <h5>Nhóm <span><%= listGroups.length %></span></h5>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="select-options">
-                                        <select class="select">
-                                            <option>Sắp xếp</option>
-                                            <option>A - Z</option>
-                                            <option>Z - A</option>
-                                            <option>Mới nhất</option>
-                                            <option>Cũ nhất</option>
-                                        </select>
+                                        <form action="/groups/sort">
+                                            <select onchange="getlistsortGroup(this)" id="select_sort_group" name="key" class="select">
+                                                <option value="1" >Sắp xếp</option>
+                                                <option value="1" >A - Z</option>
+                                                <option value ="2">Z - A</option>
+                                                <option value ="3">Mới nhất</option>
+                                                <option value ="4">Cũ nhất</option>
+                                            </select>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="central-meta padding30">
-                        <div class="row merged5">
+                    <div class="central-meta padding30 ">
+                        <div class="row merged5 group_lists_items">
                             <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
                                 <div class="addgroup">
                                     <div class="item-upload">
@@ -128,110 +130,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
+                            <% listGroups.forEach(function(group){ %>
+                                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                                    <div class="group-box">
+                                        <figure><img src="<%= group.coverImage %>" alt=""></figure>
+                                        <a href="#" title=""><%= group.title %></a>
+                                        <span><%= group.members.length%> thành viên</span>
+                                        <button class="btn_access_group" data-id="<%= group._id %>">Truy cập nhóm</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                <div class="group-box">
-                                    <figure><img src="img/group01.jpg" alt=""></figure>
-                                    <a href="#" title="">Sport</a>
-                                    <span>12 thành viên</span>
-                                    <button>Truy cập nhóm</button>
-                                </div>
-                            </div>
+                             <% }) %>
+                        
                         </div>
                         <div class="lodmore3">
                             <button class="btn-view btn-lod-more">
@@ -256,21 +165,20 @@
 				<div class="group-adding">
 					<div class="friend-group">
 						<div class="change-photo">
-							<figure><img src="img/avatar-default.png" alt=""></figure>
+							<figure><img id="image_choice" src="img/avatar-default.png" alt=""></figure>
 							<div class="edit-img">
 								<form class="edit-phto">
 									<label class="fileContainer">
 										<i class="fas fa-camera"></i>
 										Tải Lên Ảnh Nhóm
-									<input type="file">
+									<input id="file_group" type="file">
 									</label>
 								</form>
 							</div>
 						</div>
 						<form method="post">
-							<input type="text" placeholder="Tên Nhóm">
-							<input type="text" placeholder="Thể Loại">
-							<button class="main-btn">Tạo Nhóm</button>
+							<input id="name_group" name="groupName" type="text" placeholder="Tên Nhóm">
+							<button id="create_group" class="main-btn">Tạo Nhóm</button>
 						</form>
 					</div>
 				</div>

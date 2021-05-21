@@ -6,6 +6,8 @@ const overrideMethod = require('../app/middlewares/overrideMethod');
 const listFriend = require('../app/middlewares/listFriends');
 const postController = require('../app/controllers/clients/PostsController');
 const userController = require('../app/controllers/clients/UsersController');
+const groupController = require('../app/controllers/clients/GroupsController');
+const multer = require('../util/multer');
 const router = express.Router();
 router.get('/getuser',(req,res)=>{
   if(req.user){
@@ -60,5 +62,15 @@ router.post('/sendMessage/:id',messagesController.create);
 
 //notifycation
 router.get('/getListNotifycations',userController.getListNotifycation);
-router.get('/notifycations',userController.notifycation)
+router.get('/notifycations',userController.notifycation);
+
+//groups
+router.post('/groups/new',groupController.create);
+router.get('/groups/sort',groupController.sort);
+router.get('/group/:id',groupController.show);
+router.post('/group/:id/request',groupController.requestGroup);
+router.patch('/group/:id_group/acceptRequest/:id_user/:id_request',groupController.acceptRequest);
+router.delete('/group/:id/removeRequest',groupController.cancelRequest);
+router.post('/group/:id/newpost',multer.single('filePostGroup'),groupController.createPost);
+router.delete('/group/:id_group/removePost/:id_post',groupController.removePost)
 module.exports = router;

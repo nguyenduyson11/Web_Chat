@@ -96,8 +96,14 @@ function server(io){
       }
       socket.emit('userOnline',results)
     })
+    //notifycation inbox
     socket.on('message-Notifycation',function(data){
       socket.to(userOnlines[data.receiver._id]).emit('message-Notifycation',data)
+    })
+
+    //group
+    socket.on('send-request-add-group',function(request){
+      socket.to(userOnlines[request.authorGroup]).emit('send-notifycation-add-group',request)
     })
     socket.on('disconnect',function(socket){
       

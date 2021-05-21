@@ -1,3 +1,7 @@
+
+$('#resfesh_web').click(function(){
+    window.location.href = '/'
+})
 $('#search_friends').keydown(function(e){
   let value = e.target.value.trim()
   $.ajax({
@@ -16,8 +20,20 @@ $('#search_friends').keydown(function(e){
                               <p class="status friend">21 bạn chung</p>
                           </div>
                       </li>`
-          }).join('')           
+          }).join('')
+          let html2 = data.groups.map(function(group){
+            return `<li class="list-group-item right-menu-item">
+                        <div class="user">
+                            <img src="${group.coverImage}" alt="">
+                        </div>
+                        <div class="name">
+                            <a href="/group/${group._id}"><strong class="username">${group.title}</strong></a>
+                            <p class="status friend">${group.members.length} thành viên</p>
+                        </div>
+                    </li>`
+        }).join('')           
           $('#list_friends_search').html(html)
+          $('#list_friends_search').prepend(html2)
       }); 
 })
 
@@ -93,7 +109,32 @@ $.ajax({
             $('#list_user_friends').html(html2);
         })
     }); 
-
+//listen notifycation request add group
+socket.on('send-notifycation-add-group',function(request){
+    let html =   ` <li class="list-group-item right-menu-item">
+                        <div class="user">
+                            <img src="${request.avatar }" alt="">
+                        </div>
+                        <div class="name">
+                            <a href="/profile/${request.fromTo }"><strong class="username">${request.username }</strong> yêu cầu gia nhập ${request.titleGroup }</a>
+                        </div>
+                        <i onclick="acceptRequestGroup(this)"  url="/group/${request.idGroup }/acceptRequest/${request.fromTo}/${request._id}" class="fas fa-user-plus accept_friends" style="color: #38a9ff; margin:0px"></i>
+                    </li>`
+    $(html).insertAfter("li.list-group-first");          
+})
+function acceptRequestGroup(element){
+    console.log(element.getAttribute('url'))
+    $.ajax({
+        method: "PATCH",
+        url: element.getAttribute('url'),
+        async: false
+      })
+        .done(function(data) {
+            if(data.status == 'oke'){
+                element.remove()
+            }
+        }); 
+}
 //listen notifycation inbox
 socket.on('message-Notifycation',function(data){
     console.log(data)
@@ -172,7 +213,7 @@ $.ajax({
         let result;
         let html = ``
         if(data.length > 3){
-            result = animals.slice(0,4);
+            result = data.slice(0,4);
         }
         else{
             result = data;
@@ -192,5 +233,4 @@ $.ajax({
                 </li>`   
         })
         $(html).insertAfter("li.list_notify_users")
-        
 }); 

@@ -6,7 +6,8 @@ $(document).ready(function(){
     $('#file_image_icon').val(e.target.getAttribute('src'))
       $('#input_message_chat').val(e.target.getAttribute('alt'))
   }})
-  $('.item_user_chat').click(function(e){
+function getlistUserChat(){
+  $('.item_user_chat').on('click',function(e){
     document.querySelector('.tab-pane').classList.add('show');
     $.ajax({
       method: "GET",
@@ -14,6 +15,7 @@ $(document).ready(function(){
     })
       .done(function(data) {
         selectedFriend = data.userSelect;
+        $('#view_info').attr('href',`/profile/${selectedFriend._id}`)
         $('.avatar_user_chat').attr("src",data.userSelect.image);
         $('.username_user_chat').html(data.userSelect.username);
         $('.about_user_chat').html((data.userSelect.other ? data.userSelect.other.introduce : ''));
@@ -68,6 +70,8 @@ $(document).ready(function(){
         )
       });
   })
+}
+getlistUserChat()
   //submit inbox
   document.getElementById('form_submit_message').addEventListener('submit',function(e){
     e.preventDefault();
@@ -82,6 +86,50 @@ $(document).ready(function(){
     e.target.reset();
     e.target.icon.value = ''
   })
+  //submit search friends
+  $('#search_user_me').keydown(function(e){
+    let value = e.target.value.trim();
+    console.log(value)
+    $.ajax({
+      method: "GET",
+      url: `/searchFriend?q=${value}`,
+      async: false
+    })
+      .done(function(data) {
+          socket.emit('getlistUserOnline',window.currentUser.id);
+          let listfriends = window.currentUser.friends;
+          let html = ``;
+          let listFriends = data.users;
+          listFriends = data.users.reduce(function(rs,user){
+            if(listfriends.indexOf(user._id) != -1)
+                return rs.concat(user);
+            return rs    
+        },[])
+          var listOnline
+          socket.on('userOnline',function(data){
+              listOnline = [...data];
+              listFriends.forEach(friend => {
+                  let isOnline = (listOnline.findIndex(e=>e.toString() == friend._id.toString())) != -1 ? true : false ;
+                  html += ` <li  class="nav-item unread ">
+                                <div data-id="${ friend._id }" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 1000;cursor: pointer;" class="overlay_userchat item_user_chat"></div>
+                                <a  class="active item_user_chat"  data-toggle="tab">
+                                    <figure><img src="${friend.image}" alt="">
+                                        <span class="status f-online"></span>
+                                    </figure>
+                                    <div class="user-name">
+                                        <h6 class="">${friend.username}</h6>
+                                        <span>${isOnline? 'Đang Online': 'Đã Offline'}</span>
+                                    </div>
+                                </a>
+                            </li>`
+              });
+              $(".list_item_user_chat_me").html(html);
+          getlistUserChat()    
+          })
+      }); 
+  
+  })
+  
   //real time message
   socket.on("messageReceived",function(messageObj){
     if(selectedFriend != null && messageObj.from.toString() == selectedFriend._id.toString()){
