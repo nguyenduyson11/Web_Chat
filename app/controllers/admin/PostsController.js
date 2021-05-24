@@ -21,6 +21,50 @@ class PostsController{
       posts
     });
   }
+  async new(req,res){
+    let warning = req.flash('warning');
+    req.flash('warning','Đăng thành công');
+    res.render('admin/postNew',{
+      warning
+    });
+    
+  }
+  async create(req,res){
+    console.log(req.body.content)
+    let post = new Post({
+      author:req.user._id,
+      content: req.body.content
+    })
+    if(post.save()){
+      req.flash('warning','Đăng thành công');
+      res.redirect('/admin/posts/new');
+    }
+    else{
+      req.flash('warning','Đăng không thành công');
+      res.redirect('/admin/posts/new');
+    }
+    }
+  async delete(req,res){
+    let post = await Post.findById(req.params.id);
+    if(post){
+      Post.remove({_id: req.params.id},function(err,result){
+        if(err){
+          res.json({
+            status: 'err',
+            message: 'Xóa thất bại'
+          })
+        }
+        else{
+          req.flash('warning','xóa thành công')
+          res.redirect('/admin/posts')
+        }
+      })
+    }
+    else{
+      req.flash('warning','không tìm thấy bài viết')
+      res.redirect('/admin/posts')
+    }
+  }  
 }
 
 module.exports = new PostsController;

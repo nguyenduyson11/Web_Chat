@@ -18,5 +18,9 @@ router.get('/profile', usersController.profile);
 router.post('/profile', usersController.updateProfile);
 router.post('/profile', usersController.updateProfile);
 router.get('/notification',pagination(Report),notificationController.index);
+router.get('/posts/new',postsController.new);
+router.post('/posts/new',postsController.create);
+router.delete('/posts/:id/delete',postsController.delete);
+router.get('/getdata',homesController.getdata)
 
 module.exports = router;

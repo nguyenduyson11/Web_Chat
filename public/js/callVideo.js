@@ -77,7 +77,8 @@ peer.on('call',call=>{
 
 //
 $('.decline-call').click(function(e){
-  socket.emit('remove-call',userRemote)
+  socket.emit('remove-call',userRemote);
+  playStream(null,'remoteStream')
 })
 
 socket.on('removed-call',function(data){
