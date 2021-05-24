@@ -324,7 +324,7 @@ const heartPost = function(list_hearts){
             })
             .then(response => response.json())
             .then(data => {
-                $(`.count_hearts-${id_post}`).text(data.countHeart)
+                $('.count_hearts').text(data.countHeart)
             })
             .catch((error) => {
                 console.log(error)
@@ -380,7 +380,6 @@ for(let i=0;i<forms.length;i++){
         .then(response => response.json())
         .then(data => {
         socket.emit('new-comment',data);
-        socket.emit('new-notify-comment',{comment:data,user: window.currentUser})
         })
         .catch((error) => {
         console.error('Error:', error);
@@ -487,7 +486,6 @@ for(let i=0;i<formsSub.length;i++){
         .then(response => response.json())
         .then(data => {
             socket.emit('new-subcomment',data)
-            socket.emit('new-notify-subcomment',{post: data.post, user: window.currentUser})
         })
         .catch((error) => {
             console.log(error)
@@ -535,6 +533,7 @@ socket.on('new-subcomment',function(data){
             });
     })
 })
+
 // remove subcomment
 $('.icon_remove_subcomment').click(function(e){
     let data_id = e.target.getAttribute('data-id')
@@ -571,7 +570,8 @@ socket.on('remove-subcomment_fetch',function(data){
     $(`#count_subc-${data.commentParent._id}`).text(count )
 })
 //heart comment
-const heartSubcomment = function(list){  
+const heartSubcomment = function(list){
+    
     list.click(function(e){
         e.preventDefault()
         let id_comment = e.target.getAttribute('data-id');

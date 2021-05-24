@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <script  src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script>
+       const userRemote = "<%= user.id %>"
+    </script>
+    <title>Trang cá nhân</title>
+    <link rel="stylesheet" href="/assets/css/callVideo.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+        <div class="live-call">
+            <video id="remoteStream" class="video-call-friend"></video>
+
+            <div class="call-box">
+				<h2>Nguyễn Văn  dsdsA</h2>
+				<span>Đang gọi... </span>
+				<div class="yesorno">
+                    <a class="bg-gray vd-call"  href="?video=false" title=""><i class="fas fa-video"></i></a>
+					<a class="bg-gray voice-call" href="?audio=true"  title=""><i class="fas fa-microphone"></i></a>
+					<a class="bg-red decline-call"  title=""><i  class="fa fa-phone"></i></a>
+				</div>
+			</div>
+            <video id="localStream" class="video-call"></video>
+        </div>
+    
+</body>
+<script>
+  const socket = io("http://localhost:3000");
+</script>
+<script src="/assets/jquery/jquery.min.js"></script>
+<scrip src="/assets/bootstrap/js/bootstrap.bundle.min.js"></scrip>
+<scrip src="/js/getCurrentUser.js"></scrip>
+<!-- <scrip src="/js/peerjs.min.js"></scrip> -->
+<script src="/js/getCurrentUser.js"></script>
+<script src="/js/callVideo.js"></script>
+</html>

@@ -179,9 +179,6 @@ $('.share-pst').on('click', function () {
 });	
 	
 // messenger call popup
-$('.audio-call, .video-call').on('click', function () {
-		$('.call-wraper').addClass('active');
-	});
 		$('.decline-call, .later-rmnd').on('click', function () {
 		$('.call-wraper').removeClass('active');
 	});

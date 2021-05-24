@@ -7,6 +7,7 @@ const overrideMethod = require('../app/middlewares/overrideMethod');
 const pagination = require('../app/middlewares/paginationResult');
 const User = require('../app/models/user');
 const Post = require('../app/models/post');
+const Report = require('../app/models/report');
 const router = express.Router();
 router.use(overrideMethod);
 router.get('/dashboard', homesController.index);
@@ -16,6 +17,6 @@ router.get('/posts', pagination(Post), postsController.index);
 router.get('/profile', usersController.profile);
 router.post('/profile', usersController.updateProfile);
 router.post('/profile', usersController.updateProfile);
-router.get('/notification', notificationController.index);
+router.get('/notification',pagination(Report),notificationController.index);
 
 module.exports = router;

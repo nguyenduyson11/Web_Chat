@@ -110,6 +110,7 @@ class HomesController{
   }
   async reportPost(req,res){
     let report = new Report({
+      type:'post',
       id_post: req.params.id,
       title: req.body.title,
       content: req.body.content

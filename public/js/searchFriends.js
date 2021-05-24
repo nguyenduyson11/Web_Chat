@@ -224,7 +224,7 @@ $.ajax({
                         <img src="${data.avatar}" alt="">
                     </div>
                     <div class="name">
-                        <a href="/post/${data.type_id}">
+                        <a href="/posts/${data.type_id}">
                             <p class="notify username">${data.username}<span class="notify-content"> ${data.content}.</span></p>
                         </a>
                     </div>
@@ -234,3 +234,45 @@ $.ajax({
         })
         $(html).insertAfter("li.list_notify_users")
 }); 
+
+//realtime 
+//listen notifycations
+socket.on('new-notifcation-comment',function(data){
+    console.log(data)
+    let html =  `<li class="list-group-item right-menu-item">
+                    <div class="user">
+                        <img src="${data.user.image}" alt="">
+                    </div>
+                    <div class="name">
+                        <a href="/posts/${data.comment.post._id}">
+                            <p class="notify username">${data.user.username}<span class="notify-content"> vừa mới bình luận bài viết của bạn.</span></p>
+                            
+                        </a>
+                    </div>
+                    <div></div>
+                    <i class="fas fa-bolt" style="color: #9899a4;"></i>
+                </li>`
+    $(html).insertAfter("li.list_notify_users");      
+    $('#count_notifycations').text(parseInt($('#count_notifycations').text()) +1)      
+})
+socket.on('new-notifcation-subcomment',function(data){
+    console.log(data)
+    let html =  `<li class="list-group-item right-menu-item">
+                    <div class="user">
+                        <img src="${data.user.image}" alt="">
+                    </div>
+                    <div class="name">
+                        <a href="/posts/${data.post._id}">
+                            <p class="notify username">${data.user.username}<span class="notify-content"> vừa mới trả lời một bình luận</span></p>
+                        </a>
+                    </div>
+                    <div></div>
+                    <i class="fas fa-bolt" style="color: #9899a4;"></i>
+                </li>`
+    $(html).insertAfter("li.list_notify_users");      
+    $('#count_notifycations').text(parseInt($('#count_notifycations').text()) +1)      
+})
+
+
+
+

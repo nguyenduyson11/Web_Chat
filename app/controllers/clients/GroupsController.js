@@ -211,8 +211,7 @@ class GroupsController{
       console.log(error)
     }
   }
-  removePost(req,res){
-    
+  async removePost(req,res){
     Group.findOneAndUpdate({_id : req.params.id_group},{
       $pull : {
         posts: {_id: mongoose.Types.ObjectId(req.params.id_post)}
@@ -221,8 +220,71 @@ class GroupsController{
       if(err){
         return res.json({status:'error'})
       }
-      res.json({status:'oke',group:data})
+      let post  = data.posts.find(e=>e._id.toString() == req.params.id_post.toString())
+      let otions = post.typeFile == 'image' ? {} : {resource_type: "video"}
+      console.log(post.cloudinary_id,otions)
+      cloudinary.uploader.destroy(post.cloudinary_id,otions)
+      .then(res.json({status:'oke',group:data}))
+      .catch()
     })
+    
+  }
+  newComment(req,res){
+    try {
+      let idC = mongoose.Types.ObjectId()
+      Group.findOneAndUpdate({_id : req.params.id_group, "posts._id" : mongoose.Types.ObjectId(req.params.id_post) },{
+        $push : {
+          'posts.$.comments' : {
+            _id :idC,
+            author: req.user._id,
+            username: req.user.username,
+            avatar: req.user.image,
+            child: [],
+            hearts: [],
+            content: req.body.content,
+            creatAt: Date.now()
+          }
+        }
+      },function(err,data){
+        if(err){
+          return res.json({status:'error'})
+        }
+        res.json({status:'oke',comment:{
+          id :idC,
+          author: req.user._id,
+          post: req.params.id_post,
+          username: req.user.username,
+          avatar: req.user.image,
+          child: [],
+          hearts: [],
+          content: req.body.content,
+          creatAt: Date.now()
+        }})
+      })
+    } catch (error) {
+      res.json({status:'error'})
+    }
+  }
+  removeComment(req,res){
+    try {
+      let idC = mongoose.Types.ObjectId()
+      Group.findOneAndUpdate({"posts._id" : mongoose.Types.ObjectId(req.params.id_post) },{
+        $pull : {
+          'posts.$.comments' : {
+            _id : mongoose.Types.ObjectId(req.params.id_comment)
+          }
+        }
+      },function(err,data){
+        if(err){
+          return res.json({status:'error'})
+        }
+        res.json({status:'oke',comment:{
+          id : req.params.id_comment
+        }})
+      })
+    } catch (error) {
+      res.json({status:'error'})
+    }
   }
 }
 module.exports = new GroupsController;

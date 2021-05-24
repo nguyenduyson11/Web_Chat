@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const report = new Schema({
+  type:String,
   id_post:mongoose.Types.ObjectId,
   title:{
     type:String,

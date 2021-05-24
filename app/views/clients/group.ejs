@@ -173,17 +173,17 @@
                                                   <% post.comments.forEach(function(comment){ %>
                                                       <li id="comment-<%= comment._id %>" style="display: inline-block;">
                                                           <div class="comet-avatar">
-                                                              <img src="<%= comment.ofUser.image %>" alt="">
+                                                              <img src="<%= comment.avatar %>" alt="">
                                                           </div>
                                                           <div class="we-comment">
                                                               <% if(user._id.toString() == comment.author.toString()){ %>
-                                                                  <i class="fas fa-times icon_remove_comment " data-rule='parent' data-id="<%= comment._id %>" post-id="<%= post._id %>"></i>
+                                                                  <i class="fas fa-times icon_remove_comment " url="/group/post/<%= post._id %>/comment/<%= comment._id %>/remove"></i>
                                                               <% } %>
                                                               
-                                                              <h5><a href="time-line.html" title=""><%= comment.ofUser.username %></a></h5>
+                                                              <h5><a href="time-line.html" title=""><%= comment.username %></a></h5>
                                                               <p><%= comment.content %></p>
                                                               <div class="inline-itms">
-                                                                  <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i><span id="count_subc-<%= comment._id %>"><%= comment.subComment.length %></span</a>
+                                                                  <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i><span id="count_subc-<%= comment._id %>"><%= comment.child.length %></span</a>
                                                                   <a href="#" title=""><i class="fa fa-heart heart-comment " data-id="<%= comment._id %>" ></i><span id="heartComment-<%= comment._id %>"><%= comment.hearts.length %></span></a>
                                                               </div>
                                                               <ul id="sub_comment-<%= comment._id %>" class="we-comet sub-comet">
@@ -233,7 +233,7 @@
                                                           <img src="<%=user.image %>" alt="">
                                                       </div>
                                                       <div class="post-comt-box">
-                                                          <form class="post_coment__new" method="post" action="posts/<%= post._id %>/comment/new" >
+                                                          <form class="group_post_coment_new" method="post" action="/group/<%= group._id %>/newCcomment/<%= post._id %>" >
                                                               <textarea class="content_coment" name="content" placeholder="Viết bình luận..."></textarea>
                                                               <div class="button-post-comt">
                                                                   <button type="submit"></button>

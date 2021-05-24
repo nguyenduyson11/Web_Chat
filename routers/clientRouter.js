@@ -72,5 +72,10 @@ router.post('/group/:id/request',groupController.requestGroup);
 router.patch('/group/:id_group/acceptRequest/:id_user/:id_request',groupController.acceptRequest);
 router.delete('/group/:id/removeRequest',groupController.cancelRequest);
 router.post('/group/:id/newpost',multer.single('filePostGroup'),groupController.createPost);
-router.delete('/group/:id_group/removePost/:id_post',groupController.removePost)
+router.delete('/group/:id_group/removePost/:id_post',groupController.removePost);
+router.post('/group/:id_group/newCcomment/:id_post',groupController.newComment);
+router.delete('/group/post/:id_post/comment/:id_comment/remove',groupController.removeComment)
+//
+router.get('/videoCall/:id',userController.videocCall);
+router.get('/people/:id')
 module.exports = router;

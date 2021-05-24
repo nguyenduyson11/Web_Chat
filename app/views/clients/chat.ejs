@@ -92,8 +92,8 @@
                                   </div>
                               </div>
                               <ul class="live-calls">
-                                  <li class="audio-call"><span class="fa fa-phone"></span></li>
-                                  <li class="video-call"><span class="fa fa-video"></span></li>
+                                  <li class="audio-call audio-call-user"><span  class="fa fa-phone audio-call-user"></span></li>
+                                  <li class="video-call video-call-user"><span class="fa fa-video video-call-user"></span></li>
                                   <li class="uzr-info"><span class="fa fa-info-circle"></span></li>
                                   <li>
                                       <div class="dropdown">
@@ -220,16 +220,29 @@
     </div>
   </div>
  
+</div><div class="call-wraper">
+    <div class="m-live-call">
+        <figure><img style="width: 120px;height: 120px;" class="image_user_call" src="images/resources/author.jpg" alt=""></figure>
+        <div class="call-box">
+            <h6 class="username_call">Jack Carter</h6>
+            <span>Gọi cho bạn</span>
+            <i class="fas fa-microphone-alt"></i>
+            <div class="wave">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <ins class="later-rmnd">Vui lòng đợi tôi sau</ins>
+            <div class="yesorno">
+                <a class="bg-blue accept-call " target="_blank" href="#" title=""><i class="fa fa-phone" style="margin: 0; color: white;"></i></a>
+                <a class="bg-red decline-call" href="#" title=""><i class="fa fa-close" style="margin: 0; color: white;"></i></a>  
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
 
-<!-- <script src="/assets/jquery/jquery.min.js"></script>
-<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/js/perfect-scrollbar.jquery.min.js"></script>
-<script src="/js/chatbox.js"></script>
-<script src="/js/menu.js"></script>
-<script src="/js/spinners.js"></script> -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/assets/jquery/jquery.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>

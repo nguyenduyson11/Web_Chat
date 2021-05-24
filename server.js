@@ -2,6 +2,7 @@ const currentUser = require('../Web_chat/helpers/currentUser_helper');
 const User = require('../Web_chat/app/models/user');
 const Message = require('../Web_chat/app/models/message');
 const userOnlines = [];
+const userCalls = [];
 function server(io){
    io.on('connection',function(socket){
      let user = currentUser.getCurrentUser();
@@ -31,6 +32,19 @@ function server(io){
      socket.on('new-comment',function(data){
        io.sockets.emit('new-comment',data)
      })
+     socket.on('new-notify-comment',function(res){
+       let listFriends = res.user.friends
+       listFriends.forEach(function(data){
+         socket.to(userOnlines[data]).emit('new-notifcation-comment',res)
+       })
+     })
+     socket.on('new-notify-subcomment',function(res){
+       console.log(res)
+      let listFriends = res.user.friends
+      listFriends.forEach(function(data){
+        socket.to(userOnlines[data]).emit('new-notifcation-subcomment',res)
+      })
+    })
      
      //remove comment
      socket.on('remove-comment',function(data){
@@ -107,6 +121,22 @@ function server(io){
     })
     socket.on('disconnect',function(socket){
       
+    })
+    //video call
+    socket.on('call-video',function(data){
+      socket.to(userOnlines[data.receiver]).emit('receiver-video',data)
+    })
+    socket.on('connected-peer',function(data){
+      console.log(data.sender)
+      userCalls[data.sender] = data.peerId;
+      console.log(userCalls)
+    })
+    socket.on('send-peerID',function(data){
+      console.log('gửi tới',userOnlines[data])
+      socket.emit('get-peerID',userCalls[data])
+    })
+    socket.on('remove-call',function(data){
+      socket.to(userOnlines[data]).emit('removed-call',userCalls[data])
     })
    });
 

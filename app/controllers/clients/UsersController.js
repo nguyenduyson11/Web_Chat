@@ -730,6 +730,16 @@ class UsersController{
       users
     })
   }
+  videocCall(req,res){
+    User.findById(req.params.id,function(err,data){
+      if(err){
+        return res.redirect('/')
+      }
+      res.render('clients/callVideo',{
+        user: data
+      })
+    })
+  }
 }
 function arrayComment(array,listcomment,users) {
   let result =[]

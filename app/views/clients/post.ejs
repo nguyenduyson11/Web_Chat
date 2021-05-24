@@ -32,47 +32,6 @@
 <div class="container">
   <div class="row" style="margin-top: 110px;">
       <div class="order-lg-2 col-lg-6 order-md-3 col-md-12 col-xs-12 order-3">
-          <form id="post_new" class="central-meta postbox" enctype="multipart/form-data" method="POST" action="/posts/new" >
-              <span class="create-post">Đăng bài viết</span>
-              <div class="new-postbox">
-                  <figure>
-                      <img src="<%= user.image %>" alt="">
-                  </figure>
-                  <div class="newpst-input">
-                      <div>
-                          <textarea id="content_post" style="width: 100%;outline: none;border: none;margin-left: 10px;" name="content" rows="2" placeholder="Chia sẻ những gì bạn đang nghĩ."></textarea>
-                      </div>
-                      <div class="file_image-wrap">
-                      </div>
-                      <div class="icon_close_images" style="text-align: center;">
-                        <i class="fas fa-times icon_close_img"></i>
-                      </div>
-                  </div>
-                  <div class="attachments">
-                      <ul>
-                          <li>
-                              <span for="fileMusic" ><i class="fa fa-music" ></i></span>
-                              <label class="fileContainer">
-                                  <input id="fileMusic" name="fileMusic" type="hidden" >
-                              </label>
-                          </li>
-                          <li>
-                             <label for="fileImage"> <i class="fa fa-image"></i></label>
-                              <label class="fileContainer">
-                                  <input id="fileImage" name="fileImage" type="file" multiple="multiple" >
-                              </label>
-                          </li>
-                          <li>
-                              <span for="fileCamera" ><i class="fa fa-camera"></i></span>
-                              <label class="fileContainer">
-                                  <input id="fileCamera" name="fileCamera" type="hidden">
-                              </label>
-                          </li>
-                      </ul>
-                      <button class="post-btn" type="submit" data-ripple="">Đăng</button>
-                  </div>
-              </div>
-          </form>
           <div class="loadMore">
             <% posts.forEach(function(post){ %>
                 <div id="post-<%= post._id %>" class="central-meta item">
@@ -136,7 +95,7 @@
                                         <li>
                                             <span class="views" title="views">
                                                 <i class="fas fa-heart heart_post <%= (post.hearts.findIndex(data=>data.toString()==user._id.toString()) != -1) ? 'active_heart' : 's' %>" data-id="<%= post._id %>"></i>
-                                                <ins class="count_hearts count_hearts-<%= post._id %>"><%= post.hearts.length %></ins>
+                                                <ins class="count_hearts"><%= post.hearts.length %></ins>
                                             </span>
                                         </li>
                                         <li>
@@ -200,7 +159,7 @@
                                                             <img src="<%= user.image %>" alt="">
                                                         </div>
                                                         <div class="post-comt-box">
-                                                            <form class="post_subcoment_new" method="post" action="posts/<%= post._id %>/subcomment/new" data-id="<%= comment._id %>">
+                                                            <form class="post_subcoment_new" method="post" action="/posts/<%= post._id %>/subcomment/new" data-id="<%= comment._id %>">
                                                                 <textarea  name="content" placeholder="Viết bình luận..."></textarea>
                                                                 
                                                                 <div class="button-post-comt">
@@ -223,7 +182,7 @@
                                             <img src="<%=user.image %>" alt="">
                                         </div>
                                         <div class="post-comt-box">
-                                            <form class="post_coment__new" method="post" action="posts/<%= post._id %>/comment/new" >
+                                            <form class="post_coment__new" method="post" action="/posts/<%= post._id %>/comment/new" >
                                                 <textarea class="content_coment" name="content" placeholder="Viết bình luận..."></textarea>
                                                 <div class="button-post-comt">
                                                     <button type="submit"></button>

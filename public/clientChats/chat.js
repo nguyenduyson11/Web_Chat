@@ -2,6 +2,16 @@ const socket = io("http://localhost:3000");
 $(document).ready(function(){
   
   var selectedFriend = null;
+  //call video
+  $('.audio-call-user, .video-call-user').click(function(e){
+    e.stopPropagation();
+    socket.emit('call-video',{
+      receiver : selectedFriend._id,
+      sender : window.currentUser
+    })
+    window.open(`/videoCall/${selectedFriend._id}`, '_blank');
+  });
+
   $('.image_icon').click(function(e){{
     $('#file_image_icon').val(e.target.getAttribute('src'))
       $('#input_message_chat').val(e.target.getAttribute('alt'))
@@ -49,6 +59,9 @@ function getlistUserChat(){
                   </li>`
           }
         }
+        
+        $('.audio-call-user').attr('url',`/video/${data.userSelect._id}`);
+        $('.video-call-user').attr('url',`/video/${data.userSelect._id}`);
         document.querySelector('.conversations').innerHTML = html;
         document.querySelector('.conversations').scrollTop = document.querySelector('.conversations').scrollHeight;
         //listen event keyboard
@@ -208,3 +221,13 @@ const upload = (file) => {
     console.log(error);
   });
 };
+
+//call video chat
+socket.on('receiver-video',function(data){
+  $('.image_user_call').attr('src',data.sender.image);
+  $('.username_call').text(data.sender.username);
+  $('.accept-call').attr('href',`/videoCall/${data.sender.id}`);
+  $('.call-wraper').addClass('active'); 
+})
+
+
