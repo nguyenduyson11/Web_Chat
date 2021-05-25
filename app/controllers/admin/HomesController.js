@@ -1,6 +1,8 @@
 const Post = require('../../models/post')
 const User = require('../../models/user');
 const Report = require('../../models/report');
+const Group = require('../../models/group');
+const moment = require('moment');
 class HomesController{
   async getdata(req,res){
     let days_ago = new Date();
@@ -56,10 +58,30 @@ class HomesController{
         report: isExistReports != -1 ? groupReports[isExistReports].count : 0
       })
     }
+    //chart 2
     res.json(results)
   }
   async index(req,res){
+    let users = await User.find({});
+    let results = await Post.find({}).sort({comment: -1}).limit(5).lean();
+    let postAdmin = await Post.find({ author: req.user._id}).sort({createdAt : -1}).limit(1);
+    let listGroup = await Group.find({}).sort({members: -1}).lean();
+    results = results.reduce(function(rs,post){
+      let isExist = users.findIndex(u=>u._id.toString() == post.author.toString())
+      if(isExist != -1){
+        post.ofUser = {
+          username: users[isExist].username,
+          avatar: users[isExist].image,
+          phone: users[isExist].phone,
+          datePost : moment(post.createdAt).format('DD/MM/YYYY')
+        }
+      }
+      return rs.concat(post)
+    },[])
     res.render('admin/index',{
+      results,
+      postAdmin,
+      listGroup
     })
   }
 }

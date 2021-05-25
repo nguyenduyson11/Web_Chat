@@ -138,6 +138,14 @@ function server(io){
     socket.on('remove-call',function(data){
       socket.to(userOnlines[data]).emit('removed-call',userCalls[data])
     })
+    //listen get list user
+    socket.on('getlistUserOnline',function(){
+      let count = 0;
+      for(let i in userOnlines){
+        count++;
+      }
+      socket.emit('send-list-userOnline',count)
+    })
    });
 
 }

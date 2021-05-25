@@ -48,5 +48,13 @@ class UsersController{
       res.redirect('/admin/profile');
     })
   }
+  async getListUser(req,res){
+    let countAccounts = await User.find({})
+    let countDeleted = await User.find({deleted: true})
+    res.json({
+      countAccounts : countAccounts.length,
+      countDeleted: countDeleted.length
+    })
+  }
 }
 module.exports = new UsersController;

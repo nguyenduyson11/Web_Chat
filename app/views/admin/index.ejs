@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/assets/css/dashboard1.css">
   <link rel="stylesheet" href="/assets/css/default.css">
+  <script src="/socket.io/socket.io.js"></script>
   <title>Document</title>
 </head>
 
@@ -51,9 +52,9 @@
                   </div>
                   <div class="ms-auto">
                     <ul class="list-inline text-center font-12">
-                      <li><i class="fa fa-circle text-success"></i> SITE A</li>
-                      <li><i class="fa fa-circle text-info"></i> SITE B</li>
-                      <li><i class="fa fa-circle text-primary"></i> SITE C</li>
+                      <li><i class="fa fa-circle text-success"></i> Bài đăng</li>
+                      <li><i class="fa fa-circle text-info"></i> Người dùng</li>
+                      <li><i class="fa fa-circle text-primary"></i> Báo cáo</li>
                     </ul>
                   </div>
                 </div>
@@ -75,8 +76,8 @@
                 </div>
                 <div id="visitor" style="height:260px; width:100%;"></div>
                 <ul class="list-inline mt-4 text-center font-12">
-                  <li><i class="fa fa-circle text-purple"></i> Chưa kích hoạt</li>
-                  <li><i class="fa fa-circle text-success"></i> Đã kích hoạt</li>
+                  <li><i class="fa fa-circle text-purple"></i> Ngoại tuyến</li>
+                  <li><i class="fa fa-circle text-success"></i> Đoạt động</li>
                   <li><i class="fa fa-circle text-info"></i> Đã khóa</li>
                 </ul>
               </div>
@@ -89,7 +90,7 @@
               <div class="card-body">
                 <div class="d-flex">
                   <div>
-                    <h5 class="card-title">Projects of the Month</h5>
+                    <h5 class="card-title">Bài đăng nổi bật</h5>
                   </div>
                   <div class="ms-auto">
                     <select class="form-select b-0">
@@ -104,53 +105,26 @@
                   <table class="table vm no-th-brd pro-of-month">
                     <thead>
                       <tr>
-                        <th colspan="2">Assigned</th>
-                        <th>Name</th>
-                        <th>Budget</th>
+                        <th colspan="2">Tài khoản</th>
+                        <th>Bài đăng</th>
+                        <th>Ngày đăng</th>
+                        <th>Bình luận</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td style="width:50px;"><span class="round">S</span></td>
-                        <td>
-                          <h6>Sunil Joshi</h6><small class="text-muted">Web Designer</small>
-                        </td>
-                        <td>Elite Admin</td>
-                        <td>$3.9K</td>
-                      </tr>
-                      <tr class="active">
-                        <td><span class="round"><img src="../assets/images/users/2.jpg" alt="user" width="50"></span>
-                        </td>
-                        <td>
-                          <h6>Andrew</h6><small class="text-muted">Project Manager</small>
-                        </td>
-                        <td>Real Homes</td>
-                        <td>$23.9K</td>
-                      </tr>
-                      <tr>
-                        <td><span class="round round-success">B</span></td>
-                        <td>
-                          <h6>Bhavesh patel</h6><small class="text-muted">Developer</small>
-                        </td>
-                        <td>MedicalPro Theme</td>
-                        <td>$12.9K</td>
-                      </tr>
-                      <tr>
-                        <td><span class="round round-primary">N</span></td>
-                        <td>
-                          <h6>Nirav Joshi</h6><small class="text-muted">Frontend Eng</small>
-                        </td>
-                        <td>Elite Admin</td>
-                        <td>$10.9K</td>
-                      </tr>
-                      <tr>
-                        <td><span class="round round-warning">M</span></td>
-                        <td>
-                          <h6>Micheal Doe</h6><small class="text-muted">Content Writer</small>
-                        </td>
-                        <td>Helping Hands</td>
-                        <td>$12.9K</td>
-                      </tr>
+                      <% results.forEach(function(post){  %>
+                        <tr class="active">
+                          <td style="width: 50px;"><span class="round"><img src="<%= post.ofUser.avatar %>" alt="user" width="50" height="50"></span>
+                          </td>
+                          <td>
+                            <h6><%= post.ofUser.username %></h6><small class="text-muted"><%= post.ofUser.phone %></small>
+                          </td>
+                          <td><a href="/posts/<%= post._id %>"><%= post.content %></a></td>
+                          <td><%= post.ofUser.datePost %></td>
+                          <td><%= post.comment.length %></td>
+                        </tr>
+                      <% }) %>
                     </tbody>
                   </table>
                 </div>
@@ -159,14 +133,12 @@
           </div>
           <div class="col-lg-4 d-flex align-items-stretch">
             <div class="card w-100">
-              <div class="up-img" style="background-image:url(../assets/images/big/img1.jpg)"></div>
               <div class="card-body">
-                <h5 class=" card-title">Business development of rules</h5>
-                <span class="label label-info label-rounded">Technology</span>
-                <p class="mb-0 mt-3">Titudin venenatis ipsum aciat. Vestibu ullamer quam. nenatis
-                  ipsum ac feugiat. Ibulum ullamcorper.</p>
+                <h5 class=" card-title">Thông báo mới nhất</h5>
+                <span class="label label-info label-rounded">thông báo</span>
+                <p class="mb-0 mt-3"><%= postAdmin[0].content %></p>
                 <div class="d-flex mt-3">
-                  <a class="link" href="javascript:void(0)">Read more</a>
+                  <a class="link" href="javascript:void(0)"><%= new Date(postAdmin[0].createdAt).getDate()+"-" +(new Date(postAdmin[0].createdAt).getMonth() + 1) + "-" + new Date(postAdmin[0].createdAt).getFullYear() %></a>
                   <div class="ms-auto align-self-center">
                     <a href="javascript:void(0)" class="link me-2"><i class="fa fa-heart-o"></i></a>
                     <a href="javascript:void(0)" class="link me-2"><i class="fa fa-share-alt"></i></a>
@@ -181,52 +153,15 @@
             <div class="card card-body mailbox">
               <h5 class="card-title">Notification</h5>
               <div class="message-center" style="height: 420px !important;">
-                <a href="#">
-                  <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
-                  <div class="mail-contnet">
-                    <h6 class="text-dark font-medium mb-0">Luanch Admin</h6> <span class="mail-desc">Just see the my new
-                      admin!</span>
-                    <span class="time">9:30 AM</span>
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="btn btn-success btn-circle"><i class="fa fa-calendar-check-o"></i></div>
-                  <div class="mail-contnet">
-                    <h6 class="text-dark font-medium mb-0">Event today</h6> <span class="mail-desc">Just a reminder that
-                      you have
-                      event</span> <span class="time">9:10 AM</span>
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="btn btn-info btn-circle"><i class="fa fa-cog text-white"></i></div>
-                  <div class="mail-contnet">
-                    <h6 class="text-dark font-medium mb-0">Settings</h6> <span class="mail-desc">You can customize this
-                      template as you
-                      want</span> <span class="time">9:08 AM</span>
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="btn btn-primary btn-circle"><i class="fa fa-user"></i></div>
-                  <div class="mail-contnet">
-                    <h6 class="text-dark font-medium mb-0">Pavan kumar</h6> <span class="mail-desc">Just see the my
-                      admin!</span> <span class="time">9:02 AM</span>
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="btn btn-info btn-circle"><i class="fa fa-cog text-white"></i></div>
-                  <div class="mail-contnet">
-                    <h6 class="text-dark font-medium mb-0">Customize Themes</h6> <span class="mail-desc">You can
-                      customize this template as you
-                      want</span> <span class="time">9:08 AM</span>
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="btn btn-primary btn-circle"><i class="fa fa-user"></i></div>
-                  <div class="mail-contnet">
-                    <h6 class="text-dark font-medium mb-0">Pavan kumar</h6> <span class="mail-desc">Just see the my
-                      admin!</span> <span class="time">9:02 AM</span>
-                  </div>
-                </a>
+                <% listGroup.forEach(function(group){  %>
+                  <a href="#">
+                    <div class="btn btn-success btn-circle"><i class="fa fa-calendar-check-o"></i></div>
+                    <div class="mail-contnet">
+                      <h6 class="text-dark font-medium mb-0"><%= group.title %></h6> <span class="mail-desc"><%= group.members.length%> thành viên
+                        </span> <span class="time"><%= new Date(group.createdAt).getDate()+"-" +(new Date(group.createdAt).getMonth() + 1) + "-" + new Date(group.createdAt).getFullYear() %></span>
+                    </div>
+                  </a>
+                <% }) %>
               </div>
             </div>
           </div>

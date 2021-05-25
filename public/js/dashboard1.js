@@ -6,6 +6,7 @@ File: js
 */
 $(function() {
     "use strict";
+    const socket = io("http://localhost:3000");
     let results = null;
     $.ajax({
         method: "GET",
@@ -13,7 +14,6 @@ $(function() {
         async: false
       })
         .done(function(data) {
-            console.log(data)
             Morris.Area({
                 element: 'sales-chart',
                 data: data,
@@ -35,38 +35,50 @@ $(function() {
     // ============================================================== 
     // Our Visitor
     // ============================================================== 
-    var chart = c3.generate({
-        bindto: '#visitor',
-        data: {
-            columns: [
-                ['Đã kích hoạt', 50],
-                ['Chưa kích hoạt', 40],
-                ['Đã khóa', 10],
-            ],
-
-            type: 'donut',
-            onclick: function(d, i) { console.log("onclick", d, i); },
-            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function(d, i) { console.log("onmouseout", d, i); }
-        },
-        donut: {
-            label: {
-                show: false
-            },
-            title: "Visits",
-            width: 20,
-
-        },
-
-        legend: {
-            hide: true
-            //or hide: 'data1'
-            //or hide: ['data1', 'data2']
-        },
-        color: {
-            pattern: [ '#24d2b5', '#6772e5', '#ff5050']
-        }
-    });
+    socket.emit('getlistUserOnline')
+    socket.on('send-list-userOnline',function(countUserOnline){
+        $.ajax({
+            method: "GET",
+            url: `/admin/getlistAccount`,
+            async: false
+          })
+            .done(function(data) {
+                var chart = c3.generate({
+                    bindto: '#visitor',
+                    data: {
+                        columns: [
+                            ['Đang hoạt động', countUserOnline],
+                            ['ngoại tuyến', data.countAccounts - countUserOnline],
+                            ['Đã khóa', data.countDeleted],
+                        ],
+            
+                        type: 'donut',
+                        onclick: function(d, i) { console.log("onclick", d, i); },
+                        onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+                        onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+                    },
+                    donut: {
+                        label: {
+                            show: false
+                        },
+                        title: "Visits",
+                        width: 20,
+            
+                    },
+            
+                    legend: {
+                        hide: true
+                        //or hide: 'data1'
+                        //or hide: ['data1', 'data2']
+                    },
+                    color: {
+                        pattern: [ '#24d2b5', '#6772e5', '#ff5050']
+                    }
+                });
+            });
+       
+    })
+    
     // ============================================================== 
     // Our Income
     // ==============================================================
