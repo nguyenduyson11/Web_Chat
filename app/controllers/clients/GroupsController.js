@@ -42,7 +42,7 @@ class GroupsController{
       let group = new Group({
         author : req.user._id,
         title: req.body.name,
-        coverImage : `/upload/${req.file.filename}`
+        coverImage :  req.file ? `/upload/${req.file.filename}` : undefined
       });
       if( group.save()){
         res.json({status:'oke',user: req.user})
@@ -208,7 +208,7 @@ class GroupsController{
         res.redirect(`/group/${data._id}`)
       })
     } catch (error) {
-      console.log(error)
+      console.log('lỗi nè',error)
     }
   }
   async removePost(req,res){

@@ -46,11 +46,15 @@ class HomesController{
       post.userImage = user.image
       return post
    })
+   let admin = await User.findOne({admin : true})
+   let postAdmin = await Post.find({author: admin._id}).sort({createdAt : -1}).limit(1)
+  console.log(postAdmin)
     // res.json(posts)
     res.render('clients/home',{
       posts,
       user: req.user,
-      message
+      message,
+      postAdmin
     });
   }
   createPost(req,res){

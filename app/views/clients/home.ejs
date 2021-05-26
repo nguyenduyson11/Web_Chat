@@ -319,13 +319,12 @@
               <div class="dob-head">
                   <img src="/assets/images/homes/anh-bia.webp" alt="">
                   <div class="dob">
-                      <i>07</i>
-                      <span>Tháng Tư</span>
+                      <i><%= new Date(postAdmin[0].createdAt).getDate()+"-" +(new Date(postAdmin[0].createdAt).getMonth() + 1) + "-" + new Date(postAdmin[0].createdAt).getFullYear() %></i>
                   </div>
               </div>
               <div class="dob-meta">
-                  <h6>Hôm nay là sinh nhật của <a href="#" title="">Duy Tân</a></h6>
-                  <p>Hãy gửi lời chúc mừng sinh nhật đến họ.</p>
+                  <h6><%= postAdmin[0].content %></h6>
+                  <p>các bạn sinh viên chú ý thông báo</p>
               </div>
           </div>
       </aside>

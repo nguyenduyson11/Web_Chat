@@ -42,7 +42,7 @@ class HomesController{
            count: { $sum: 1 }
         }
       }
-    ]) 
+    ])
     let results =[]
     let currentDate = new Date();
     for(let i =0; i<6;i++){

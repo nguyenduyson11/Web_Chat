@@ -361,6 +361,7 @@ $('.icon_remove_comment').click(function(e){
     }
     deleteComment(data_id,post_id,rule)
 })
+//fetch weather
 
 
 //post comment
