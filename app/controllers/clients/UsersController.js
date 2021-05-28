@@ -123,7 +123,8 @@ class UsersController{
       }
     });
   }
-  profileImage(req,res){
+  async profileImage(req,res){
+    let posts = await Post.find({author: mongoose.Types.ObjectId(req.params.id)}); 
     let currentUser = req.user;
     User.findById(req.params.id,function(err,doc){
       if(err){
@@ -132,7 +133,8 @@ class UsersController{
       else{
         res.render('clients/profiles/profileImages',{
           currentUser,
-          userSearch: doc
+          userSearch: doc,
+          posts
         });
       }
     });
@@ -150,7 +152,7 @@ class UsersController{
     });
     let message = req.flash('message')
     let posts = await Post.find(
-      {author : req.params.id}
+      {author : mongoose.Types.ObjectId(req.params.id)}
     ).sort({createdAt: -1}).lean();
     let users = await User.find({}).lean();
     let comments = await Comment.find({}).lean();
@@ -162,13 +164,11 @@ class UsersController{
               user = u;
         }
       }
-      // console.log(arrayComment(post.comment,comments))
       post.comments = arrayComment(post.comment,comments,users);
       post.username = user.username
       post.userImage = user.image
       return post
    })
-    // res.json(posts)
     res.render('clients/profiles/profilePost',{
       currentUser,
       posts,

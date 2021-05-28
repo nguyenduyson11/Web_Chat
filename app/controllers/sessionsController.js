@@ -18,7 +18,7 @@ class SessionsController{
         if(user){
             var token = jwt.sign({ user_id: user._id }, process.env.SECRET_ACTIVED,{ expiresIn: 5 * 60 });
             req.flash('warning', 'Vui lòng kiểm tra email');
-            send_mail(user.email,token,'Nhấn vào đây để reset email','reset');
+            send_mail(user.email,token,'Nhấn vào đây để reset mật khẩu','reset');
             res.redirect('/forgot');
             return;
         }

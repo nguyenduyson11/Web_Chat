@@ -28,6 +28,7 @@ router.delete('/posts/:id_post/comments/:id_comment/destroy', commentController.
 router.post('/posts/:id/subcomment/new',commentController.createSubComment);
 router.patch('/comments/:id/heart/edit',commentController.heartsComment);
 router.get('/posts/:id',postController.getPost);
+router.get('/posts/:id/edit',postController.getPostEdit)
 router.patch('/posts/:id/edit',postController.edit);
 router.get('/searchFriend',userController.findUser);
 

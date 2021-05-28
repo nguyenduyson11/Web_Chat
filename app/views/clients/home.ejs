@@ -45,7 +45,7 @@
                       <div class="file_image-wrap">
                       </div>
                       <div class="icon_close_images" style="text-align: center;">
-                        <i class="fas fa-times icon_close_img"></i>
+                        <i style="margin: 0;" class="fas fa-times icon_close_img"></i>
                       </div>
                   </div>
                   <div class="attachments">
@@ -79,7 +79,7 @@
                     <div class="user-post">
                         <div class="friend-info">
                             <figure>
-                                <img src="/assets/images/homes/avt-05.jpg" alt="">
+                                <img src="<%= post.userImage %>" alt="">
                             </figure>
                             <div class="friend-name">
                                 <div class="more">
@@ -88,7 +88,6 @@
                                             <% if(user._id.toString() === post.author.toString()){ %>
                                                 <li class="edit-post" data-id="<%= post._id %>">Chỉnh sửa bài đăng</li>
                                                 <li class="remove_post" data-id="<%= post._id %>">Xóa bài đăng</li>
-                                                <li>Tắt thông báo về bài đăng này</li>
                                             <% }else{ %>
                                                 <li class="bad-report" data-id ="<%= post._id%>">Báo cáo bài đăng</li>
                                             <% } %>
@@ -313,21 +312,24 @@
               </figure>
           </div>
       </aside>
-      <aside class="order-lg-3 col-lg-3 order-md-2 col-md-6 col-xs-12 order-2">
-          <div class="widget whitish low-opacity">
-              <div style="background-image: url(/assets/images/homes/hinhbirthday.png)" class="bg-image"></div>
-              <div class="dob-head">
-                  <img src="/assets/images/homes/anh-bia.webp" alt="">
-                  <div class="dob">
-                      <i><%= new Date(postAdmin[0].createdAt).getDate()+"-" +(new Date(postAdmin[0].createdAt).getMonth() + 1) + "-" + new Date(postAdmin[0].createdAt).getFullYear() %></i>
-                  </div>
-              </div>
-              <div class="dob-meta">
-                  <h6><%= postAdmin[0].content %></h6>
-                  <p>các bạn sinh viên chú ý thông báo</p>
-              </div>
-          </div>
-      </aside>
+      <% if(postAdmin.length > 0){ %>
+        <aside class="order-lg-3 col-lg-3 order-md-2 col-md-6 col-xs-12 order-2">
+            <div class="widget whitish low-opacity">
+                <div style="background-image: url(/assets/images/homes/hinhbirthday.png)" class="bg-image"></div>
+                <div class="dob-head">
+                    <img src="/assets/images/homes/anh-bia.webp" alt="">
+                    <div class="dob">
+                        <i><%= new Date(postAdmin[0].createdAt).getDate()+"-" +(new Date(postAdmin[0].createdAt).getMonth() + 1) + "-" + new Date(postAdmin[0].createdAt).getFullYear() %></i>
+                    </div>
+                </div>
+                <div class="dob-meta">
+                    <h6><%= postAdmin[0].content %></h6>
+                    <p>các bạn sinh viên chú ý thông báo</p>
+                </div>
+            </div>
+        </aside>
+      <%}%>
+      
   </div>
 </div>
 <!--thêm từ đây-->
@@ -457,7 +459,7 @@
                     </div> -->
                 </div>
                 <div class="we-video-info">
-                    <button type="submit" class="main-btn color" data-ripple="">Đăng</button>
+                    <button type="submit" class="main-btn color" data-ripple="">Cập nhật</button>
                     <button class="main-btn cancel" data-ripple="">Hủy</button>
                 </div>
             </form>

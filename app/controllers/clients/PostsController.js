@@ -5,6 +5,7 @@ const Post = require('../../models/post');
 const User = require('../../models/user');
 const Report = require('../../models/report');
 const flash = require('express-flash');
+const { findById } = require('../../models/user');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/upload');
@@ -96,6 +97,16 @@ class PostsController{
         })
       }
     })
+  }
+  async getPostEdit(req,res){
+    let id_post = req.params.id;
+    let post = await Post.findById(id_post)
+    if(post){
+      res.json({status:'oke',post})
+    }
+    else{
+      res.json({status:'error'})
+    }
   }
 }
 function arrayComment(array,listcomment,users) {

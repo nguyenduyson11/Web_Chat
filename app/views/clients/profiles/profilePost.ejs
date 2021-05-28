@@ -78,14 +78,7 @@
                                             <li>
                                                 <div class="more">
                                                     <i class="fa fa-ellipsis-h"></i>
-                                                    <ul class="more-dropdown">
-                                                        <li>
-                                                            <a href="timeline-groups.html">Nhóm</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="statistics.html">Thống kê</a>
-                                                        </li>
-                                                    </ul>
+                                                    
                                                 </div>
                                             </li>
                                         
@@ -155,7 +148,6 @@
                                                             <% if(user._id.toString() === post.author.toString()){ %>
                                                                 <li class="edit-post" data-id="<%= post._id %>">Chỉnh sửa bài đăng</li>
                                                                 <li class="remove_post" data-id="<%= post._id %>">Xóa bài đăng</li>
-                                                                <li>Tắt thông báo về bài đăng này</li>
                                                             <% }else{ %>
                                                                 <li class="bad-report" data-id ="<%= post._id%>">Báo cáo bài đăng</li>
                                                             <% } %>
@@ -387,15 +379,15 @@
                                 <ul class="short-profile">
                                     <li>
                                         <span>Thông tin</span>
-                                        <p>Xin chào, tôi tên là Nguyễn Lương Cảnh, tôi 21 tuổi và tôi là sinh viên khoa Công nghệ thông tin. </p>
+                                        <p><%= userSearch.other.introduce ? userSearch.other.introduce : 'Chưa có thông tin' %></p>
                                     </li>
                                     <li>
-                                        <span>Kênh truyền hình yêu thích</span>
-                                        <p>Sacred Games, Spartcus Blood, Games of Theron </p>
+                                        <span>Nơi sinh sống</span>
+                                        <p>Tôi hiện đang sinh sống tại <%= userSearch.city %> </p>
                                     </li>
                                     <li>
-                                        <span>Âm nhạc</span>
-                                        <p>Justin Biber, Shakira, Nati Natasah</p>
+                                        <span>Sở thích</span>
+                                        <p><%= userSearch.other.interests ? userSearch.other.interests : 'Đang cập nhật' %></p>
                                     </li>
                                 </ul>
                             </div>

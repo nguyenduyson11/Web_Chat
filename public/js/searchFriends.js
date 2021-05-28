@@ -48,22 +48,20 @@ if(window.currentUser){
     })
     let html =``;
     for(let data of inboxs){
-        html+= `<li id="${data.from}" class="list-group-item right-menu-item">
+        html+= `<li id="${data.from ? data.from : undefined}" class="list-group-item right-menu-item">
                         <div class="user">
-                            <img src="${data.avatar}" alt="">
+                            <img src="${data.avatar ? data.avatar : undefined}" alt="">
                         </div>
                         <div class="name">
-                            <a href="#"><strong class="username">${data.username}</strong></a>
+                            <a href="#"><strong class="username">${data.username ? data.username : undefined}</strong></a>
                             
-                            <p id="content-${data.from}" class="status friend"> ${(data.icon || data.file) ? 'Gửi một hình ảnh' : `${data.message}` }</p>
+                            <p id="content-${data.from ? data.from : undefined}" class="status friend"> ${(data.icon || data.file) ? 'Gửi một hình ảnh' : `${data.message ? data.message :  undefined}` }</p>
                         </div>
                         <div></div>
                         <i class="far fa-comments" style="color: #9899a4;"></i>
                     </li>`
     }
     $(html).insertAfter("li.title_info_message")
-
-
 }
 //get list user online
 $.ajax({
@@ -118,9 +116,10 @@ socket.on('send-notifycation-add-group',function(request){
                         <div class="name">
                             <a href="/profile/${request.fromTo }"><strong class="username">${request.username }</strong> yêu cầu gia nhập ${request.titleGroup }</a>
                         </div>
-                        <i onclick="acceptRequestGroup(this)"  url="/group/${request.idGroup }/acceptRequest/${request.fromTo}/${request._id}" class="fas fa-user-plus accept_friends" style="color: #38a9ff; margin:0px"></i>
+                        <i onclick="acceptRequestGroup(this)"  url="/group/${request.idGroup }/acceptRequest/${request.fromTo}/${request._id}" class="fas fa-user-plus accept_friends" style="color: #38a9ff; margin:7px"></i>
                     </li>`
-    $(html).insertAfter("li.list-group-first");          
+    $(html).insertAfter("li.list-group-first");
+    $('#count_request').text(1  );          
 })
 function acceptRequestGroup(element){
     console.log(element.getAttribute('url'))

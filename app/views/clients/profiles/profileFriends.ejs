@@ -77,14 +77,7 @@
                                             <li>
                                                 <div class="more">
                                                     <i class="fa fa-ellipsis-h"></i>
-                                                    <ul class="more-dropdown">
-                                                        <li>
-                                                            <a href="timeline-groups.html">Nhóm</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="statistics.html">Thống kê</a>
-                                                        </li>
-                                                    </ul>
+                                                    
                                                 </div>
                                             </li>
                                         <% } %>
@@ -98,7 +91,7 @@
                           <div class="row">
                               <div class="col-8">
                                   <div class="align-left">
-                                      <h5>Bạn bè / Người theo dõi <span>44</span></h5>
+                                      <h5>Bạn bè / Người theo dõi <span><%= userSearch.friends.length %></span></h5>
                                   </div>
                               </div>
                               <div class="col-3">

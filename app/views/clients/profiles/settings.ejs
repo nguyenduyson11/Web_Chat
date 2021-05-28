@@ -76,14 +76,7 @@
                                             <li>
                                                 <div class="more">
                                                     <i class="fa fa-ellipsis-h"></i>
-                                                    <ul class="more-dropdown">
-                                                        <li>
-                                                            <a href="timeline-groups.html">Nhóm</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="statistics.html">Thống kê</a>
-                                                        </li>
-                                                    </ul>
+                                                    
                                                 </div>
                                             </li>
                                         <% } %>
@@ -144,12 +137,12 @@
                                                 <form id="form_settings_user" method="post" class="c-form">
                                                     <div class="uname">
                                                         <label>Tên tài khoản</label>
-                                                        <input id="username" type="text" value="Nguyễn Lương Cảnh">
+                                                        <input id="username" type="text" value="<%= currentUser.username %>">
                                                     </div>
                                                     
                                                     <div class="numphone">
                                                         <label>Số điện thoại</label>
-                                                        <input id="phone" type="text" value="0123456789">
+                                                        <input id="phone" type="text" value="<%= currentUser.phone %>">
                                                     </div>
                         
                                                     <div class="gender">
@@ -178,7 +171,6 @@
                                                         <input id="city" type="text" value="Đà Nẵng">
                                                     </div>
                                                     <div>
-                                                        <button type="submit" data-ripple="">Hủy</button>
                                                         <button type="submit" data-ripple="">Lưu</button>
                                                     </div>
                                                 </form>
@@ -210,7 +202,6 @@
                                                         </label>
                                                     </div>
                                                     <div>
-                                                        <button type="submit" data-ripple="">Hủy</button>
                                                         <button type="submit" data-ripple="">Lưu</button>
                                                     </div>
                                                 </form>

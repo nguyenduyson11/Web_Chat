@@ -332,10 +332,12 @@ if(input2){
   })
 }
 let file_group = document.getElementById('file_group');
-file_group.addEventListener('change',function(e){
-  console.log(e.target.files[0])
-  $('#image_choice').attr('src',URL.createObjectURL(e.target.files[0]))
-})
+if(file_group){
+  file_group.addEventListener('change',function(e){
+    console.log(e.target.files[0])
+    $('#image_choice').attr('src',URL.createObjectURL(e.target.files[0]))
+  })
+}
 //create group 
 $('#create_group').click(function(e){
   e.preventDefault()
