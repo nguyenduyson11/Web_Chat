@@ -324,7 +324,10 @@
                 </div>
                 <div class="dob-meta">
                     <h6><%= postAdmin[0].content %></h6>
-                    <p>các bạn sinh viên chú ý thông báo</p>
+                    <% if(postAdmin[0].link){ %>
+                        <a target="_blank" href="<%= postAdmin[0].link %>" >Truy cập ngay</a>
+                    <% }%>
+                   
                 </div>
             </div>
         </aside>

@@ -33,7 +33,8 @@ class PostsController{
     console.log(req.body.content)
     let post = new Post({
       author:req.user._id,
-      content: req.body.content
+      content: req.body.content,
+      link: req.body.link ? req.body.link : null
     })
     if(post.save()){
       req.flash('warning','Đăng thành công');

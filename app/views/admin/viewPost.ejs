@@ -70,7 +70,7 @@
                                         <td><%= index +1 %></td>
                                         <td><%= post.username %></td>
                                         <td class="post_contents"><%= post.content %></td>
-                                        <td><%= post.likes %></td>
+                                        <td><%= post.likes.length  %></td>
                                         <td><%= post.comment.length %></td>
                                         <td><%= post.dateCreate %></td>                                      
                                           <td><a class="remove_user" href="/admin/posts/<%= post._id %>/delete?_method=DELETE">Xóa</a></td>

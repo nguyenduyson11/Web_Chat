@@ -118,6 +118,7 @@ document.querySelector('#form_setting_passwrod').addEventListener('submit',funct
             $(".preloader").fadeOut();
         });
       });
+      $('#modal_alert').remove()
     }
     else if(response.status =='error'){
       $('#message_warning').text(response.message);

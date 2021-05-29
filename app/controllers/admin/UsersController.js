@@ -2,7 +2,10 @@ const User = require('../../models/user');
 const bcrypt = require('bcrypt');
 class UsersController{
   async index(req,res){
-    let users =  res.paginationResults;
+    let users =  res.paginationResults.results;
+    users = users.filter((a)=>{
+      return a.admin == false
+    })
     let warning = req.flash('warning');
     if(users){
       res.render('admin/viewUser',{

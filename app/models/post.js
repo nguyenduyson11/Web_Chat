@@ -12,6 +12,10 @@ const post = new Schema({
     type: Boolean,
     default: true
   },
+  link:{
+    type:String,
+    default: null,
+  },
   likes:[mongoose.Types.ObjectId],
   hearts:[mongoose.Types.ObjectId],
   shared:[mongoose.Types.ObjectId],

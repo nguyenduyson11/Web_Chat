@@ -113,40 +113,45 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <% results.forEach(function(post){  %>
-                        <tr class="active">
-                          <td style="width: 50px;"><span class="round"><img src="<%= post.ofUser.avatar %>" alt="user" width="50" height="50"></span>
-                          </td>
-                          <td>
-                            <h6><%= post.ofUser.username %></h6><small class="text-muted"><%= post.ofUser.phone %></small>
-                          </td>
-                          <td><a href="/posts/<%= post._id %>"><%= post.content %></a></td>
-                          <td><%= post.ofUser.datePost %></td>
-                          <td><%= post.comment.length %></td>
-                        </tr>
-                      <% }) %>
+                      <% if(results.length >0){ %>
+                        <% results.forEach(function(post){  %>
+                          <tr class="active">
+                            <td style="width: 50px;"><span class="round"><img src="<%= post.ofUser.avatar %>" alt="user" width="50" height="50"></span>
+                            </td>
+                            <td>
+                              <h6><%= post.ofUser.username %></h6><small class="text-muted"><%= post.ofUser.phone %></small>
+                            </td>
+                            <td><a href="/posts/<%= post._id %>"><%= post.content %></a></td>
+                            <td><%= post.ofUser.datePost %></td>
+                            <td><%= post.comment.length %></td>
+                          </tr>
+                        <% }) %>
+                      <% } %>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="card w-100">
-              <div class="card-body">
-                <h5 class=" card-title">Thông báo mới nhất</h5>
-                <span class="label label-info label-rounded">thông báo</span>
-                <p class="mb-0 mt-3"><%= postAdmin[0].content %></p>
-                <div class="d-flex mt-3">
-                  <a class="link" href="javascript:void(0)"><%= new Date(postAdmin[0].createdAt).getDate()+"-" +(new Date(postAdmin[0].createdAt).getMonth() + 1) + "-" + new Date(postAdmin[0].createdAt).getFullYear() %></a>
-                  <div class="ms-auto align-self-center">
-                    <a href="javascript:void(0)" class="link me-2"><i class="fa fa-heart-o"></i></a>
-                    <a href="javascript:void(0)" class="link me-2"><i class="fa fa-share-alt"></i></a>
+          <% if(postAdmin.length >0){ %>
+            <div class="col-lg-4 d-flex align-items-stretch">
+              <div class="card w-100">
+                <div class="card-body">
+                  <h5 class=" card-title">Thông báo mới nhất</h5>
+                  <span class="label label-info label-rounded">thông báo</span>
+                  <p class="mb-0 mt-3"><%= postAdmin[0].content %></p>
+                  <div class="d-flex mt-3">
+                    <a class="link" href="javascript:void(0)"><%= new Date(postAdmin[0].createdAt).getDate()+"-" +(new Date(postAdmin[0].createdAt).getMonth() + 1) + "-" + new Date(postAdmin[0].createdAt).getFullYear() %></a>
+                    <div class="ms-auto align-self-center">
+                      <a href="javascript:void(0)" class="link me-2"><i class="fa fa-heart-o"></i></a>
+                      <a href="javascript:void(0)" class="link me-2"><i class="fa fa-share-alt"></i></a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          <% } %>
+          
         </div>
         <div class="row">
           <div class="col-lg-6 col-md-12">

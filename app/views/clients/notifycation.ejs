@@ -48,9 +48,12 @@
                                 <div class="more">
                                     <div class="more-post-optns"><i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                                         <ul>
-                                            <li><i style="margin: 5;" class="fa fa-bell-slash-o"></i>Mute</li>
-                                            <li><i style="margin: 5;" class="fa fa-wpexplorer"></i>Report</li>
-                                            <li><i style="margin: 5;" class="fa fa-bell-slash-o"></i>Block</li>
+                                            <% if(notify.type == 'post'){ %>
+                                                <a href="/posts/<%= notify.type_id %>"> <li><i style="margin: 5;" class="fa fa-wpexplorer"></i>Xem</li></a>
+                                            <% }else{ %>
+                                                <a href="/profile/<%= notify.type_id %>"> <li><i style="margin: 5;" class="fa fa-wpexplorer"></i>Xem</li></a>
+                                            <% } %>
+                                           
                                         </ul>
                                     </div>
                                 </div>
